@@ -15,7 +15,7 @@ dependencies = [
     "fastapi>=0.111",
     "uvicorn>=0.30",
     "python-dotenv>=1.0",
-    "onnxruntime>=1.24.3",
+    "onnxruntime-gpu>=1.24.3",
     # PDF inspection reports (`pos report`). BSD-licensed, pure Python.
     "reportlab>=4.0",
     # Multipart form parsing, so the web UI can accept a video + GPX upload.
@@ -36,18 +36,17 @@ build-backend = "hatchling.build"
 [tool.hatch.build.targets.wheel]
 packages = ["pos"]
 
-# CPU-only torch. The default PyPI wheel drags in ~2 GB of nvidia-* CUDA
-# packages, and there is no GPU on this machine (nvidia-smi returns nothing),
-# so that would be 2 GB of install for zero speedup.
+# CUDA torch for GPU instances (Tesla T4 / CUDA 13.0 driver).
+# The cu124 wheels are backward-compatible with any driver >= 525.
+# torchvision MUST come from the same index as torch — a mismatch installs
+# two builds compiled against different ABIs, and the failure is not an
+# install error but `RuntimeError: operator torchvision::nms does not exist`
+# at import time from inside open_clip.
 [tool.uv.sources]
-# torchvision MUST come from the same index as torch. A CPU-index torch beside a
-# PyPI torchvision installs two builds compiled against different ABIs, and the
-# failure is not an install error -- it is `RuntimeError: operator
-# torchvision::nms does not exist` at import time, from inside open_clip.
-torch = { index = "pytorch-cpu" }
-torchvision = { index = "pytorch-cpu" }
+torch = { index = "pytorch-cuda" }
+torchvision = { index = "pytorch-cuda" }
 
 [[tool.uv.index]]
-name = "pytorch-cpu"
-url = "https://download.pytorch.org/whl/cpu"
+name = "pytorch-cuda"
+url = "https://download.pytorch.org/whl/cu124"
 explicit = true
