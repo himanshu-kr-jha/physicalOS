@@ -1,0 +1,4 @@
+# Fallback route for videos with no GPS. Use with `pos ingest --route`.
+points:
+  - [12.971600, 77.594600]
+  - [12.971600, 77.596812]

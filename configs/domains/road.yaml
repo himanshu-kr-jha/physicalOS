@@ -1,0 +1,157 @@
+key: road
+label: Road & Street Assessment
+description: >
+  Pavement condition, footpath quality, street furniture and safety hazards
+  from a forward-facing vehicle camera.
+index_name: Street Quality Index
+
+prompt_context: >
+  You are inspecting a public road from a forward-facing vehicle camera.
+  Report only what is clearly visible in this frame. Judge pavement and
+  footpath condition as a municipal road engineer would. Do not speculate
+  about anything outside the frame.
+
+classes:
+  - key: pothole
+    label: Pothole
+    geometry: point
+    cluster_radius_m: 3.0
+    weight: 3.0
+    alert: true
+    color: "#dc2626"
+    hint: >
+      A distinct hole or cavity in the road surface with broken edges and
+      visible depth. Not a dark stain, shadow, patch, or manhole cover.
+
+  - key: crack
+    label: Surface Cracking
+    geometry: point
+    cluster_radius_m: 4.0
+    weight: 1.5
+    color: "#f97316"
+    hint: >
+      Linear, alligator, or block cracking in the pavement. Report the
+      cracked region, not each individual crack line.
+
+  - key: patch_repair
+    label: Patch / Utility Cut
+    geometry: point
+    cluster_radius_m: 4.0
+    weight: 0.8
+    color: "#a855f7"
+    hint: A previously repaired area or utility trench reinstatement.
+
+  - key: pavement_distress
+    label: Pavement Distress
+    geometry: segment
+    cluster_radius_m: 12.0
+    weight: 2.0
+    color: "#b45309"
+    hint: >
+      Ravelling, rutting, edge failure or general surface deterioration
+      affecting this stretch of road rather than one spot.
+
+  - key: waterlogging
+    label: Waterlogging
+    geometry: point
+    cluster_radius_m: 6.0
+    weight: 2.5
+    alert: true
+    color: "#0ea5e9"
+    hint: Standing water or wet ponding on the carriageway.
+
+  - key: footpath_missing
+    label: Footpath Missing
+    geometry: segment
+    cluster_radius_m: 15.0
+    weight: 2.0
+    color: "#65a30d"
+    hint: >
+      No pedestrian footpath present alongside the carriageway on this
+      stretch, forcing pedestrians onto the road.
+
+  - key: footpath_damaged
+    label: Footpath Damaged
+    geometry: point
+    cluster_radius_m: 4.0
+    weight: 1.5
+    color: "#16a34a"
+    hint: >
+      Broken, uneven, missing or subsided paving slabs on the footpath.
+
+  - key: footpath_obstruction
+    label: Footpath Obstruction
+    geometry: point
+    cluster_radius_m: 3.0
+    weight: 2.0
+    alert: true
+    color: "#facc15"
+    hint: >
+      Parked vehicle, vendor stall, debris pile or utility box blocking the
+      pedestrian route.
+
+  - key: streetlight
+    label: Streetlight
+    geometry: point
+    cluster_radius_m: 6.0
+    weight: 0.0
+    color: "#fde047"
+    hint: >
+      A street lighting pole with a luminaire head. Record presence; this is
+      an asset, not a defect.
+
+  - key: streetlight_missing
+    label: Lighting Gap
+    geometry: segment
+    cluster_radius_m: 20.0
+    weight: 1.5
+    color: "#78716c"
+    hint: >
+      A stretch of road with no street lighting poles visible at all.
+
+  - key: faded_marking
+    label: Faded Road Marking
+    geometry: segment
+    cluster_radius_m: 12.0
+    weight: 1.2
+    color: "#e5e7eb"
+    hint: >
+      Lane lines, stop lines or crossings that are worn, faint or absent
+      where they should exist.
+
+  - key: signage_damaged
+    label: Signage Missing / Damaged
+    geometry: point
+    cluster_radius_m: 5.0
+    weight: 1.5
+    color: "#38bdf8"
+    hint: A traffic sign that is bent, obscured, illegible or fallen.
+
+  - key: encroachment
+    label: Encroachment
+    geometry: point
+    cluster_radius_m: 5.0
+    weight: 1.5
+    color: "#c084fc"
+    hint: >
+      Construction material, vendor extension or private use spilling into
+      the public right of way.
+
+  - key: garbage
+    label: Garbage Accumulation
+    geometry: point
+    cluster_radius_m: 5.0
+    weight: 1.0
+    color: "#84cc16"
+    hint: Uncontained refuse or dumped waste on the road or verge.
+
+  - key: hazard
+    label: Danger Element
+    geometry: point
+    cluster_radius_m: 3.0
+    weight: 3.5
+    alert: true
+    color: "#ef4444"
+    hint: >
+      An open manhole, exposed rebar, unmarked excavation, fallen cable or
+      any object posing immediate injury risk to road users.

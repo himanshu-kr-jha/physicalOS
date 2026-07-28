@@ -1,0 +1,15 @@
+# Monocular calibration for a windscreen-mounted dashcam.
+#
+# height_m is the single most important number here -- forward range scales
+# linearly with it. Measure it: floor to lens centre. Guessing 1.4 when it is
+# really 1.1 puts every finding ~27% too far down the road.
+#
+# To calibrate pitch_offset_frac: open a frame, find the row where the true
+# horizon sits, then set this to (horizon_row / image_height) - 0.5.
+# 0.0 means the horizon is exactly at the vertical centre.
+
+height_m: 1.35
+vfov_deg: 58.0
+hfov_deg: 90.0
+pitch_offset_frac: 0.0
+max_range_m: 60.0

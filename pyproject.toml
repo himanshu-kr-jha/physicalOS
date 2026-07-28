@@ -1,0 +1,53 @@
+[project]
+name = "physicalos"
+version = "0.1.0"
+description = "PhysicalOS - spatial intelligence from ordinary video. The physical world tells the truth."
+requires-python = ">=3.10"
+dependencies = [
+    "typer>=0.12",
+    "pydantic>=2.7",
+    "httpx>=0.27",
+    "openai>=1.40",
+    "gpxpy>=1.6",
+    "pillow>=10.3",
+    "numpy>=1.26",
+    "pyyaml>=6.0",
+    "fastapi>=0.111",
+    "uvicorn>=0.30",
+    "python-dotenv>=1.0",
+    "onnxruntime>=1.24.3",
+    # PDF inspection reports (`pos report`). BSD-licensed, pure Python.
+    "reportlab>=4.0",
+    # Multipart form parsing, so the web UI can accept a video + GPX upload.
+    "python-multipart>=0.0.9",
+    "supervision>=0.29.1",
+    "torch>=2.13.0",
+    "open-clip-torch>=3.3.0",
+    "torchvision>=0.28.0",
+]
+
+[project.scripts]
+pos = "pos.cli:app"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["pos"]
+
+# CPU-only torch. The default PyPI wheel drags in ~2 GB of nvidia-* CUDA
+# packages, and there is no GPU on this machine (nvidia-smi returns nothing),
+# so that would be 2 GB of install for zero speedup.
+[tool.uv.sources]
+# torchvision MUST come from the same index as torch. A CPU-index torch beside a
+# PyPI torchvision installs two builds compiled against different ABIs, and the
+# failure is not an install error -- it is `RuntimeError: operator
+# torchvision::nms does not exist` at import time, from inside open_clip.
+torch = { index = "pytorch-cpu" }
+torchvision = { index = "pytorch-cpu" }
+
+[[tool.uv.index]]
+name = "pytorch-cpu"
+url = "https://download.pytorch.org/whl/cpu"
+explicit = true

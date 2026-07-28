@@ -1,0 +1,141 @@
+key: construction_safety
+label: Construction Site Safety
+description: >
+  Worker PPE compliance, fall protection, access control and housekeeping
+  hazards on an active construction site.
+index_name: Site Safety Index
+
+prompt_context: >
+  You are a site safety officer reviewing footage of an active construction
+  site. Report only violations and hazards clearly visible in this frame.
+  Be specific about which worker or which location the violation applies to.
+  Err toward reporting a hazard when worker safety is plausibly at risk.
+
+classes:
+  - key: no_helmet
+    label: Missing Hard Hat
+    geometry: point
+    cluster_radius_m: 2.0
+    weight: 3.5
+    alert: true
+    color: "#dc2626"
+    hint: >
+      A person on site whose head is bare or wearing only a soft cap. Only
+      report when the head is clearly visible.
+
+  - key: no_hi_vis
+    label: Missing Hi-Vis Vest
+    geometry: point
+    cluster_radius_m: 2.0
+    weight: 2.5
+    alert: true
+    color: "#f97316"
+    hint: >
+      A person on site not wearing a reflective or high-visibility vest or
+      jacket over their torso.
+
+  - key: no_harness
+    label: Missing Fall Harness
+    geometry: point
+    cluster_radius_m: 2.0
+    weight: 5.0
+    alert: true
+    color: "#b91c1c"
+    hint: >
+      A person working at height, on a scaffold, roof edge or elevated
+      platform with no visible fall-arrest harness or lanyard.
+
+  - key: unprotected_edge
+    label: Unprotected Edge / Opening
+    geometry: point
+    cluster_radius_m: 4.0
+    weight: 4.5
+    alert: true
+    color: "#ea580c"
+    hint: >
+      A floor opening, slab edge, shaft, excavation or stairwell with no
+      guardrail, toe board or hard cover.
+
+  - key: missing_barricade
+    label: Missing Barricade
+    geometry: point
+    cluster_radius_m: 4.0
+    weight: 3.0
+    alert: true
+    color: "#facc15"
+    hint: >
+      A hazardous zone that should be fenced or cordoned but is open to
+      pedestrian or worker access.
+
+  - key: unsafe_scaffold
+    label: Unsafe Scaffold / Ladder
+    geometry: point
+    cluster_radius_m: 3.0
+    weight: 4.0
+    alert: true
+    color: "#e11d48"
+    hint: >
+      Scaffolding lacking bracing, planks or guardrails; a ladder that is
+      not footed, tied, or extends at an unsafe angle.
+
+  - key: blocked_egress
+    label: Blocked Access / Egress
+    geometry: point
+    cluster_radius_m: 3.0
+    weight: 3.0
+    alert: true
+    color: "#c026d3"
+    hint: >
+      A walkway, stairway, exit route or emergency access blocked by
+      material, plant or debris.
+
+  - key: unsafe_stacking
+    label: Unsafe Material Stacking
+    geometry: point
+    cluster_radius_m: 3.0
+    weight: 2.0
+    color: "#a855f7"
+    hint: >
+      Material stacked unstably, too high, or leaning such that it could
+      topple onto a work area.
+
+  - key: exposed_rebar
+    label: Exposed Rebar / Impalement
+    geometry: point
+    cluster_radius_m: 3.0
+    weight: 3.5
+    alert: true
+    color: "#ef4444"
+    hint: >
+      Upward-projecting reinforcement bar or spikes without protective caps.
+
+  - key: housekeeping
+    label: Poor Housekeeping
+    geometry: segment
+    cluster_radius_m: 10.0
+    weight: 1.5
+    color: "#84cc16"
+    hint: >
+      Accumulated debris, offcuts, spills or trailing cables creating slip
+      and trip hazards across this area.
+
+  - key: plant_proximity
+    label: Worker Near Plant
+    geometry: point
+    cluster_radius_m: 3.0
+    weight: 4.0
+    alert: true
+    color: "#0ea5e9"
+    hint: >
+      A worker on foot inside the swing radius or travel path of an
+      excavator, crane load, or moving vehicle.
+
+  - key: ppe_compliant
+    label: PPE Compliant Worker
+    geometry: point
+    cluster_radius_m: 2.0
+    weight: 0.0
+    color: "#22c55e"
+    hint: >
+      A worker with hard hat and hi-vis both clearly worn. Record as a
+      positive observation, not a violation.

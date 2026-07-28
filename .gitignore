@@ -1,0 +1,51 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+*.egg-info/
+
+# Node
+node_modules/
+viewer/dist/
+
+# Secrets -- holds NVIDIA_API_KEY
+.env
+
+# Pipeline output. Regenerate with:
+#   uv run pos run --video samples/road/road.mp4 --gpx samples/road/track.gpx \
+#       --truth samples/road/truth.json --out run
+run/
+runs/
+
+# Intermediate render frames from the sample generator
+samples/**/frames_src/
+
+# NOTE: samples/ itself is deliberately COMMITTED (~700 KB). The sample video,
+# GPX track, truth.json and objects.json are what let a fresh clone produce the
+# full demo -- and run scripts/verify_sample.py -- with no API key and no GPU.
+# Do not add samples/ to this file.
+
+# Uploaded source media and studio job state. `uploads/` is 557 MB and
+# `road_videos/` 1.4 GB of real survey footage. Git stores binaries whole and
+# forever, so a single `git add -A` would write ~2 GB into history that no clone
+# can ever shed. Both are INPUTS and are reproducible by re-uploading.
+uploads/
+road_videos/
+
+# Exported deliverables sitting at the repo root. Regenerate with `pos kml` /
+# `pos report` from the run they came from -- the run is the source of truth.
+/*.kmz
+/*.pdf
+
+# Agent/editor local state, machine-specific by definition.
+.claude/settings.local.json
+
+# Editor / OS
+.DS_Store
+.idea/
+.vscode/
+*.swp
+
+# Screenshots and browser-automation scratch
+*.png
+.playwright-mcp/

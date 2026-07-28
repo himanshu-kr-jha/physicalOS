@@ -1,0 +1,245 @@
+# Pavement distress taxonomy for the ENSEMBLE backend.
+#
+# The first 11 classes are exactly what the post_cons YOLOv8 model detects (read
+# from its ONNX metadata). Those are standard PCI / ASTM D6433 distress types, so
+# the weights below follow how a pavement engineer ranks them: structural
+# failures (pothole, depression, rutting, alligator) outrank surface defects
+# (ravelling, bleeding, patching).
+#
+# The remaining classes cannot be seen by that model at all -- it was trained on
+# pavement distress only. They come from the VLM, which is why the ensemble beats
+# either model alone: YOLO gives precise boxes for distress, the VLM adds water,
+# refuse, hazards and footpath condition.
+#
+# Class keys here MUST match what pos/perception/onnx_yolo.py emits. It maps by
+# class INDEX rather than by the model's own strings, so the training dataset's
+# "longitudial" typo is not propagated into our schema.
+
+key: road_pci
+label: Road Distress (PCI + Ensemble)
+description: >
+  Pavement distress survey combining a purpose-trained YOLOv8 detector for PCI
+  distress types with a vision-language model for water, refuse, hazards and
+  footpath condition.
+index_name: Pavement Condition Index
+
+prompt_context: >
+  You are a pavement engineer inspecting a road from a forward-facing camera.
+  A separate specialist detector already handles cracking, potholes, rutting and
+  surface defects, so concentrate on what it cannot see: standing water, refuse,
+  obstructions, safety hazards and footpath condition. Report only what is
+  clearly visible in this frame, and do not speculate.
+
+classes:
+  # ---------- detected by the post_cons YOLOv8 model (indices 0-10) ----------
+  - key: alligator_crack
+    label: Alligator Cracking
+    geometry: point
+    cluster_radius_m: 4.0
+    weight: 3.5
+    color: "#dc2626"
+    hint: >
+      Interconnected cracking forming a pattern of small polygons, caused by
+      fatigue failure of the base. Not a single linear crack.
+
+  - key: bleeding
+    label: Bleeding / Flushing
+    geometry: point
+    cluster_radius_m: 4.0
+    weight: 1.5
+    color: "#7c3aed"
+    hint: >
+      Excess bitumen risen to the surface, leaving a shiny black film that is
+      slippery when wet.
+
+  - key: depression
+    label: Depression
+    geometry: point
+    cluster_radius_m: 4.0
+    weight: 3.5
+    alert: true
+    color: "#b91c1c"
+    hint: >
+      A localised sunken area, lower than the surrounding surface, which holds
+      water after rain.
+
+  - key: edge_crack
+    label: Edge Cracking
+    geometry: point
+    cluster_radius_m: 5.0
+    weight: 2.5
+    color: "#ea580c"
+    hint: >
+      Cracking parallel to and within about half a metre of the pavement edge,
+      often with the edge crumbling away.
+
+  - key: longitudinal_crack
+    label: Longitudinal Crack
+    geometry: point
+    cluster_radius_m: 5.0
+    weight: 2.0
+    color: "#f97316"
+    hint: Cracking running roughly parallel to the direction of travel.
+
+  - key: patching
+    label: Patching
+    geometry: point
+    cluster_radius_m: 4.0
+    weight: 1.2
+    color: "#a855f7"
+    hint: >
+      An area where the original surface has been replaced. Worth recording: a
+      patch is evidence of a past defect and often fails again at its edges.
+
+  - key: pothole
+    label: Pothole
+    geometry: point
+    cluster_radius_m: 3.0
+    weight: 4.5
+    alert: true
+    color: "#991b1b"
+    hint: >
+      A bowl-shaped cavity with broken edges and visible depth. Not a dark
+      stain, shadow, patch or manhole cover.
+
+  - key: ravelling
+    label: Ravelling
+    geometry: point
+    cluster_radius_m: 6.0
+    weight: 2.0
+    color: "#d97706"
+    hint: >
+      Loss of surface aggregate leaving a rough, loose, worn texture. Common on
+      unsealed or ageing surfaces.
+
+  - key: rutting
+    label: Rutting
+    geometry: segment
+    cluster_radius_m: 10.0
+    weight: 3.5
+    alert: true
+    color: "#c2410c"
+    hint: >
+      Longitudinal depressions in the wheel paths. Dangerous because they
+      channel water and cause aquaplaning.
+
+  - key: shoving
+    label: Shoving
+    geometry: point
+    cluster_radius_m: 5.0
+    weight: 3.0
+    color: "#e11d48"
+    hint: >
+      Permanent deformation pushing the surface into ripples or humps, usually
+      where vehicles brake or turn.
+
+  - key: transverse_crack
+    label: Transverse Crack
+    geometry: point
+    cluster_radius_m: 5.0
+    weight: 2.0
+    color: "#fb923c"
+    hint: Cracking running roughly perpendicular to the direction of travel.
+
+  # ---------- VLM only: the YOLO model cannot see any of these ----------
+  - key: waterlogging
+    label: Waterlogging
+    geometry: point
+    cluster_radius_m: 6.0
+    weight: 2.5
+    alert: true
+    color: "#0ea5e9"
+    hint: Standing water or wet ponding on the carriageway.
+
+  - key: garbage
+    label: Garbage Accumulation
+    geometry: point
+    cluster_radius_m: 5.0
+    weight: 1.0
+    color: "#84cc16"
+    hint: Uncontained refuse or dumped waste on the road or verge.
+
+  - key: hazard
+    label: Danger Element
+    geometry: point
+    cluster_radius_m: 3.0
+    weight: 4.0
+    alert: true
+    color: "#ef4444"
+    hint: >
+      An open manhole, exposed rebar, unmarked excavation, fallen cable or any
+      object posing immediate injury risk to road users.
+
+  - key: footpath_damaged
+    label: Footpath Damaged
+    geometry: point
+    cluster_radius_m: 4.0
+    weight: 1.5
+    color: "#16a34a"
+    hint: Broken, uneven, missing or subsided paving alongside the carriageway.
+
+  - key: footpath_obstruction
+    label: Footpath Obstruction
+    geometry: point
+    cluster_radius_m: 3.0
+    weight: 2.0
+    alert: true
+    color: "#facc15"
+    hint: >
+      Parked vehicle, vendor stall, debris pile or utility box blocking the
+      pedestrian route.
+
+  - key: streetlight
+    label: Streetlight
+    geometry: point
+    cluster_radius_m: 6.0
+    weight: 0.0
+    color: "#fde047"
+    hint: >
+      A street lighting pole with a luminaire head. An asset we inventory, not
+      a defect. Report every pole you can see -- its ABSENCE over a stretch is
+      what gets scored, so a missed pole reads as a lighting gap.
+
+  - key: footpath
+    label: Footpath Present
+    geometry: point
+    cluster_radius_m: 8.0
+    weight: 0.0
+    color: "#22c55e"
+    hint: >
+      A pedestrian footpath or raised walkway running alongside the
+      carriageway, on either side. An asset, not a defect. Report it whenever
+      visible -- its absence over a stretch is what gets scored.
+
+# ---------------------------------------------------------------------------
+# ABSENCE RULES: defects defined by something NOT being there.
+#
+# These are NOT prompted for. Asking a model "is there a lighting gap?" makes it
+# guess about what it cannot see. Instead pos/absence.py walks the route and
+# emits a finding wherever the asset above went undetected for min_gap_m.
+#
+# min_gap_m has to exceed normal spacing or every gap between poles fires.
+# Urban lighting is typically 25-35 m apart, hence 40 m for streetlights.
+# ---------------------------------------------------------------------------
+absence:
+  - key: streetlight_missing
+    label: No Street Lighting
+    asset: streetlight
+    min_gap_m: 40.0
+    weight: 2.0
+    severity: 3
+    color: "#78716c"
+    alert: false
+    note: >
+      Unlit road. A night-time safety risk for pedestrians and cyclists.
+
+  - key: footpath_missing
+    label: No Footpath
+    asset: footpath
+    min_gap_m: 30.0
+    weight: 2.5
+    severity: 4
+    color: "#65a30d"
+    alert: true
+    note: >
+      Pedestrians are forced onto the carriageway along this stretch.

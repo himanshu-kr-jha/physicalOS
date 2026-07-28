@@ -1,0 +1,9 @@
+# Solved by scripts/calibrate_from_motion.py from vehicle motion + GPS.
+# f*h product = 2134.0 px*m, horizon row = 393.5 of 1080,
+# rms residual 1.68 m over 111 tracked features.
+# Forward range depends only on the product and the horizon, both measured.
+height_m: 1.38
+vfov_deg: 38.50
+hfov_deg: 63.67
+pitch_offset_frac: -0.1356
+max_range_m: 45.0

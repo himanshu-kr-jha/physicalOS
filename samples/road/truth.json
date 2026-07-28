@@ -1,0 +1,4483 @@
+{
+ "0.00": [],
+ "0.10": [],
+ "0.20": [],
+ "0.30": [],
+ "0.40": [],
+ "0.50": [
+  {
+   "cls": "streetlight",
+   "box": [
+    673.6,
+    181.5,
+    681.5,
+    576.1
+   ],
+   "severity": 1,
+   "confidence": 0.92,
+   "evidence": "Street lighting pole with luminaire head, appears intact."
+  }
+ ],
+ "0.60": [
+  {
+   "cls": "streetlight",
+   "box": [
+    682.8,
+    164.7,
+    691.1,
+    580.1
+   ],
+   "severity": 1,
+   "confidence": 0.92,
+   "evidence": "Street lighting pole with luminaire head, appears intact."
+  }
+ ],
+ "0.70": [
+  {
+   "cls": "streetlight",
+   "box": [
+    692.9,
+    146.1,
+    701.7,
+    584.6
+   ],
+   "severity": 1,
+   "confidence": 0.92,
+   "evidence": "Street lighting pole with luminaire head, appears intact."
+  }
+ ],
+ "0.80": [
+  {
+   "cls": "streetlight",
+   "box": [
+    704.3,
+    125.3,
+    713.6,
+    589.5
+   ],
+   "severity": 1,
+   "confidence": 0.92,
+   "evidence": "Street lighting pole with luminaire head, appears intact."
+  }
+ ],
+ "0.90": [
+  {
+   "cls": "streetlight",
+   "box": [
+    717.0,
+    101.8,
+    726.9,
+    595.1
+   ],
+   "severity": 1,
+   "confidence": 0.92,
+   "evidence": "Street lighting pole with luminaire head, appears intact."
+  }
+ ],
+ "1.00": [
+  {
+   "cls": "streetlight",
+   "box": [
+    731.5,
+    75.3,
+    742.1,
+    601.5
+   ],
+   "severity": 1,
+   "confidence": 0.92,
+   "evidence": "Street lighting pole with luminaire head, appears intact."
+  }
+ ],
+ "1.10": [
+  {
+   "cls": "streetlight",
+   "box": [
+    748.0,
+    45.0,
+    759.4,
+    608.7
+   ],
+   "severity": 1,
+   "confidence": 0.92,
+   "evidence": "Street lighting pole with luminaire head, appears intact."
+  }
+ ],
+ "1.20": [
+  {
+   "cls": "streetlight",
+   "box": [
+    767.1,
+    10.0,
+    779.3,
+    617.1
+   ],
+   "severity": 1,
+   "confidence": 0.92,
+   "evidence": "Street lighting pole with luminaire head, appears intact."
+  }
+ ],
+ "1.30": [
+  {
+   "cls": "streetlight",
+   "box": [
+    789.4,
+    0.0,
+    802.6,
+    626.8
+   ],
+   "severity": 1,
+   "confidence": 0.92,
+   "evidence": "Street lighting pole with luminaire head, appears intact."
+  }
+ ],
+ "1.40": [
+  {
+   "cls": "streetlight",
+   "box": [
+    815.7,
+    0.0,
+    830.1,
+    638.4
+   ],
+   "severity": 1,
+   "confidence": 0.92,
+   "evidence": "Street lighting pole with luminaire head, appears intact."
+  }
+ ],
+ "1.50": [
+  {
+   "cls": "streetlight",
+   "box": [
+    847.2,
+    0.0,
+    863.1,
+    652.2
+   ],
+   "severity": 1,
+   "confidence": 0.92,
+   "evidence": "Street lighting pole with luminaire head, appears intact."
+  }
+ ],
+ "1.60": [
+  {
+   "cls": "streetlight",
+   "box": [
+    885.8,
+    0.0,
+    903.4,
+    669.1
+   ],
+   "severity": 1,
+   "confidence": 0.92,
+   "evidence": "Street lighting pole with luminaire head, appears intact."
+  }
+ ],
+ "1.70": [
+  {
+   "cls": "streetlight",
+   "box": [
+    934.1,
+    0.0,
+    953.9,
+    690.3
+   ],
+   "severity": 1,
+   "confidence": 0.92,
+   "evidence": "Street lighting pole with luminaire head, appears intact."
+  }
+ ],
+ "1.80": [
+  {
+   "cls": "streetlight",
+   "box": [
+    996.1,
+    0.0,
+    1000.0,
+    717.5
+   ],
+   "severity": 1,
+   "confidence": 0.92,
+   "evidence": "Street lighting pole with luminaire head, appears intact."
+  }
+ ],
+ "1.90": [],
+ "2.00": [
+  {
+   "cls": "crack",
+   "box": [
+    448.0,
+    698.0,
+    604.1,
+    708.2
+   ],
+   "severity": 1,
+   "confidence": 0.92,
+   "evidence": "Hairline longitudinal crack along the lane line, no displacement."
+  }
+ ],
+ "2.10": [
+  {
+   "cls": "crack",
+   "box": [
+    439.7,
+    727.6,
+    620.6,
+    741.1
+   ],
+   "severity": 1,
+   "confidence": 0.92,
+   "evidence": "Hairline longitudinal crack along the lane line, no displacement."
+  }
+ ],
+ "2.20": [
+  {
+   "cls": "crack",
+   "box": [
+    428.4,
+    767.6,
+    643.3,
+    786.5
+   ],
+   "severity": 1,
+   "confidence": 0.92,
+   "evidence": "Hairline longitudinal crack along the lane line, no displacement."
+  }
+ ],
+ "2.30": [
+  {
+   "cls": "crack",
+   "box": [
+    411.8,
+    824.7,
+    676.5,
+    853.0
+   ],
+   "severity": 1,
+   "confidence": 0.92,
+   "evidence": "Hairline longitudinal crack along the lane line, no displacement."
+  }
+ ],
+ "2.40": [
+  {
+   "cls": "crack",
+   "box": [
+    385.1,
+    912.8,
+    729.8,
+    959.5
+   ],
+   "severity": 1,
+   "confidence": 0.92,
+   "evidence": "Hairline longitudinal crack along the lane line, no displacement."
+  }
+ ],
+ "2.50": [
+  {
+   "cls": "patch_repair",
+   "box": [
+    431.3,
+    582.8,
+    493.1,
+    591.6
+   ],
+   "severity": 1,
+   "confidence": 0.92,
+   "evidence": "Neat asphalt patch over a service trench, flush with the surface."
+  }
+ ],
+ "2.60": [
+  {
+   "cls": "patch_repair",
+   "box": [
+    426.9,
+    587.6,
+    492.7,
+    597.4
+   ],
+   "severity": 1,
+   "confidence": 0.92,
+   "evidence": "Neat asphalt patch over a service trench, flush with the surface."
+  }
+ ],
+ "2.70": [
+  {
+   "cls": "patch_repair",
+   "box": [
+    421.9,
+    593.0,
+    492.3,
+    604.1
+   ],
+   "severity": 1,
+   "confidence": 0.92,
+   "evidence": "Neat asphalt patch over a service trench, flush with the surface."
+  }
+ ],
+ "2.80": [
+  {
+   "cls": "patch_repair",
+   "box": [
+    416.2,
+    599.0,
+    491.7,
+    611.7
+   ],
+   "severity": 1,
+   "confidence": 0.92,
+   "evidence": "Neat asphalt patch over a service trench, flush with the surface."
+  }
+ ],
+ "2.90": [
+  {
+   "cls": "patch_repair",
+   "box": [
+    409.6,
+    605.9,
+    491.2,
+    620.6
+   ],
+   "severity": 1,
+   "confidence": 0.92,
+   "evidence": "Neat asphalt patch over a service trench, flush with the surface."
+  }
+ ],
+ "3.00": [
+  {
+   "cls": "patch_repair",
+   "box": [
+    401.8,
+    613.8,
+    490.5,
+    630.9
+   ],
+   "severity": 1,
+   "confidence": 0.92,
+   "evidence": "Neat asphalt patch over a service trench, flush with the surface."
+  }
+ ],
+ "3.10": [
+  {
+   "cls": "patch_repair",
+   "box": [
+    392.6,
+    623.0,
+    489.7,
+    643.3
+   ],
+   "severity": 1,
+   "confidence": 0.92,
+   "evidence": "Neat asphalt patch over a service trench, flush with the surface."
+  }
+ ],
+ "3.20": [
+  {
+   "cls": "patch_repair",
+   "box": [
+    381.4,
+    633.8,
+    488.8,
+    658.1
+   ],
+   "severity": 1,
+   "confidence": 0.92,
+   "evidence": "Neat asphalt patch over a service trench, flush with the surface."
+  }
+ ],
+ "3.30": [
+  {
+   "cls": "patch_repair",
+   "box": [
+    367.6,
+    646.7,
+    487.8,
+    676.5
+   ],
+   "severity": 1,
+   "confidence": 0.92,
+   "evidence": "Neat asphalt patch over a service trench, flush with the surface."
+  }
+ ],
+ "3.40": [
+  {
+   "cls": "patch_repair",
+   "box": [
+    350.3,
+    662.4,
+    486.5,
+    699.6
+   ],
+   "severity": 1,
+   "confidence": 0.92,
+   "evidence": "Neat asphalt patch over a service trench, flush with the surface."
+  }
+ ],
+ "3.50": [
+  {
+   "cls": "patch_repair",
+   "box": [
+    327.7,
+    681.8,
+    484.9,
+    729.8
+   ],
+   "severity": 1,
+   "confidence": 0.92,
+   "evidence": "Neat asphalt patch over a service trench, flush with the surface."
+  }
+ ],
+ "3.60": [
+  {
+   "cls": "patch_repair",
+   "box": [
+    297.0,
+    706.4,
+    482.8,
+    770.6
+   ],
+   "severity": 1,
+   "confidence": 0.92,
+   "evidence": "Neat asphalt patch over a service trench, flush with the surface."
+  }
+ ],
+ "3.70": [
+  {
+   "cls": "patch_repair",
+   "box": [
+    253.2,
+    738.8,
+    480.1,
+    829.1
+   ],
+   "severity": 1,
+   "confidence": 0.92,
+   "evidence": "Neat asphalt patch over a service trench, flush with the surface."
+  }
+ ],
+ "3.80": [
+  {
+   "cls": "patch_repair",
+   "box": [
+    185.1,
+    783.2,
+    476.4,
+    919.9
+   ],
+   "severity": 1,
+   "confidence": 0.92,
+   "evidence": "Neat asphalt patch over a service trench, flush with the surface."
+  }
+ ],
+ "3.90": [
+  {
+   "cls": "patch_repair",
+   "box": [
+    65.1,
+    847.9,
+    471.0,
+    1000.0
+   ],
+   "severity": 1,
+   "confidence": 0.92,
+   "evidence": "Neat asphalt patch over a service trench, flush with the surface."
+  }
+ ],
+ "4.00": [
+  {
+   "cls": "patch_repair",
+   "box": [
+    0.0,
+    951.0,
+    462.4,
+    1000.0
+   ],
+   "severity": 1,
+   "confidence": 0.92,
+   "evidence": "Neat asphalt patch over a service trench, flush with the surface."
+  }
+ ],
+ "4.10": [],
+ "4.20": [],
+ "4.30": [],
+ "4.40": [],
+ "4.50": [],
+ "4.60": [],
+ "4.70": [],
+ "4.80": [],
+ "4.90": [],
+ "5.00": [
+  {
+   "cls": "pothole",
+   "box": [
+    415.9,
+    617.7,
+    460.8,
+    626.2
+   ],
+   "severity": 4,
+   "confidence": 0.92,
+   "evidence": "Circular cavity in the wheel path with broken, spalled edges and visible depth."
+  }
+ ],
+ "5.10": [
+  {
+   "cls": "pothole",
+   "box": [
+    408.3,
+    627.5,
+    457.5,
+    637.6
+   ],
+   "severity": 4,
+   "confidence": 0.92,
+   "evidence": "Circular cavity in the wheel path with broken, spalled edges and visible depth."
+  }
+ ],
+ "5.20": [
+  {
+   "cls": "pothole",
+   "box": [
+    399.2,
+    639.2,
+    453.6,
+    651.3
+   ],
+   "severity": 4,
+   "confidence": 0.92,
+   "evidence": "Circular cavity in the wheel path with broken, spalled edges and visible depth."
+  }
+ ],
+ "5.30": [
+  {
+   "cls": "pothole",
+   "box": [
+    388.0,
+    653.2,
+    448.9,
+    668.0
+   ],
+   "severity": 4,
+   "confidence": 0.92,
+   "evidence": "Circular cavity in the wheel path with broken, spalled edges and visible depth."
+  }
+ ],
+ "5.40": [
+  {
+   "cls": "pothole",
+   "box": [
+    374.1,
+    670.3,
+    443.2,
+    688.8
+   ],
+   "severity": 4,
+   "confidence": 0.92,
+   "evidence": "Circular cavity in the wheel path with broken, spalled edges and visible depth."
+  }
+ ],
+ "5.50": [
+  {
+   "cls": "pothole",
+   "box": [
+    356.3,
+    691.8,
+    436.1,
+    715.5
+   ],
+   "severity": 4,
+   "confidence": 0.92,
+   "evidence": "Circular cavity in the wheel path with broken, spalled edges and visible depth."
+  },
+  {
+   "cls": "pothole",
+   "box": [
+    544.3,
+    606.4,
+    596.2,
+    615.4
+   ],
+   "severity": 5,
+   "confidence": 0.92,
+   "evidence": "Large deep pothole across the offside wheel path, edges fully broken away."
+  },
+  {
+   "cls": "streetlight",
+   "box": [
+    673.6,
+    181.5,
+    681.5,
+    576.1
+   ],
+   "severity": 1,
+   "confidence": 0.92,
+   "evidence": "Street lighting pole with luminaire head, appears intact."
+  }
+ ],
+ "5.60": [
+  {
+   "cls": "pothole",
+   "box": [
+    332.6,
+    719.4,
+    426.9,
+    751.1
+   ],
+   "severity": 4,
+   "confidence": 0.92,
+   "evidence": "Circular cavity in the wheel path with broken, spalled edges and visible depth."
+  },
+  {
+   "cls": "pothole",
+   "box": [
+    547.6,
+    614.3,
+    604.1,
+    624.9
+   ],
+   "severity": 5,
+   "confidence": 0.92,
+   "evidence": "Large deep pothole across the offside wheel path, edges fully broken away."
+  },
+  {
+   "cls": "streetlight",
+   "box": [
+    682.8,
+    164.7,
+    691.1,
+    580.1
+   ],
+   "severity": 1,
+   "confidence": 0.92,
+   "evidence": "Street lighting pole with luminaire head, appears intact."
+  }
+ ],
+ "5.70": [
+  {
+   "cls": "pothole",
+   "box": [
+    299.6,
+    756.4,
+    414.5,
+    800.7
+   ],
+   "severity": 4,
+   "confidence": 0.92,
+   "evidence": "Circular cavity in the wheel path with broken, spalled edges and visible depth."
+  },
+  {
+   "cls": "pothole",
+   "box": [
+    551.5,
+    623.6,
+    613.4,
+    636.1
+   ],
+   "severity": 5,
+   "confidence": 0.92,
+   "evidence": "Large deep pothole across the offside wheel path, edges fully broken away."
+  },
+  {
+   "cls": "streetlight",
+   "box": [
+    692.9,
+    146.1,
+    701.7,
+    584.6
+   ],
+   "severity": 1,
+   "confidence": 0.92,
+   "evidence": "Street lighting pole with luminaire head, appears intact."
+  }
+ ],
+ "5.80": [
+  {
+   "cls": "pothole",
+   "box": [
+    250.2,
+    808.3,
+    397.2,
+    874.7
+   ],
+   "severity": 4,
+   "confidence": 0.92,
+   "evidence": "Circular cavity in the wheel path with broken, spalled edges and visible depth."
+  },
+  {
+   "cls": "pothole",
+   "box": [
+    556.1,
+    634.6,
+    624.5,
+    649.4
+   ],
+   "severity": 5,
+   "confidence": 0.92,
+   "evidence": "Large deep pothole across the offside wheel path, edges fully broken away."
+  },
+  {
+   "cls": "streetlight",
+   "box": [
+    704.3,
+    125.3,
+    713.6,
+    589.5
+   ],
+   "severity": 1,
+   "confidence": 0.92,
+   "evidence": "Street lighting pole with luminaire head, appears intact."
+  }
+ ],
+ "5.90": [
+  {
+   "cls": "pothole",
+   "box": [
+    168.6,
+    886.6,
+    371.1,
+    997.0
+   ],
+   "severity": 4,
+   "confidence": 0.92,
+   "evidence": "Circular cavity in the wheel path with broken, spalled edges and visible depth."
+  },
+  {
+   "cls": "pothole",
+   "box": [
+    561.5,
+    647.6,
+    638.1,
+    665.7
+   ],
+   "severity": 5,
+   "confidence": 0.92,
+   "evidence": "Large deep pothole across the offside wheel path, edges fully broken away."
+  },
+  {
+   "cls": "streetlight",
+   "box": [
+    717.0,
+    101.8,
+    726.9,
+    595.1
+   ],
+   "severity": 1,
+   "confidence": 0.92,
+   "evidence": "Street lighting pole with luminaire head, appears intact."
+  }
+ ],
+ "6.00": [
+  {
+   "cls": "pothole",
+   "box": [
+    568.1,
+    663.5,
+    654.9,
+    685.9
+   ],
+   "severity": 5,
+   "confidence": 0.92,
+   "evidence": "Large deep pothole across the offside wheel path, edges fully broken away."
+  },
+  {
+   "cls": "streetlight",
+   "box": [
+    731.5,
+    75.3,
+    742.1,
+    601.5
+   ],
+   "severity": 1,
+   "confidence": 0.92,
+   "evidence": "Street lighting pole with luminaire head, appears intact."
+  }
+ ],
+ "6.10": [
+  {
+   "cls": "pothole",
+   "box": [
+    576.3,
+    683.1,
+    676.5,
+    711.8
+   ],
+   "severity": 5,
+   "confidence": 0.92,
+   "evidence": "Large deep pothole across the offside wheel path, edges fully broken away."
+  },
+  {
+   "cls": "streetlight",
+   "box": [
+    748.0,
+    45.0,
+    759.4,
+    608.7
+   ],
+   "severity": 1,
+   "confidence": 0.92,
+   "evidence": "Street lighting pole with luminaire head, appears intact."
+  }
+ ],
+ "6.20": [
+  {
+   "cls": "pothole",
+   "box": [
+    586.7,
+    708.2,
+    705.0,
+    746.0
+   ],
+   "severity": 5,
+   "confidence": 0.92,
+   "evidence": "Large deep pothole across the offside wheel path, edges fully broken away."
+  },
+  {
+   "cls": "streetlight",
+   "box": [
+    767.1,
+    10.0,
+    779.3,
+    617.1
+   ],
+   "severity": 1,
+   "confidence": 0.92,
+   "evidence": "Street lighting pole with luminaire head, appears intact."
+  }
+ ],
+ "6.30": [
+  {
+   "cls": "pothole",
+   "box": [
+    600.5,
+    741.1,
+    744.5,
+    793.4
+   ],
+   "severity": 5,
+   "confidence": 0.92,
+   "evidence": "Large deep pothole across the offside wheel path, edges fully broken away."
+  },
+  {
+   "cls": "streetlight",
+   "box": [
+    789.4,
+    0.0,
+    802.6,
+    626.8
+   ],
+   "severity": 1,
+   "confidence": 0.92,
+   "evidence": "Street lighting pole with luminaire head, appears intact."
+  }
+ ],
+ "6.40": [
+  {
+   "cls": "pothole",
+   "box": [
+    619.4,
+    786.5,
+    802.9,
+    863.5
+   ],
+   "severity": 5,
+   "confidence": 0.92,
+   "evidence": "Large deep pothole across the offside wheel path, edges fully broken away."
+  },
+  {
+   "cls": "streetlight",
+   "box": [
+    815.7,
+    0.0,
+    830.1,
+    638.4
+   ],
+   "severity": 1,
+   "confidence": 0.92,
+   "evidence": "Street lighting pole with luminaire head, appears intact."
+  }
+ ],
+ "6.50": [
+  {
+   "cls": "pothole",
+   "box": [
+    647.1,
+    853.0,
+    898.0,
+    977.5
+   ],
+   "severity": 5,
+   "confidence": 0.92,
+   "evidence": "Large deep pothole across the offside wheel path, edges fully broken away."
+  },
+  {
+   "cls": "crack",
+   "box": [
+    425.4,
+    669.1,
+    604.5,
+    679.1
+   ],
+   "severity": 3,
+   "confidence": 0.92,
+   "evidence": "Interconnected alligator cracking indicating fatigue failure of the base."
+  },
+  {
+   "cls": "waterlogging",
+   "box": [
+    401.7,
+    567.7,
+    485.9,
+    576.1
+   ],
+   "severity": 4,
+   "confidence": 0.92,
+   "evidence": "Standing water ponding against the kerb, covering the near wheel path."
+  },
+  {
+   "cls": "streetlight",
+   "box": [
+    847.2,
+    0.0,
+    863.1,
+    652.2
+   ],
+   "severity": 1,
+   "confidence": 0.92,
+   "evidence": "Street lighting pole with luminaire head, appears intact."
+  }
+ ],
+ "6.60": [
+  {
+   "cls": "pothole",
+   "box": [
+    691.5,
+    959.5,
+    1000.0,
+    1000.0
+   ],
+   "severity": 5,
+   "confidence": 0.92,
+   "evidence": "Large deep pothole across the offside wheel path, edges fully broken away."
+  },
+  {
+   "cls": "crack",
+   "box": [
+    415.4,
+    690.3,
+    618.4,
+    703.0
+   ],
+   "severity": 3,
+   "confidence": 0.92,
+   "evidence": "Interconnected alligator cracking indicating fatigue failure of the base."
+  },
+  {
+   "cls": "waterlogging",
+   "box": [
+    396.5,
+    570.8,
+    485.3,
+    580.1
+   ],
+   "severity": 4,
+   "confidence": 0.92,
+   "evidence": "Standing water ponding against the kerb, covering the near wheel path."
+  },
+  {
+   "cls": "streetlight",
+   "box": [
+    885.8,
+    0.0,
+    903.4,
+    669.1
+   ],
+   "severity": 1,
+   "confidence": 0.92,
+   "evidence": "Street lighting pole with luminaire head, appears intact."
+  }
+ ],
+ "6.70": [
+  {
+   "cls": "crack",
+   "box": [
+    402.4,
+    717.5,
+    636.6,
+    734.2
+   ],
+   "severity": 3,
+   "confidence": 0.92,
+   "evidence": "Interconnected alligator cracking indicating fatigue failure of the base."
+  },
+  {
+   "cls": "waterlogging",
+   "box": [
+    390.8,
+    574.3,
+    484.5,
+    584.6
+   ],
+   "severity": 4,
+   "confidence": 0.92,
+   "evidence": "Standing water ponding against the kerb, covering the near wheel path."
+  },
+  {
+   "cls": "streetlight",
+   "box": [
+    934.1,
+    0.0,
+    953.9,
+    690.3
+   ],
+   "severity": 1,
+   "confidence": 0.92,
+   "evidence": "Street lighting pole with luminaire head, appears intact."
+  }
+ ],
+ "6.80": [
+  {
+   "cls": "crack",
+   "box": [
+    384.7,
+    753.7,
+    661.4,
+    776.8
+   ],
+   "severity": 3,
+   "confidence": 0.92,
+   "evidence": "Interconnected alligator cracking indicating fatigue failure of the base."
+  },
+  {
+   "cls": "pothole",
+   "box": [
+    448.0,
+    636.8,
+    491.4,
+    646.7
+   ],
+   "severity": 4,
+   "confidence": 0.92,
+   "evidence": "Pothole at the lane centre with loose aggregate scattered around the rim."
+  },
+  {
+   "cls": "waterlogging",
+   "box": [
+    384.3,
+    578.1,
+    483.7,
+    589.5
+   ],
+   "severity": 4,
+   "confidence": 0.92,
+   "evidence": "Standing water ponding against the kerb, covering the near wheel path."
+  },
+  {
+   "cls": "streetlight",
+   "box": [
+    996.1,
+    0.0,
+    1000.0,
+    717.5
+   ],
+   "severity": 1,
+   "confidence": 0.92,
+   "evidence": "Street lighting pole with luminaire head, appears intact."
+  }
+ ],
+ "6.90": [
+  {
+   "cls": "crack",
+   "box": [
+    359.1,
+    804.4,
+    697.3,
+    838.3
+   ],
+   "severity": 3,
+   "confidence": 0.92,
+   "evidence": "Interconnected alligator cracking indicating fatigue failure of the base."
+  },
+  {
+   "cls": "pothole",
+   "box": [
+    442.5,
+    650.3,
+    490.6,
+    662.4
+   ],
+   "severity": 4,
+   "confidence": 0.92,
+   "evidence": "Pothole at the lane centre with loose aggregate scattered around the rim."
+  },
+  {
+   "cls": "waterlogging",
+   "box": [
+    377.1,
+    582.3,
+    482.9,
+    595.1
+   ],
+   "severity": 4,
+   "confidence": 0.92,
+   "evidence": "Standing water ponding against the kerb, covering the near wheel path."
+  }
+ ],
+ "7.00": [
+  {
+   "cls": "crack",
+   "box": [
+    318.8,
+    880.5,
+    753.7,
+    934.9
+   ],
+   "severity": 3,
+   "confidence": 0.92,
+   "evidence": "Interconnected alligator cracking indicating fatigue failure of the base."
+  },
+  {
+   "cls": "pothole",
+   "box": [
+    435.6,
+    666.8,
+    489.6,
+    681.8
+   ],
+   "severity": 4,
+   "confidence": 0.92,
+   "evidence": "Pothole at the lane centre with loose aggregate scattered around the rim."
+  },
+  {
+   "cls": "waterlogging",
+   "box": [
+    368.9,
+    587.0,
+    481.9,
+    601.5
+   ],
+   "severity": 4,
+   "confidence": 0.92,
+   "evidence": "Standing water ponding against the kerb, covering the near wheel path."
+  }
+ ],
+ "7.10": [
+  {
+   "cls": "pothole",
+   "box": [
+    426.9,
+    687.3,
+    488.3,
+    706.4
+   ],
+   "severity": 4,
+   "confidence": 0.92,
+   "evidence": "Pothole at the lane centre with loose aggregate scattered around the rim."
+  },
+  {
+   "cls": "waterlogging",
+   "box": [
+    359.6,
+    592.3,
+    480.8,
+    608.7
+   ],
+   "severity": 4,
+   "confidence": 0.92,
+   "evidence": "Standing water ponding against the kerb, covering the near wheel path."
+  }
+ ],
+ "7.20": [
+  {
+   "cls": "pothole",
+   "box": [
+    415.4,
+    713.6,
+    486.6,
+    738.8
+   ],
+   "severity": 4,
+   "confidence": 0.92,
+   "evidence": "Pothole at the lane centre with loose aggregate scattered around the rim."
+  },
+  {
+   "cls": "waterlogging",
+   "box": [
+    348.8,
+    598.2,
+    479.5,
+    617.1
+   ],
+   "severity": 4,
+   "confidence": 0.92,
+   "evidence": "Standing water ponding against the kerb, covering the near wheel path."
+  }
+ ],
+ "7.30": [
+  {
+   "cls": "pothole",
+   "box": [
+    399.7,
+    748.5,
+    484.5,
+    783.2
+   ],
+   "severity": 4,
+   "confidence": 0.92,
+   "evidence": "Pothole at the lane centre with loose aggregate scattered around the rim."
+  },
+  {
+   "cls": "waterlogging",
+   "box": [
+    336.2,
+    605.0,
+    478.1,
+    626.8
+   ],
+   "severity": 4,
+   "confidence": 0.92,
+   "evidence": "Standing water ponding against the kerb, covering the near wheel path."
+  }
+ ],
+ "7.40": [
+  {
+   "cls": "pothole",
+   "box": [
+    376.8,
+    797.0,
+    481.4,
+    847.9
+   ],
+   "severity": 4,
+   "confidence": 0.92,
+   "evidence": "Pothole at the lane centre with loose aggregate scattered around the rim."
+  },
+  {
+   "cls": "waterlogging",
+   "box": [
+    321.3,
+    612.8,
+    476.5,
+    638.4
+   ],
+   "severity": 4,
+   "confidence": 0.92,
+   "evidence": "Standing water ponding against the kerb, covering the near wheel path."
+  }
+ ],
+ "7.50": [
+  {
+   "cls": "pothole",
+   "box": [
+    340.3,
+    869.0,
+    476.9,
+    951.0
+   ],
+   "severity": 4,
+   "confidence": 0.92,
+   "evidence": "Pothole at the lane centre with loose aggregate scattered around the rim."
+  },
+  {
+   "cls": "waterlogging",
+   "box": [
+    303.4,
+    621.8,
+    474.6,
+    652.2
+   ],
+   "severity": 4,
+   "confidence": 0.92,
+   "evidence": "Standing water ponding against the kerb, covering the near wheel path."
+  }
+ ],
+ "7.60": [
+  {
+   "cls": "pothole",
+   "box": [
+    273.0,
+    987.1,
+    469.6,
+    1000.0
+   ],
+   "severity": 4,
+   "confidence": 0.92,
+   "evidence": "Pothole at the lane centre with loose aggregate scattered around the rim."
+  },
+  {
+   "cls": "waterlogging",
+   "box": [
+    281.5,
+    632.4,
+    472.4,
+    669.1
+   ],
+   "severity": 4,
+   "confidence": 0.92,
+   "evidence": "Standing water ponding against the kerb, covering the near wheel path."
+  }
+ ],
+ "7.70": [
+  {
+   "cls": "waterlogging",
+   "box": [
+    254.2,
+    645.0,
+    469.8,
+    690.3
+   ],
+   "severity": 4,
+   "confidence": 0.92,
+   "evidence": "Standing water ponding against the kerb, covering the near wheel path."
+  }
+ ],
+ "7.80": [
+  {
+   "cls": "waterlogging",
+   "box": [
+    219.1,
+    660.2,
+    466.6,
+    717.5
+   ],
+   "severity": 4,
+   "confidence": 0.92,
+   "evidence": "Standing water ponding against the kerb, covering the near wheel path."
+  }
+ ],
+ "7.90": [
+  {
+   "cls": "waterlogging",
+   "box": [
+    172.3,
+    679.1,
+    462.7,
+    753.7
+   ],
+   "severity": 4,
+   "confidence": 0.92,
+   "evidence": "Standing water ponding against the kerb, covering the near wheel path."
+  }
+ ],
+ "8.00": [
+  {
+   "cls": "waterlogging",
+   "box": [
+    106.8,
+    703.0,
+    457.7,
+    804.4
+   ],
+   "severity": 4,
+   "confidence": 0.92,
+   "evidence": "Standing water ponding against the kerb, covering the near wheel path."
+  },
+  {
+   "cls": "pothole",
+   "box": [
+    533.3,
+    606.6,
+    579.2,
+    615.2
+   ],
+   "severity": 5,
+   "confidence": 0.92,
+   "evidence": "Deep pothole with undercut edges, exposed base layer visible."
+  }
+ ],
+ "8.10": [
+  {
+   "cls": "waterlogging",
+   "box": [
+    8.5,
+    734.2,
+    451.2,
+    880.5
+   ],
+   "severity": 4,
+   "confidence": 0.92,
+   "evidence": "Standing water ponding against the kerb, covering the near wheel path."
+  },
+  {
+   "cls": "pothole",
+   "box": [
+    535.8,
+    614.6,
+    585.6,
+    624.6
+   ],
+   "severity": 5,
+   "confidence": 0.92,
+   "evidence": "Deep pothole with undercut edges, exposed base layer visible."
+  }
+ ],
+ "8.20": [
+  {
+   "cls": "waterlogging",
+   "box": [
+    0.0,
+    776.8,
+    442.3,
+    1000.0
+   ],
+   "severity": 4,
+   "confidence": 0.92,
+   "evidence": "Standing water ponding against the kerb, covering the near wheel path."
+  },
+  {
+   "cls": "pothole",
+   "box": [
+    538.7,
+    623.9,
+    593.3,
+    635.7
+   ],
+   "severity": 5,
+   "confidence": 0.92,
+   "evidence": "Deep pothole with undercut edges, exposed base layer visible."
+  }
+ ],
+ "8.30": [
+  {
+   "cls": "waterlogging",
+   "box": [
+    0.0,
+    838.3,
+    429.5,
+    1000.0
+   ],
+   "severity": 4,
+   "confidence": 0.92,
+   "evidence": "Standing water ponding against the kerb, covering the near wheel path."
+  },
+  {
+   "cls": "pothole",
+   "box": [
+    542.2,
+    634.9,
+    602.4,
+    649.0
+   ],
+   "severity": 5,
+   "confidence": 0.92,
+   "evidence": "Deep pothole with undercut edges, exposed base layer visible."
+  }
+ ],
+ "8.40": [
+  {
+   "cls": "waterlogging",
+   "box": [
+    0.0,
+    934.9,
+    409.4,
+    1000.0
+   ],
+   "severity": 4,
+   "confidence": 0.92,
+   "evidence": "Standing water ponding against the kerb, covering the near wheel path."
+  },
+  {
+   "cls": "pothole",
+   "box": [
+    546.3,
+    648.1,
+    613.5,
+    665.1
+   ],
+   "severity": 5,
+   "confidence": 0.92,
+   "evidence": "Deep pothole with undercut edges, exposed base layer visible."
+  }
+ ],
+ "8.50": [
+  {
+   "cls": "pothole",
+   "box": [
+    551.3,
+    664.0,
+    627.3,
+    685.2
+   ],
+   "severity": 5,
+   "confidence": 0.92,
+   "evidence": "Deep pothole with undercut edges, exposed base layer visible."
+  }
+ ],
+ "8.60": [
+  {
+   "cls": "pothole",
+   "box": [
+    557.4,
+    683.8,
+    645.0,
+    710.9
+   ],
+   "severity": 5,
+   "confidence": 0.92,
+   "evidence": "Deep pothole with undercut edges, exposed base layer visible."
+  }
+ ],
+ "8.70": [
+  {
+   "cls": "pothole",
+   "box": [
+    565.3,
+    709.1,
+    668.3,
+    744.8
+   ],
+   "severity": 5,
+   "confidence": 0.92,
+   "evidence": "Deep pothole with undercut edges, exposed base layer visible."
+  },
+  {
+   "cls": "hazard",
+   "box": [
+    508.2,
+    612.5,
+    552.1,
+    622.1
+   ],
+   "severity": 5,
+   "confidence": 0.92,
+   "evidence": "Open manhole with no cover and no barricade, directly in the running lane."
+  }
+ ],
+ "8.80": [
+  {
+   "cls": "pothole",
+   "box": [
+    575.7,
+    742.3,
+    700.5,
+    791.7
+   ],
+   "severity": 5,
+   "confidence": 0.92,
+   "evidence": "Deep pothole with undercut edges, exposed base layer visible."
+  },
+  {
+   "cls": "hazard",
+   "box": [
+    508.9,
+    621.5,
+    556.7,
+    632.7
+   ],
+   "severity": 5,
+   "confidence": 0.92,
+   "evidence": "Open manhole with no cover and no barricade, directly in the running lane."
+  }
+ ],
+ "8.90": [
+  {
+   "cls": "pothole",
+   "box": [
+    590.1,
+    788.2,
+    748.1,
+    860.8
+   ],
+   "severity": 5,
+   "confidence": 0.92,
+   "evidence": "Deep pothole with undercut edges, exposed base layer visible."
+  },
+  {
+   "cls": "hazard",
+   "box": [
+    509.6,
+    632.0,
+    562.1,
+    645.4
+   ],
+   "severity": 5,
+   "confidence": 0.92,
+   "evidence": "Open manhole with no cover and no barricade, directly in the running lane."
+  }
+ ],
+ "9.00": [
+  {
+   "cls": "pothole",
+   "box": [
+    611.1,
+    855.5,
+    825.1,
+    972.9
+   ],
+   "severity": 5,
+   "confidence": 0.92,
+   "evidence": "Deep pothole with undercut edges, exposed base layer visible."
+  },
+  {
+   "cls": "hazard",
+   "box": [
+    510.5,
+    644.5,
+    568.7,
+    660.8
+   ],
+   "severity": 5,
+   "confidence": 0.92,
+   "evidence": "Open manhole with no cover and no barricade, directly in the running lane."
+  }
+ ],
+ "9.10": [
+  {
+   "cls": "pothole",
+   "box": [
+    645.0,
+    963.9,
+    971.7,
+    1000.0
+   ],
+   "severity": 5,
+   "confidence": 0.92,
+   "evidence": "Deep pothole with undercut edges, exposed base layer visible."
+  },
+  {
+   "cls": "hazard",
+   "box": [
+    511.6,
+    659.7,
+    576.8,
+    679.7
+   ],
+   "severity": 5,
+   "confidence": 0.92,
+   "evidence": "Open manhole with no cover and no barricade, directly in the running lane."
+  }
+ ],
+ "9.20": [
+  {
+   "cls": "hazard",
+   "box": [
+    513.0,
+    678.4,
+    587.0,
+    703.8
+   ],
+   "severity": 5,
+   "confidence": 0.92,
+   "evidence": "Open manhole with no cover and no barricade, directly in the running lane."
+  }
+ ],
+ "9.30": [
+  {
+   "cls": "hazard",
+   "box": [
+    514.7,
+    702.1,
+    600.5,
+    735.3
+   ],
+   "severity": 5,
+   "confidence": 0.92,
+   "evidence": "Open manhole with no cover and no barricade, directly in the running lane."
+  }
+ ],
+ "9.40": [
+  {
+   "cls": "hazard",
+   "box": [
+    517.0,
+    733.1,
+    618.9,
+    778.3
+   ],
+   "severity": 5,
+   "confidence": 0.92,
+   "evidence": "Open manhole with no cover and no barricade, directly in the running lane."
+  }
+ ],
+ "9.50": [
+  {
+   "cls": "hazard",
+   "box": [
+    520.1,
+    775.2,
+    645.5,
+    840.6
+   ],
+   "severity": 5,
+   "confidence": 0.92,
+   "evidence": "Open manhole with no cover and no barricade, directly in the running lane."
+  }
+ ],
+ "9.60": [
+  {
+   "cls": "hazard",
+   "box": [
+    524.5,
+    835.9,
+    687.4,
+    938.8
+   ],
+   "severity": 5,
+   "confidence": 0.92,
+   "evidence": "Open manhole with no cover and no barricade, directly in the running lane."
+  }
+ ],
+ "9.70": [
+  {
+   "cls": "hazard",
+   "box": [
+    531.4,
+    931.1,
+    763.3,
+    1000.0
+   ],
+   "severity": 5,
+   "confidence": 0.92,
+   "evidence": "Open manhole with no cover and no barricade, directly in the running lane."
+  },
+  {
+   "cls": "crack",
+   "box": [
+    379.8,
+    659.7,
+    563.6,
+    669.7
+   ],
+   "severity": 4,
+   "confidence": 0.92,
+   "evidence": "Severe block cracking across the near lane with vertical displacement."
+  }
+ ],
+ "9.80": [
+  {
+   "cls": "crack",
+   "box": [
+    364.7,
+    678.4,
+    571.6,
+    691.0
+   ],
+   "severity": 4,
+   "confidence": 0.92,
+   "evidence": "Severe block cracking across the near lane with vertical displacement."
+  }
+ ],
+ "9.90": [
+  {
+   "cls": "crack",
+   "box": [
+    345.3,
+    702.1,
+    581.9,
+    718.4
+   ],
+   "severity": 4,
+   "confidence": 0.92,
+   "evidence": "Severe block cracking across the near lane with vertical displacement."
+  },
+  {
+   "cls": "pothole",
+   "box": [
+    560.0,
+    620.0,
+    607.4,
+    628.9
+   ],
+   "severity": 4,
+   "confidence": 0.92,
+   "evidence": "Pothole forming at the edge of a failed reinstatement."
+  }
+ ],
+ "10.00": [
+  {
+   "cls": "crack",
+   "box": [
+    319.4,
+    733.1,
+    595.6,
+    755.0
+   ],
+   "severity": 4,
+   "confidence": 0.92,
+   "evidence": "Severe block cracking across the near lane with vertical displacement."
+  },
+  {
+   "cls": "pothole",
+   "box": [
+    565.1,
+    630.2,
+    617.3,
+    640.8
+   ],
+   "severity": 4,
+   "confidence": 0.92,
+   "evidence": "Pothole forming at the edge of a failed reinstatement."
+  }
+ ],
+ "10.10": [
+  {
+   "cls": "crack",
+   "box": [
+    283.0,
+    775.2,
+    614.9,
+    806.3
+   ],
+   "severity": 4,
+   "confidence": 0.92,
+   "evidence": "Severe block cracking across the near lane with vertical displacement."
+  },
+  {
+   "cls": "pothole",
+   "box": [
+    571.2,
+    642.4,
+    629.3,
+    655.1
+   ],
+   "severity": 4,
+   "confidence": 0.92,
+   "evidence": "Pothole forming at the edge of a failed reinstatement."
+  }
+ ],
+ "10.20": [
+  {
+   "cls": "crack",
+   "box": [
+    228.3,
+    835.9,
+    643.8,
+    883.5
+   ],
+   "severity": 4,
+   "confidence": 0.92,
+   "evidence": "Severe block cracking across the near lane with vertical displacement."
+  },
+  {
+   "cls": "pothole",
+   "box": [
+    578.6,
+    657.1,
+    643.9,
+    672.7
+   ],
+   "severity": 4,
+   "confidence": 0.92,
+   "evidence": "Pothole forming at the edge of a failed reinstatement."
+  },
+  {
+   "cls": "garbage",
+   "box": [
+    666.3,
+    602.3,
+    737.4,
+    611.7
+   ],
+   "severity": 3,
+   "confidence": 0.92,
+   "evidence": "Uncontained refuse dumped across the footpath and kerb line."
+  }
+ ],
+ "10.30": [
+  {
+   "cls": "crack",
+   "box": [
+    136.8,
+    931.1,
+    692.3,
+    1000.0
+   ],
+   "severity": 4,
+   "confidence": 0.92,
+   "evidence": "Severe block cracking across the near lane with vertical displacement."
+  },
+  {
+   "cls": "pothole",
+   "box": [
+    587.6,
+    675.2,
+    662.4,
+    694.8
+   ],
+   "severity": 4,
+   "confidence": 0.92,
+   "evidence": "Pothole forming at the edge of a failed reinstatement."
+  },
+  {
+   "cls": "garbage",
+   "box": [
+    678.3,
+    609.7,
+    756.2,
+    620.6
+   ],
+   "severity": 3,
+   "confidence": 0.92,
+   "evidence": "Uncontained refuse dumped across the footpath and kerb line."
+  }
+ ],
+ "10.40": [
+  {
+   "cls": "pothole",
+   "box": [
+    599.0,
+    698.0,
+    686.2,
+    723.4
+   ],
+   "severity": 4,
+   "confidence": 0.92,
+   "evidence": "Pothole forming at the edge of a failed reinstatement."
+  },
+  {
+   "cls": "garbage",
+   "box": [
+    692.1,
+    618.2,
+    778.2,
+    630.9
+   ],
+   "severity": 3,
+   "confidence": 0.92,
+   "evidence": "Uncontained refuse dumped across the footpath and kerb line."
+  }
+ ],
+ "10.50": [
+  {
+   "cls": "pothole",
+   "box": [
+    613.8,
+    727.6,
+    718.2,
+    761.9
+   ],
+   "severity": 4,
+   "confidence": 0.92,
+   "evidence": "Pothole forming at the edge of a failed reinstatement."
+  },
+  {
+   "cls": "garbage",
+   "box": [
+    708.3,
+    628.2,
+    804.4,
+    643.3
+   ],
+   "severity": 3,
+   "confidence": 0.92,
+   "evidence": "Uncontained refuse dumped across the footpath and kerb line."
+  },
+  {
+   "cls": "footpath_damaged",
+   "box": [
+    643.1,
+    589.2,
+    719.8,
+    598.6
+   ],
+   "severity": 4,
+   "confidence": 0.92,
+   "evidence": "Paving slabs subsided and fractured, a clear trip hazard for pedestrians."
+  }
+ ],
+ "10.60": [
+  {
+   "cls": "pothole",
+   "box": [
+    633.8,
+    767.6,
+    763.6,
+    816.3
+   ],
+   "severity": 4,
+   "confidence": 0.92,
+   "evidence": "Pothole forming at the edge of a failed reinstatement."
+  },
+  {
+   "cls": "garbage",
+   "box": [
+    727.4,
+    640.0,
+    836.1,
+    658.1
+   ],
+   "severity": 3,
+   "confidence": 0.92,
+   "evidence": "Uncontained refuse dumped across the footpath and kerb line."
+  },
+  {
+   "cls": "footpath_damaged",
+   "box": [
+    652.0,
+    594.8,
+    735.0,
+    605.4
+   ],
+   "severity": 4,
+   "confidence": 0.92,
+   "evidence": "Paving slabs subsided and fractured, a clear trip hazard for pedestrians."
+  }
+ ],
+ "10.70": [
+  {
+   "cls": "pothole",
+   "box": [
+    662.4,
+    824.7,
+    832.7,
+    899.3
+   ],
+   "severity": 4,
+   "confidence": 0.92,
+   "evidence": "Pothole forming at the edge of a failed reinstatement."
+  },
+  {
+   "cls": "garbage",
+   "box": [
+    750.5,
+    654.1,
+    875.0,
+    676.5
+   ],
+   "severity": 3,
+   "confidence": 0.92,
+   "evidence": "Uncontained refuse dumped across the footpath and kerb line."
+  },
+  {
+   "cls": "footpath_damaged",
+   "box": [
+    662.1,
+    601.1,
+    752.5,
+    613.3
+   ],
+   "severity": 4,
+   "confidence": 0.92,
+   "evidence": "Paving slabs subsided and fractured, a clear trip hazard for pedestrians."
+  }
+ ],
+ "10.80": [
+  {
+   "cls": "pothole",
+   "box": [
+    706.4,
+    912.8,
+    951.0,
+    1000.0
+   ],
+   "severity": 4,
+   "confidence": 0.92,
+   "evidence": "Pothole forming at the edge of a failed reinstatement."
+  },
+  {
+   "cls": "garbage",
+   "box": [
+    778.7,
+    671.5,
+    924.2,
+    699.6
+   ],
+   "severity": 3,
+   "confidence": 0.92,
+   "evidence": "Uncontained refuse dumped across the footpath and kerb line."
+  },
+  {
+   "cls": "footpath_damaged",
+   "box": [
+    673.6,
+    608.2,
+    772.8,
+    622.4
+   ],
+   "severity": 4,
+   "confidence": 0.92,
+   "evidence": "Paving slabs subsided and fractured, a clear trip hazard for pedestrians."
+  }
+ ],
+ "10.90": [
+  {
+   "cls": "garbage",
+   "box": [
+    814.1,
+    693.3,
+    988.2,
+    729.8
+   ],
+   "severity": 3,
+   "confidence": 0.92,
+   "evidence": "Uncontained refuse dumped across the footpath and kerb line."
+  },
+  {
+   "cls": "footpath_damaged",
+   "box": [
+    686.9,
+    616.5,
+    796.7,
+    633.1
+   ],
+   "severity": 4,
+   "confidence": 0.92,
+   "evidence": "Paving slabs subsided and fractured, a clear trip hazard for pedestrians."
+  }
+ ],
+ "11.00": [
+  {
+   "cls": "garbage",
+   "box": [
+    859.8,
+    721.4,
+    1000.0,
+    770.6
+   ],
+   "severity": 3,
+   "confidence": 0.92,
+   "evidence": "Uncontained refuse dumped across the footpath and kerb line."
+  },
+  {
+   "cls": "footpath_damaged",
+   "box": [
+    702.4,
+    626.2,
+    825.1,
+    645.8
+   ],
+   "severity": 4,
+   "confidence": 0.92,
+   "evidence": "Paving slabs subsided and fractured, a clear trip hazard for pedestrians."
+  }
+ ],
+ "11.10": [
+  {
+   "cls": "garbage",
+   "box": [
+    921.0,
+    759.1,
+    1000.0,
+    829.1
+   ],
+   "severity": 3,
+   "confidence": 0.92,
+   "evidence": "Uncontained refuse dumped across the footpath and kerb line."
+  },
+  {
+   "cls": "footpath_damaged",
+   "box": [
+    720.7,
+    637.6,
+    859.5,
+    661.3
+   ],
+   "severity": 4,
+   "confidence": 0.92,
+   "evidence": "Paving slabs subsided and fractured, a clear trip hazard for pedestrians."
+  }
+ ],
+ "11.20": [
+  {
+   "cls": "footpath_damaged",
+   "box": [
+    742.7,
+    651.3,
+    902.2,
+    680.4
+   ],
+   "severity": 4,
+   "confidence": 0.92,
+   "evidence": "Paving slabs subsided and fractured, a clear trip hazard for pedestrians."
+  }
+ ],
+ "11.30": [
+  {
+   "cls": "footpath_damaged",
+   "box": [
+    769.4,
+    668.0,
+    956.2,
+    704.7
+   ],
+   "severity": 4,
+   "confidence": 0.92,
+   "evidence": "Paving slabs subsided and fractured, a clear trip hazard for pedestrians."
+  }
+ ],
+ "11.40": [
+  {
+   "cls": "footpath_damaged",
+   "box": [
+    802.9,
+    688.8,
+    1000.0,
+    736.5
+   ],
+   "severity": 4,
+   "confidence": 0.92,
+   "evidence": "Paving slabs subsided and fractured, a clear trip hazard for pedestrians."
+  }
+ ],
+ "11.50": [
+  {
+   "cls": "footpath_damaged",
+   "box": [
+    845.7,
+    715.5,
+    1000.0,
+    779.9
+   ],
+   "severity": 4,
+   "confidence": 0.92,
+   "evidence": "Paving slabs subsided and fractured, a clear trip hazard for pedestrians."
+  },
+  {
+   "cls": "waterlogging",
+   "box": [
+    509.6,
+    576.8,
+    589.6,
+    586.1
+   ],
+   "severity": 3,
+   "confidence": 0.92,
+   "evidence": "Ponded water over the offside lane with no visible drainage."
+  }
+ ],
+ "11.60": [
+  {
+   "cls": "footpath_damaged",
+   "box": [
+    902.8,
+    751.1,
+    1000.0,
+    843.0
+   ],
+   "severity": 4,
+   "confidence": 0.92,
+   "evidence": "Paving slabs subsided and fractured, a clear trip hazard for pedestrians."
+  },
+  {
+   "cls": "pothole",
+   "box": [
+    423.0,
+    628.2,
+    465.3,
+    636.8
+   ],
+   "severity": 3,
+   "confidence": 0.92,
+   "evidence": "Pothole developing at a longitudinal joint."
+  },
+  {
+   "cls": "waterlogging",
+   "box": [
+    510.1,
+    580.9,
+    595.0,
+    591.2
+   ],
+   "severity": 3,
+   "confidence": 0.92,
+   "evidence": "Ponded water over the offside lane with no visible drainage."
+  }
+ ],
+ "11.70": [
+  {
+   "cls": "footpath_damaged",
+   "box": [
+    982.3,
+    800.7,
+    1000.0,
+    942.8
+   ],
+   "severity": 4,
+   "confidence": 0.92,
+   "evidence": "Paving slabs subsided and fractured, a clear trip hazard for pedestrians."
+  },
+  {
+   "cls": "pothole",
+   "box": [
+    415.4,
+    640.0,
+    462.1,
+    650.3
+   ],
+   "severity": 3,
+   "confidence": 0.92,
+   "evidence": "Pothole developing at a longitudinal joint."
+  },
+  {
+   "cls": "waterlogging",
+   "box": [
+    510.7,
+    585.5,
+    601.1,
+    597.0
+   ],
+   "severity": 3,
+   "confidence": 0.92,
+   "evidence": "Ponded water over the offside lane with no visible drainage."
+  }
+ ],
+ "11.80": [
+  {
+   "cls": "pothole",
+   "box": [
+    406.2,
+    654.1,
+    458.3,
+    666.8
+   ],
+   "severity": 3,
+   "confidence": 0.92,
+   "evidence": "Pothole developing at a longitudinal joint."
+  },
+  {
+   "cls": "waterlogging",
+   "box": [
+    511.3,
+    590.5,
+    608.0,
+    603.6
+   ],
+   "severity": 3,
+   "confidence": 0.92,
+   "evidence": "Ponded water over the offside lane with no visible drainage."
+  }
+ ],
+ "11.90": [
+  {
+   "cls": "pothole",
+   "box": [
+    394.6,
+    671.5,
+    453.5,
+    687.3
+   ],
+   "severity": 3,
+   "confidence": 0.92,
+   "evidence": "Pothole developing at a longitudinal joint."
+  },
+  {
+   "cls": "waterlogging",
+   "box": [
+    512.0,
+    596.3,
+    615.8,
+    611.2
+   ],
+   "severity": 3,
+   "confidence": 0.92,
+   "evidence": "Ponded water over the offside lane with no visible drainage."
+  }
+ ],
+ "12.00": [
+  {
+   "cls": "pothole",
+   "box": [
+    379.8,
+    693.3,
+    447.7,
+    713.6
+   ],
+   "severity": 3,
+   "confidence": 0.92,
+   "evidence": "Pothole developing at a longitudinal joint."
+  },
+  {
+   "cls": "waterlogging",
+   "box": [
+    512.8,
+    602.8,
+    625.0,
+    620.0
+   ],
+   "severity": 3,
+   "confidence": 0.92,
+   "evidence": "Ponded water over the offside lane with no visible drainage."
+  }
+ ],
+ "12.10": [
+  {
+   "cls": "pothole",
+   "box": [
+    360.2,
+    721.4,
+    440.0,
+    748.5
+   ],
+   "severity": 3,
+   "confidence": 0.92,
+   "evidence": "Pothole developing at a longitudinal joint."
+  },
+  {
+   "cls": "waterlogging",
+   "box": [
+    513.8,
+    610.2,
+    635.7,
+    630.2
+   ],
+   "severity": 3,
+   "confidence": 0.92,
+   "evidence": "Ponded water over the offside lane with no visible drainage."
+  }
+ ],
+ "12.20": [
+  {
+   "cls": "pothole",
+   "box": [
+    332.9,
+    759.1,
+    429.8,
+    797.0
+   ],
+   "severity": 3,
+   "confidence": 0.92,
+   "evidence": "Pothole developing at a longitudinal joint."
+  },
+  {
+   "cls": "waterlogging",
+   "box": [
+    514.9,
+    618.8,
+    648.4,
+    642.4
+   ],
+   "severity": 3,
+   "confidence": 0.92,
+   "evidence": "Ponded water over the offside lane with no visible drainage."
+  }
+ ],
+ "12.30": [
+  {
+   "cls": "pothole",
+   "box": [
+    292.4,
+    812.2,
+    415.4,
+    869.0
+   ],
+   "severity": 3,
+   "confidence": 0.92,
+   "evidence": "Pothole developing at a longitudinal joint."
+  },
+  {
+   "cls": "waterlogging",
+   "box": [
+    516.1,
+    628.9,
+    663.7,
+    657.1
+   ],
+   "severity": 3,
+   "confidence": 0.92,
+   "evidence": "Ponded water over the offside lane with no visible drainage."
+  },
+  {
+   "cls": "footpath_obstruction",
+   "box": [
+    660.1,
+    592.6,
+    729.5,
+    601.1
+   ],
+   "severity": 3,
+   "confidence": 0.92,
+   "evidence": "Material stacked across the footpath, forcing pedestrians into the carriageway."
+  }
+ ],
+ "12.40": [
+  {
+   "cls": "pothole",
+   "box": [
+    226.0,
+    892.8,
+    393.6,
+    987.1
+   ],
+   "severity": 3,
+   "confidence": 0.92,
+   "evidence": "Pothole developing at a longitudinal joint."
+  },
+  {
+   "cls": "waterlogging",
+   "box": [
+    517.6,
+    640.8,
+    682.5,
+    675.2
+   ],
+   "severity": 3,
+   "confidence": 0.92,
+   "evidence": "Ponded water over the offside lane with no visible drainage."
+  },
+  {
+   "cls": "footpath_obstruction",
+   "box": [
+    670.5,
+    598.6,
+    745.8,
+    608.2
+   ],
+   "severity": 3,
+   "confidence": 0.92,
+   "evidence": "Material stacked across the footpath, forcing pedestrians into the carriageway."
+  }
+ ],
+ "12.50": [
+  {
+   "cls": "waterlogging",
+   "box": [
+    519.4,
+    655.1,
+    706.3,
+    698.0
+   ],
+   "severity": 3,
+   "confidence": 0.92,
+   "evidence": "Ponded water over the offside lane with no visible drainage."
+  },
+  {
+   "cls": "footpath_obstruction",
+   "box": [
+    682.3,
+    605.4,
+    764.6,
+    616.5
+   ],
+   "severity": 3,
+   "confidence": 0.92,
+   "evidence": "Material stacked across the footpath, forcing pedestrians into the carriageway."
+  }
+ ],
+ "12.60": [
+  {
+   "cls": "waterlogging",
+   "box": [
+    521.6,
+    672.7,
+    737.1,
+    727.6
+   ],
+   "severity": 3,
+   "confidence": 0.92,
+   "evidence": "Ponded water over the offside lane with no visible drainage."
+  },
+  {
+   "cls": "footpath_obstruction",
+   "box": [
+    695.9,
+    613.3,
+    786.6,
+    626.2
+   ],
+   "severity": 3,
+   "confidence": 0.92,
+   "evidence": "Material stacked across the footpath, forcing pedestrians into the carriageway."
+  }
+ ],
+ "12.70": [
+  {
+   "cls": "waterlogging",
+   "box": [
+    524.4,
+    694.8,
+    778.8,
+    767.6
+   ],
+   "severity": 3,
+   "confidence": 0.92,
+   "evidence": "Ponded water over the offside lane with no visible drainage."
+  },
+  {
+   "cls": "footpath_obstruction",
+   "box": [
+    711.6,
+    622.4,
+    812.5,
+    637.6
+   ],
+   "severity": 3,
+   "confidence": 0.92,
+   "evidence": "Material stacked across the footpath, forcing pedestrians into the carriageway."
+  }
+ ],
+ "12.80": [
+  {
+   "cls": "waterlogging",
+   "box": [
+    527.9,
+    723.4,
+    838.3,
+    824.7
+   ],
+   "severity": 3,
+   "confidence": 0.92,
+   "evidence": "Ponded water over the offside lane with no visible drainage."
+  },
+  {
+   "cls": "footpath_obstruction",
+   "box": [
+    730.1,
+    633.1,
+    843.5,
+    651.3
+   ],
+   "severity": 3,
+   "confidence": 0.92,
+   "evidence": "Material stacked across the footpath, forcing pedestrians into the carriageway."
+  }
+ ],
+ "12.90": [
+  {
+   "cls": "waterlogging",
+   "box": [
+    532.7,
+    761.9,
+    930.0,
+    912.8
+   ],
+   "severity": 3,
+   "confidence": 0.92,
+   "evidence": "Ponded water over the offside lane with no visible drainage."
+  },
+  {
+   "cls": "footpath_obstruction",
+   "box": [
+    752.2,
+    645.8,
+    881.4,
+    668.0
+   ],
+   "severity": 3,
+   "confidence": 0.92,
+   "evidence": "Material stacked across the footpath, forcing pedestrians into the carriageway."
+  }
+ ],
+ "13.00": [
+  {
+   "cls": "waterlogging",
+   "box": [
+    539.5,
+    816.3,
+    1000.0,
+    1000.0
+   ],
+   "severity": 3,
+   "confidence": 0.92,
+   "evidence": "Ponded water over the offside lane with no visible drainage."
+  },
+  {
+   "cls": "footpath_obstruction",
+   "box": [
+    778.9,
+    661.3,
+    928.7,
+    688.8
+   ],
+   "severity": 3,
+   "confidence": 0.92,
+   "evidence": "Material stacked across the footpath, forcing pedestrians into the carriageway."
+  }
+ ],
+ "13.10": [
+  {
+   "cls": "waterlogging",
+   "box": [
+    549.9,
+    899.3,
+    1000.0,
+    1000.0
+   ],
+   "severity": 3,
+   "confidence": 0.92,
+   "evidence": "Ponded water over the offside lane with no visible drainage."
+  },
+  {
+   "cls": "footpath_obstruction",
+   "box": [
+    811.9,
+    680.4,
+    989.4,
+    715.5
+   ],
+   "severity": 3,
+   "confidence": 0.92,
+   "evidence": "Material stacked across the footpath, forcing pedestrians into the carriageway."
+  }
+ ],
+ "13.20": [
+  {
+   "cls": "footpath_obstruction",
+   "box": [
+    853.9,
+    704.7,
+    1000.0,
+    751.1
+   ],
+   "severity": 3,
+   "confidence": 0.92,
+   "evidence": "Material stacked across the footpath, forcing pedestrians into the carriageway."
+  },
+  {
+   "cls": "pothole",
+   "box": [
+    522.4,
+    613.0,
+    567.1,
+    621.5
+   ],
+   "severity": 4,
+   "confidence": 0.92,
+   "evidence": "Pothole at the lane divide with broken, ravelling edges."
+  }
+ ],
+ "13.30": [
+  {
+   "cls": "footpath_obstruction",
+   "box": [
+    908.9,
+    736.5,
+    1000.0,
+    800.7
+   ],
+   "severity": 3,
+   "confidence": 0.92,
+   "evidence": "Material stacked across the footpath, forcing pedestrians into the carriageway."
+  },
+  {
+   "cls": "pothole",
+   "box": [
+    524.2,
+    622.1,
+    572.9,
+    632.0
+   ],
+   "severity": 4,
+   "confidence": 0.92,
+   "evidence": "Pothole at the lane divide with broken, ravelling edges."
+  }
+ ],
+ "13.40": [
+  {
+   "cls": "footpath_obstruction",
+   "box": [
+    984.1,
+    779.9,
+    1000.0,
+    874.7
+   ],
+   "severity": 3,
+   "confidence": 0.92,
+   "evidence": "Material stacked across the footpath, forcing pedestrians into the carriageway."
+  },
+  {
+   "cls": "pothole",
+   "box": [
+    526.3,
+    632.7,
+    579.8,
+    644.5
+   ],
+   "severity": 4,
+   "confidence": 0.92,
+   "evidence": "Pothole at the lane divide with broken, ravelling edges."
+  }
+ ],
+ "13.50": [
+  {
+   "cls": "pothole",
+   "box": [
+    528.8,
+    645.4,
+    588.2,
+    659.7
+   ],
+   "severity": 4,
+   "confidence": 0.92,
+   "evidence": "Pothole at the lane divide with broken, ravelling edges."
+  }
+ ],
+ "13.60": [
+  {
+   "cls": "pothole",
+   "box": [
+    531.8,
+    660.8,
+    598.5,
+    678.4
+   ],
+   "severity": 4,
+   "confidence": 0.92,
+   "evidence": "Pothole at the lane divide with broken, ravelling edges."
+  }
+ ],
+ "13.70": [
+  {
+   "cls": "pothole",
+   "box": [
+    535.6,
+    679.7,
+    611.6,
+    702.1
+   ],
+   "severity": 4,
+   "confidence": 0.92,
+   "evidence": "Pothole at the lane divide with broken, ravelling edges."
+  }
+ ],
+ "13.80": [
+  {
+   "cls": "pothole",
+   "box": [
+    540.3,
+    703.8,
+    628.7,
+    733.1
+   ],
+   "severity": 4,
+   "confidence": 0.92,
+   "evidence": "Pothole at the lane divide with broken, ravelling edges."
+  }
+ ],
+ "13.90": [
+  {
+   "cls": "pothole",
+   "box": [
+    546.6,
+    735.3,
+    651.9,
+    775.2
+   ],
+   "severity": 4,
+   "confidence": 0.92,
+   "evidence": "Pothole at the lane divide with broken, ravelling edges."
+  }
+ ],
+ "14.00": [
+  {
+   "cls": "pothole",
+   "box": [
+    555.1,
+    778.3,
+    685.5,
+    835.9
+   ],
+   "severity": 4,
+   "confidence": 0.92,
+   "evidence": "Pothole at the lane divide with broken, ravelling edges."
+  }
+ ],
+ "14.10": [
+  {
+   "cls": "pothole",
+   "box": [
+    567.4,
+    840.6,
+    738.0,
+    931.1
+   ],
+   "severity": 4,
+   "confidence": 0.92,
+   "evidence": "Pothole at the lane divide with broken, ravelling edges."
+  }
+ ],
+ "14.20": [
+  {
+   "cls": "pothole",
+   "box": [
+    586.9,
+    938.8,
+    832.0,
+    1000.0
+   ],
+   "severity": 4,
+   "confidence": 0.92,
+   "evidence": "Pothole at the lane divide with broken, ravelling edges."
+  }
+ ],
+ "14.30": [],
+ "14.40": [],
+ "14.50": [],
+ "14.60": [],
+ "14.70": [],
+ "14.80": [],
+ "14.90": [],
+ "15.00": [],
+ "15.10": [],
+ "15.20": [
+  {
+   "cls": "crack",
+   "box": [
+    442.9,
+    685.2,
+    606.0,
+    695.6
+   ],
+   "severity": 2,
+   "confidence": 0.92,
+   "evidence": "Longitudinal cracking following the lane line, minor ravelling."
+  }
+ ],
+ "15.30": [
+  {
+   "cls": "crack",
+   "box": [
+    434.5,
+    710.9,
+    621.6,
+    724.5
+   ],
+   "severity": 2,
+   "confidence": 0.92,
+   "evidence": "Longitudinal cracking following the lane line, minor ravelling."
+  },
+  {
+   "cls": "patch_repair",
+   "box": [
+    426.7,
+    579.3,
+    493.4,
+    587.9
+   ],
+   "severity": 1,
+   "confidence": 0.92,
+   "evidence": "Asphalt patch over a utility trench, surface slightly proud of the road."
+  }
+ ],
+ "15.40": [
+  {
+   "cls": "crack",
+   "box": [
+    423.2,
+    744.8,
+    642.6,
+    763.3
+   ],
+   "severity": 2,
+   "confidence": 0.92,
+   "evidence": "Longitudinal cracking following the lane line, minor ravelling."
+  },
+  {
+   "cls": "patch_repair",
+   "box": [
+    422.2,
+    583.7,
+    493.0,
+    593.3
+   ],
+   "severity": 1,
+   "confidence": 0.92,
+   "evidence": "Asphalt patch over a utility trench, surface slightly proud of the road."
+  }
+ ],
+ "15.50": [
+  {
+   "cls": "crack",
+   "box": [
+    407.1,
+    791.7,
+    672.4,
+    818.4
+   ],
+   "severity": 2,
+   "confidence": 0.92,
+   "evidence": "Longitudinal cracking following the lane line, minor ravelling."
+  },
+  {
+   "cls": "patch_repair",
+   "box": [
+    417.2,
+    588.6,
+    492.6,
+    599.4
+   ],
+   "severity": 1,
+   "confidence": 0.92,
+   "evidence": "Asphalt patch over a utility trench, surface slightly proud of the road."
+  }
+ ],
+ "15.60": [
+  {
+   "cls": "crack",
+   "box": [
+    382.6,
+    860.8,
+    718.1,
+    902.6
+   ],
+   "severity": 2,
+   "confidence": 0.92,
+   "evidence": "Longitudinal cracking following the lane line, minor ravelling."
+  },
+  {
+   "cls": "patch_repair",
+   "box": [
+    411.4,
+    594.0,
+    492.2,
+    606.4
+   ],
+   "severity": 1,
+   "confidence": 0.92,
+   "evidence": "Asphalt patch over a utility trench, surface slightly proud of the road."
+  }
+ ],
+ "15.70": [
+  {
+   "cls": "crack",
+   "box": [
+    340.4,
+    972.9,
+    796.5,
+    1000.0
+   ],
+   "severity": 2,
+   "confidence": 0.92,
+   "evidence": "Longitudinal cracking following the lane line, minor ravelling."
+  },
+  {
+   "cls": "patch_repair",
+   "box": [
+    404.7,
+    600.2,
+    491.6,
+    614.3
+   ],
+   "severity": 1,
+   "confidence": 0.92,
+   "evidence": "Asphalt patch over a utility trench, surface slightly proud of the road."
+  }
+ ],
+ "15.80": [
+  {
+   "cls": "patch_repair",
+   "box": [
+    397.0,
+    607.3,
+    491.1,
+    623.6
+   ],
+   "severity": 1,
+   "confidence": 0.92,
+   "evidence": "Asphalt patch over a utility trench, surface slightly proud of the road."
+  }
+ ],
+ "15.90": [
+  {
+   "cls": "patch_repair",
+   "box": [
+    387.9,
+    615.4,
+    490.4,
+    634.6
+   ],
+   "severity": 1,
+   "confidence": 0.92,
+   "evidence": "Asphalt patch over a utility trench, surface slightly proud of the road."
+  }
+ ],
+ "16.00": [
+  {
+   "cls": "patch_repair",
+   "box": [
+    377.0,
+    624.9,
+    489.6,
+    647.6
+   ],
+   "severity": 1,
+   "confidence": 0.92,
+   "evidence": "Asphalt patch over a utility trench, surface slightly proud of the road."
+  }
+ ],
+ "16.10": [
+  {
+   "cls": "patch_repair",
+   "box": [
+    363.8,
+    636.1,
+    488.7,
+    663.5
+   ],
+   "severity": 1,
+   "confidence": 0.92,
+   "evidence": "Asphalt patch over a utility trench, surface slightly proud of the road."
+  }
+ ],
+ "16.20": [
+  {
+   "cls": "patch_repair",
+   "box": [
+    347.4,
+    649.4,
+    487.5,
+    683.1
+   ],
+   "severity": 1,
+   "confidence": 0.92,
+   "evidence": "Asphalt patch over a utility trench, surface slightly proud of the road."
+  }
+ ],
+ "16.30": [
+  {
+   "cls": "patch_repair",
+   "box": [
+    326.5,
+    665.7,
+    486.2,
+    708.2
+   ],
+   "severity": 1,
+   "confidence": 0.92,
+   "evidence": "Asphalt patch over a utility trench, surface slightly proud of the road."
+  }
+ ],
+ "16.40": [
+  {
+   "cls": "patch_repair",
+   "box": [
+    299.1,
+    685.9,
+    484.5,
+    741.1
+   ],
+   "severity": 1,
+   "confidence": 0.92,
+   "evidence": "Asphalt patch over a utility trench, surface slightly proud of the road."
+  }
+ ],
+ "16.50": [
+  {
+   "cls": "patch_repair",
+   "box": [
+    261.2,
+    711.8,
+    482.4,
+    786.5
+   ],
+   "severity": 1,
+   "confidence": 0.92,
+   "evidence": "Asphalt patch over a utility trench, surface slightly proud of the road."
+  }
+ ],
+ "16.60": [
+  {
+   "cls": "patch_repair",
+   "box": [
+    205.9,
+    746.0,
+    479.5,
+    853.0
+   ],
+   "severity": 1,
+   "confidence": 0.92,
+   "evidence": "Asphalt patch over a utility trench, surface slightly proud of the road."
+  },
+  {
+   "cls": "footpath_damaged",
+   "box": [
+    653.2,
+    595.5,
+    724.3,
+    604.5
+   ],
+   "severity": 2,
+   "confidence": 0.92,
+   "evidence": "Two cracked paving slabs with a small level difference."
+  }
+ ],
+ "16.70": [
+  {
+   "cls": "patch_repair",
+   "box": [
+    117.1,
+    793.4,
+    475.5,
+    959.5
+   ],
+   "severity": 1,
+   "confidence": 0.92,
+   "evidence": "Asphalt patch over a utility trench, surface slightly proud of the road."
+  },
+  {
+   "cls": "footpath_damaged",
+   "box": [
+    663.5,
+    601.9,
+    740.8,
+    612.2
+   ],
+   "severity": 2,
+   "confidence": 0.92,
+   "evidence": "Two cracked paving slabs with a small level difference."
+  }
+ ],
+ "16.80": [
+  {
+   "cls": "patch_repair",
+   "box": [
+    0.0,
+    863.5,
+    469.7,
+    1000.0
+   ],
+   "severity": 1,
+   "confidence": 0.92,
+   "evidence": "Asphalt patch over a utility trench, surface slightly proud of the road."
+  },
+  {
+   "cls": "footpath_damaged",
+   "box": [
+    675.2,
+    609.2,
+    760.0,
+    621.2
+   ],
+   "severity": 2,
+   "confidence": 0.92,
+   "evidence": "Two cracked paving slabs with a small level difference."
+  },
+  {
+   "cls": "streetlight",
+   "box": [
+    678.1,
+    173.3,
+    686.2,
+    578.1
+   ],
+   "severity": 1,
+   "confidence": 0.92,
+   "evidence": "Street lighting pole with luminaire head, appears intact."
+  }
+ ],
+ "16.90": [
+  {
+   "cls": "patch_repair",
+   "box": [
+    0.0,
+    977.5,
+    460.2,
+    1000.0
+   ],
+   "severity": 1,
+   "confidence": 0.92,
+   "evidence": "Asphalt patch over a utility trench, surface slightly proud of the road."
+  },
+  {
+   "cls": "footpath_damaged",
+   "box": [
+    688.7,
+    617.7,
+    782.5,
+    631.6
+   ],
+   "severity": 2,
+   "confidence": 0.92,
+   "evidence": "Two cracked paving slabs with a small level difference."
+  },
+  {
+   "cls": "streetlight",
+   "box": [
+    687.7,
+    155.6,
+    696.3,
+    582.3
+   ],
+   "severity": 1,
+   "confidence": 0.92,
+   "evidence": "Street lighting pole with luminaire head, appears intact."
+  }
+ ],
+ "17.00": [
+  {
+   "cls": "footpath_damaged",
+   "box": [
+    704.5,
+    627.5,
+    809.2,
+    644.1
+   ],
+   "severity": 2,
+   "confidence": 0.92,
+   "evidence": "Two cracked paving slabs with a small level difference."
+  },
+  {
+   "cls": "streetlight",
+   "box": [
+    698.4,
+    136.0,
+    707.5,
+    587.0
+   ],
+   "severity": 1,
+   "confidence": 0.92,
+   "evidence": "Street lighting pole with luminaire head, appears intact."
+  }
+ ],
+ "17.10": [
+  {
+   "cls": "footpath_damaged",
+   "box": [
+    723.3,
+    639.2,
+    841.6,
+    659.2
+   ],
+   "severity": 2,
+   "confidence": 0.92,
+   "evidence": "Two cracked paving slabs with a small level difference."
+  },
+  {
+   "cls": "streetlight",
+   "box": [
+    710.5,
+    113.9,
+    720.1,
+    592.3
+   ],
+   "severity": 1,
+   "confidence": 0.92,
+   "evidence": "Street lighting pole with luminaire head, appears intact."
+  }
+ ],
+ "17.20": [
+  {
+   "cls": "footpath_damaged",
+   "box": [
+    745.7,
+    653.2,
+    881.5,
+    677.8
+   ],
+   "severity": 2,
+   "confidence": 0.92,
+   "evidence": "Two cracked paving slabs with a small level difference."
+  },
+  {
+   "cls": "streetlight",
+   "box": [
+    724.0,
+    89.0,
+    734.3,
+    598.2
+   ],
+   "severity": 1,
+   "confidence": 0.92,
+   "evidence": "Street lighting pole with luminaire head, appears intact."
+  }
+ ],
+ "17.30": [
+  {
+   "cls": "footpath_damaged",
+   "box": [
+    773.2,
+    670.3,
+    931.9,
+    701.3
+   ],
+   "severity": 2,
+   "confidence": 0.92,
+   "evidence": "Two cracked paving slabs with a small level difference."
+  },
+  {
+   "cls": "streetlight",
+   "box": [
+    739.5,
+    60.7,
+    750.4,
+    605.0
+   ],
+   "severity": 1,
+   "confidence": 0.92,
+   "evidence": "Street lighting pole with luminaire head, appears intact."
+  }
+ ],
+ "17.40": [
+  {
+   "cls": "footpath_damaged",
+   "box": [
+    807.6,
+    691.8,
+    997.7,
+    731.9
+   ],
+   "severity": 2,
+   "confidence": 0.92,
+   "evidence": "Two cracked paving slabs with a small level difference."
+  },
+  {
+   "cls": "streetlight",
+   "box": [
+    757.2,
+    28.1,
+    769.0,
+    612.8
+   ],
+   "severity": 1,
+   "confidence": 0.92,
+   "evidence": "Street lighting pole with luminaire head, appears intact."
+  }
+ ],
+ "17.50": [
+  {
+   "cls": "footpath_damaged",
+   "box": [
+    852.0,
+    719.4,
+    1000.0,
+    773.6
+   ],
+   "severity": 2,
+   "confidence": 0.92,
+   "evidence": "Two cracked paving slabs with a small level difference."
+  },
+  {
+   "cls": "streetlight",
+   "box": [
+    777.8,
+    0.0,
+    790.5,
+    621.8
+   ],
+   "severity": 1,
+   "confidence": 0.92,
+   "evidence": "Street lighting pole with luminaire head, appears intact."
+  }
+ ],
+ "17.60": [
+  {
+   "cls": "footpath_damaged",
+   "box": [
+    911.3,
+    756.4,
+    1000.0,
+    833.6
+   ],
+   "severity": 2,
+   "confidence": 0.92,
+   "evidence": "Two cracked paving slabs with a small level difference."
+  },
+  {
+   "cls": "streetlight",
+   "box": [
+    802.0,
+    0.0,
+    815.7,
+    632.4
+   ],
+   "severity": 1,
+   "confidence": 0.92,
+   "evidence": "Street lighting pole with luminaire head, appears intact."
+  }
+ ],
+ "17.70": [
+  {
+   "cls": "footpath_damaged",
+   "box": [
+    994.5,
+    808.3,
+    1000.0,
+    927.3
+   ],
+   "severity": 2,
+   "confidence": 0.92,
+   "evidence": "Two cracked paving slabs with a small level difference."
+  },
+  {
+   "cls": "streetlight",
+   "box": [
+    830.7,
+    0.0,
+    845.8,
+    645.0
+   ],
+   "severity": 1,
+   "confidence": 0.92,
+   "evidence": "Street lighting pole with luminaire head, appears intact."
+  }
+ ],
+ "17.80": [
+  {
+   "cls": "streetlight",
+   "box": [
+    865.5,
+    0.0,
+    882.2,
+    660.2
+   ],
+   "severity": 1,
+   "confidence": 0.92,
+   "evidence": "Street lighting pole with luminaire head, appears intact."
+  }
+ ],
+ "17.90": [
+  {
+   "cls": "streetlight",
+   "box": [
+    908.5,
+    0.0,
+    927.2,
+    679.1
+   ],
+   "severity": 1,
+   "confidence": 0.92,
+   "evidence": "Street lighting pole with luminaire head, appears intact."
+  }
+ ],
+ "18.00": [
+  {
+   "cls": "streetlight",
+   "box": [
+    963.0,
+    0.0,
+    984.1,
+    703.0
+   ],
+   "severity": 1,
+   "confidence": 0.92,
+   "evidence": "Street lighting pole with luminaire head, appears intact."
+  }
+ ],
+ "18.10": [],
+ "18.20": [],
+ "18.30": [],
+ "18.40": [],
+ "18.50": [],
+ "18.60": [
+  {
+   "cls": "pothole",
+   "box": [
+    541.4,
+    628.2,
+    581.2,
+    636.8
+   ],
+   "severity": 3,
+   "confidence": 0.92,
+   "evidence": "Small pothole at the edge of a previous repair."
+  }
+ ],
+ "18.70": [
+  {
+   "cls": "pothole",
+   "box": [
+    545.2,
+    640.0,
+    589.3,
+    650.3
+   ],
+   "severity": 3,
+   "confidence": 0.92,
+   "evidence": "Small pothole at the edge of a previous repair."
+  }
+ ],
+ "18.80": [
+  {
+   "cls": "pothole",
+   "box": [
+    549.8,
+    654.1,
+    599.0,
+    666.8
+   ],
+   "severity": 3,
+   "confidence": 0.92,
+   "evidence": "Small pothole at the edge of a previous repair."
+  }
+ ],
+ "18.90": [
+  {
+   "cls": "pothole",
+   "box": [
+    555.4,
+    671.5,
+    611.2,
+    687.3
+   ],
+   "severity": 3,
+   "confidence": 0.92,
+   "evidence": "Small pothole at the edge of a previous repair."
+  }
+ ],
+ "19.00": [
+  {
+   "cls": "pothole",
+   "box": [
+    562.4,
+    693.3,
+    626.8,
+    713.6
+   ],
+   "severity": 3,
+   "confidence": 0.92,
+   "evidence": "Small pothole at the edge of a previous repair."
+  }
+ ],
+ "19.10": [
+  {
+   "cls": "pothole",
+   "box": [
+    571.5,
+    721.4,
+    647.6,
+    748.5
+   ],
+   "severity": 3,
+   "confidence": 0.92,
+   "evidence": "Small pothole at the edge of a previous repair."
+  }
+ ],
+ "19.20": [
+  {
+   "cls": "pothole",
+   "box": [
+    583.7,
+    759.1,
+    676.3,
+    797.0
+   ],
+   "severity": 3,
+   "confidence": 0.92,
+   "evidence": "Small pothole at the edge of a previous repair."
+  }
+ ],
+ "19.30": [
+  {
+   "cls": "pothole",
+   "box": [
+    600.8,
+    812.2,
+    719.1,
+    869.0
+   ],
+   "severity": 3,
+   "confidence": 0.92,
+   "evidence": "Small pothole at the edge of a previous repair."
+  }
+ ],
+ "19.40": [
+  {
+   "cls": "pothole",
+   "box": [
+    626.8,
+    892.8,
+    789.2,
+    987.1
+   ],
+   "severity": 3,
+   "confidence": 0.92,
+   "evidence": "Small pothole at the edge of a previous repair."
+  }
+ ],
+ "19.50": [],
+ "19.60": [],
+ "19.70": [],
+ "19.80": [],
+ "19.90": [],
+ "20.00": [],
+ "20.10": [],
+ "20.20": [],
+ "20.30": [],
+ "20.40": [],
+ "20.50": [],
+ "20.60": [],
+ "20.70": [],
+ "20.80": [],
+ "20.90": [],
+ "21.00": [],
+ "21.10": [],
+ "21.20": [
+  {
+   "cls": "crack",
+   "box": [
+    418.8,
+    685.9,
+    548.7,
+    694.8
+   ],
+   "severity": 1,
+   "confidence": 0.92,
+   "evidence": "Fine surface crazing, cosmetic only."
+  }
+ ],
+ "21.30": [
+  {
+   "cls": "crack",
+   "box": [
+    406.9,
+    711.8,
+    555.9,
+    723.4
+   ],
+   "severity": 1,
+   "confidence": 0.92,
+   "evidence": "Fine surface crazing, cosmetic only."
+  }
+ ],
+ "21.40": [
+  {
+   "cls": "crack",
+   "box": [
+    390.9,
+    746.0,
+    565.5,
+    761.9
+   ],
+   "severity": 1,
+   "confidence": 0.92,
+   "evidence": "Fine surface crazing, cosmetic only."
+  }
+ ],
+ "21.50": [
+  {
+   "cls": "crack",
+   "box": [
+    368.2,
+    793.4,
+    579.1,
+    816.3
+   ],
+   "severity": 1,
+   "confidence": 0.92,
+   "evidence": "Fine surface crazing, cosmetic only."
+  }
+ ],
+ "21.60": [
+  {
+   "cls": "crack",
+   "box": [
+    333.6,
+    863.5,
+    599.8,
+    899.3
+   ],
+   "severity": 1,
+   "confidence": 0.92,
+   "evidence": "Fine surface crazing, cosmetic only."
+  }
+ ],
+ "21.70": [
+  {
+   "cls": "crack",
+   "box": [
+    274.5,
+    977.5,
+    635.3,
+    1000.0
+   ],
+   "severity": 1,
+   "confidence": 0.92,
+   "evidence": "Fine surface crazing, cosmetic only."
+  }
+ ],
+ "21.80": [
+  {
+   "cls": "streetlight",
+   "box": [
+    678.1,
+    173.3,
+    686.2,
+    578.1
+   ],
+   "severity": 1,
+   "confidence": 0.92,
+   "evidence": "Street lighting pole with luminaire head, appears intact."
+  }
+ ],
+ "21.90": [
+  {
+   "cls": "streetlight",
+   "box": [
+    687.7,
+    155.6,
+    696.3,
+    582.3
+   ],
+   "severity": 1,
+   "confidence": 0.92,
+   "evidence": "Street lighting pole with luminaire head, appears intact."
+  }
+ ],
+ "22.00": [
+  {
+   "cls": "streetlight",
+   "box": [
+    698.4,
+    136.0,
+    707.5,
+    587.0
+   ],
+   "severity": 1,
+   "confidence": 0.92,
+   "evidence": "Street lighting pole with luminaire head, appears intact."
+  }
+ ],
+ "22.10": [
+  {
+   "cls": "streetlight",
+   "box": [
+    710.5,
+    113.9,
+    720.1,
+    592.3
+   ],
+   "severity": 1,
+   "confidence": 0.92,
+   "evidence": "Street lighting pole with luminaire head, appears intact."
+  }
+ ],
+ "22.20": [
+  {
+   "cls": "streetlight",
+   "box": [
+    724.0,
+    89.0,
+    734.3,
+    598.2
+   ],
+   "severity": 1,
+   "confidence": 0.92,
+   "evidence": "Street lighting pole with luminaire head, appears intact."
+  }
+ ],
+ "22.30": [
+  {
+   "cls": "streetlight",
+   "box": [
+    739.5,
+    60.7,
+    750.4,
+    605.0
+   ],
+   "severity": 1,
+   "confidence": 0.92,
+   "evidence": "Street lighting pole with luminaire head, appears intact."
+  }
+ ],
+ "22.40": [
+  {
+   "cls": "streetlight",
+   "box": [
+    757.2,
+    28.1,
+    769.0,
+    612.8
+   ],
+   "severity": 1,
+   "confidence": 0.92,
+   "evidence": "Street lighting pole with luminaire head, appears intact."
+  }
+ ],
+ "22.50": [
+  {
+   "cls": "streetlight",
+   "box": [
+    777.8,
+    0.0,
+    790.5,
+    621.8
+   ],
+   "severity": 1,
+   "confidence": 0.92,
+   "evidence": "Street lighting pole with luminaire head, appears intact."
+  }
+ ],
+ "22.60": [
+  {
+   "cls": "streetlight",
+   "box": [
+    802.0,
+    0.0,
+    815.7,
+    632.4
+   ],
+   "severity": 1,
+   "confidence": 0.92,
+   "evidence": "Street lighting pole with luminaire head, appears intact."
+  }
+ ],
+ "22.70": [
+  {
+   "cls": "streetlight",
+   "box": [
+    830.7,
+    0.0,
+    845.8,
+    645.0
+   ],
+   "severity": 1,
+   "confidence": 0.92,
+   "evidence": "Street lighting pole with luminaire head, appears intact."
+  }
+ ],
+ "22.80": [
+  {
+   "cls": "streetlight",
+   "box": [
+    865.5,
+    0.0,
+    882.2,
+    660.2
+   ],
+   "severity": 1,
+   "confidence": 0.92,
+   "evidence": "Street lighting pole with luminaire head, appears intact."
+  }
+ ],
+ "22.90": [
+  {
+   "cls": "streetlight",
+   "box": [
+    908.5,
+    0.0,
+    927.2,
+    679.1
+   ],
+   "severity": 1,
+   "confidence": 0.92,
+   "evidence": "Street lighting pole with luminaire head, appears intact."
+  }
+ ],
+ "23.00": [
+  {
+   "cls": "streetlight",
+   "box": [
+    963.0,
+    0.0,
+    984.1,
+    703.0
+   ],
+   "severity": 1,
+   "confidence": 0.92,
+   "evidence": "Street lighting pole with luminaire head, appears intact."
+  }
+ ],
+ "23.10": [],
+ "23.20": [],
+ "23.30": [],
+ "23.40": [
+  {
+   "cls": "garbage",
+   "box": [
+    675.9,
+    608.2,
+    740.2,
+    617.7
+   ],
+   "severity": 2,
+   "confidence": 0.92,
+   "evidence": "Small pile of dumped waste on the footpath verge."
+  }
+ ],
+ "23.50": [
+  {
+   "cls": "garbage",
+   "box": [
+    689.4,
+    616.5,
+    760.3,
+    627.5
+   ],
+   "severity": 2,
+   "confidence": 0.92,
+   "evidence": "Small pile of dumped waste on the footpath verge."
+  }
+ ],
+ "23.60": [
+  {
+   "cls": "garbage",
+   "box": [
+    705.1,
+    626.2,
+    784.1,
+    639.2
+   ],
+   "severity": 2,
+   "confidence": 0.92,
+   "evidence": "Small pile of dumped waste on the footpath verge."
+  }
+ ],
+ "23.70": [
+  {
+   "cls": "garbage",
+   "box": [
+    723.6,
+    637.6,
+    812.7,
+    653.2
+   ],
+   "severity": 2,
+   "confidence": 0.92,
+   "evidence": "Small pile of dumped waste on the footpath verge."
+  }
+ ],
+ "23.80": [
+  {
+   "cls": "garbage",
+   "box": [
+    745.8,
+    651.3,
+    847.7,
+    670.3
+   ],
+   "severity": 2,
+   "confidence": 0.92,
+   "evidence": "Small pile of dumped waste on the footpath verge."
+  }
+ ],
+ "23.90": [
+  {
+   "cls": "garbage",
+   "box": [
+    772.9,
+    668.0,
+    891.5,
+    691.8
+   ],
+   "severity": 2,
+   "confidence": 0.92,
+   "evidence": "Small pile of dumped waste on the footpath verge."
+  }
+ ],
+ "24.00": [
+  {
+   "cls": "garbage",
+   "box": [
+    806.8,
+    688.8,
+    948.0,
+    719.4
+   ],
+   "severity": 2,
+   "confidence": 0.92,
+   "evidence": "Small pile of dumped waste on the footpath verge."
+  }
+ ],
+ "24.10": [
+  {
+   "cls": "garbage",
+   "box": [
+    850.2,
+    715.5,
+    1000.0,
+    756.4
+   ],
+   "severity": 2,
+   "confidence": 0.92,
+   "evidence": "Small pile of dumped waste on the footpath verge."
+  }
+ ],
+ "24.20": [
+  {
+   "cls": "garbage",
+   "box": [
+    908.0,
+    751.1,
+    1000.0,
+    808.3
+   ],
+   "severity": 2,
+   "confidence": 0.92,
+   "evidence": "Small pile of dumped waste on the footpath verge."
+  }
+ ],
+ "24.30": [
+  {
+   "cls": "garbage",
+   "box": [
+    988.6,
+    800.7,
+    1000.0,
+    886.6
+   ],
+   "severity": 2,
+   "confidence": 0.92,
+   "evidence": "Small pile of dumped waste on the footpath verge."
+  }
+ ],
+ "24.40": [],
+ "24.50": [],
+ "24.60": [],
+ "24.70": [],
+ "24.80": [
+  {
+   "cls": "patch_repair",
+   "box": [
+    498.0,
+    585.2,
+    564.9,
+    594.4
+   ],
+   "severity": 1,
+   "confidence": 0.92,
+   "evidence": "Well-finished patch repair, no surface irregularity."
+  }
+ ],
+ "24.90": [
+  {
+   "cls": "patch_repair",
+   "box": [
+    497.9,
+    590.2,
+    569.2,
+    600.6
+   ],
+   "severity": 1,
+   "confidence": 0.92,
+   "evidence": "Well-finished patch repair, no surface irregularity."
+  }
+ ],
+ "25.00": [
+  {
+   "cls": "patch_repair",
+   "box": [
+    497.8,
+    595.9,
+    574.1,
+    607.8
+   ],
+   "severity": 1,
+   "confidence": 0.92,
+   "evidence": "Well-finished patch repair, no surface irregularity."
+  }
+ ],
+ "25.10": [
+  {
+   "cls": "patch_repair",
+   "box": [
+    497.6,
+    602.3,
+    579.7,
+    616.0
+   ],
+   "severity": 1,
+   "confidence": 0.92,
+   "evidence": "Well-finished patch repair, no surface irregularity."
+  }
+ ],
+ "25.20": [
+  {
+   "cls": "patch_repair",
+   "box": [
+    497.4,
+    609.7,
+    586.3,
+    625.5
+   ],
+   "severity": 1,
+   "confidence": 0.92,
+   "evidence": "Well-finished patch repair, no surface irregularity."
+  }
+ ],
+ "25.30": [
+  {
+   "cls": "patch_repair",
+   "box": [
+    497.1,
+    618.2,
+    594.1,
+    636.8
+   ],
+   "severity": 1,
+   "confidence": 0.92,
+   "evidence": "Well-finished patch repair, no surface irregularity."
+  }
+ ],
+ "25.40": [
+  {
+   "cls": "patch_repair",
+   "box": [
+    496.9,
+    628.2,
+    603.4,
+    650.3
+   ],
+   "severity": 1,
+   "confidence": 0.92,
+   "evidence": "Well-finished patch repair, no surface irregularity."
+  }
+ ],
+ "25.50": [
+  {
+   "cls": "patch_repair",
+   "box": [
+    496.5,
+    640.0,
+    614.7,
+    666.8
+   ],
+   "severity": 1,
+   "confidence": 0.92,
+   "evidence": "Well-finished patch repair, no surface irregularity."
+  }
+ ],
+ "25.60": [
+  {
+   "cls": "patch_repair",
+   "box": [
+    496.1,
+    654.1,
+    628.8,
+    687.3
+   ],
+   "severity": 1,
+   "confidence": 0.92,
+   "evidence": "Well-finished patch repair, no surface irregularity."
+  }
+ ],
+ "25.70": [
+  {
+   "cls": "patch_repair",
+   "box": [
+    495.5,
+    671.5,
+    646.9,
+    713.6
+   ],
+   "severity": 1,
+   "confidence": 0.92,
+   "evidence": "Well-finished patch repair, no surface irregularity."
+  }
+ ],
+ "25.80": [
+  {
+   "cls": "patch_repair",
+   "box": [
+    494.8,
+    693.3,
+    670.9,
+    748.5
+   ],
+   "severity": 1,
+   "confidence": 0.92,
+   "evidence": "Well-finished patch repair, no surface irregularity."
+  }
+ ],
+ "25.90": [
+  {
+   "cls": "patch_repair",
+   "box": [
+    493.8,
+    721.4,
+    704.2,
+    797.0
+   ],
+   "severity": 1,
+   "confidence": 0.92,
+   "evidence": "Well-finished patch repair, no surface irregularity."
+  }
+ ],
+ "26.00": [
+  {
+   "cls": "patch_repair",
+   "box": [
+    492.3,
+    759.1,
+    753.7,
+    869.0
+   ],
+   "severity": 1,
+   "confidence": 0.92,
+   "evidence": "Well-finished patch repair, no surface irregularity."
+  }
+ ],
+ "26.10": [
+  {
+   "cls": "patch_repair",
+   "box": [
+    489.9,
+    812.2,
+    834.9,
+    987.1
+   ],
+   "severity": 1,
+   "confidence": 0.92,
+   "evidence": "Well-finished patch repair, no surface irregularity."
+  }
+ ],
+ "26.20": [
+  {
+   "cls": "patch_repair",
+   "box": [
+    485.1,
+    892.8,
+    992.5,
+    1000.0
+   ],
+   "severity": 1,
+   "confidence": 0.92,
+   "evidence": "Well-finished patch repair, no surface irregularity."
+  }
+ ],
+ "26.30": [],
+ "26.40": [],
+ "26.50": [
+  {
+   "cls": "footpath_damaged",
+   "box": [
+    666.4,
+    597.4,
+    733.8,
+    605.9
+   ],
+   "severity": 2,
+   "confidence": 0.92,
+   "evidence": "Single fractured paving slab on an otherwise sound footpath."
+  }
+ ],
+ "26.60": [
+  {
+   "cls": "footpath_damaged",
+   "box": [
+    677.8,
+    604.1,
+    751.3,
+    613.8
+   ],
+   "severity": 2,
+   "confidence": 0.92,
+   "evidence": "Single fractured paving slab on an otherwise sound footpath."
+  }
+ ],
+ "26.70": [
+  {
+   "cls": "footpath_damaged",
+   "box": [
+    690.9,
+    611.7,
+    771.6,
+    623.0
+   ],
+   "severity": 2,
+   "confidence": 0.92,
+   "evidence": "Single fractured paving slab on an otherwise sound footpath."
+  }
+ ],
+ "26.80": [
+  {
+   "cls": "footpath_damaged",
+   "box": [
+    706.0,
+    620.6,
+    795.5,
+    633.8
+   ],
+   "severity": 2,
+   "confidence": 0.92,
+   "evidence": "Single fractured paving slab on an otherwise sound footpath."
+  }
+ ],
+ "26.90": [
+  {
+   "cls": "footpath_damaged",
+   "box": [
+    723.7,
+    630.9,
+    824.0,
+    646.7
+   ],
+   "severity": 2,
+   "confidence": 0.92,
+   "evidence": "Single fractured paving slab on an otherwise sound footpath."
+  }
+ ],
+ "27.00": [
+  {
+   "cls": "footpath_damaged",
+   "box": [
+    744.7,
+    643.3,
+    858.6,
+    662.4
+   ],
+   "severity": 2,
+   "confidence": 0.92,
+   "evidence": "Single fractured paving slab on an otherwise sound footpath."
+  }
+ ],
+ "27.10": [
+  {
+   "cls": "footpath_damaged",
+   "box": [
+    770.2,
+    658.1,
+    901.4,
+    681.8
+   ],
+   "severity": 2,
+   "confidence": 0.92,
+   "evidence": "Single fractured paving slab on an otherwise sound footpath."
+  }
+ ],
+ "27.20": [
+  {
+   "cls": "footpath_damaged",
+   "box": [
+    801.5,
+    676.5,
+    955.8,
+    706.4
+   ],
+   "severity": 2,
+   "confidence": 0.92,
+   "evidence": "Single fractured paving slab on an otherwise sound footpath."
+  }
+ ],
+ "27.30": [
+  {
+   "cls": "footpath_damaged",
+   "box": [
+    841.0,
+    699.6,
+    1000.0,
+    738.8
+   ],
+   "severity": 2,
+   "confidence": 0.92,
+   "evidence": "Single fractured paving slab on an otherwise sound footpath."
+  }
+ ],
+ "27.40": [
+  {
+   "cls": "footpath_damaged",
+   "box": [
+    892.5,
+    729.8,
+    1000.0,
+    783.2
+   ],
+   "severity": 2,
+   "confidence": 0.92,
+   "evidence": "Single fractured paving slab on an otherwise sound footpath."
+  }
+ ],
+ "27.50": [
+  {
+   "cls": "footpath_damaged",
+   "box": [
+    962.3,
+    770.6,
+    1000.0,
+    847.9
+   ],
+   "severity": 2,
+   "confidence": 0.92,
+   "evidence": "Single fractured paving slab on an otherwise sound footpath."
+  }
+ ],
+ "27.60": [],
+ "27.70": [],
+ "27.80": [],
+ "27.90": [],
+ "28.00": [],
+ "28.10": [],
+ "28.20": [],
+ "28.30": [],
+ "28.40": [],
+ "28.50": [],
+ "28.60": [],
+ "28.70": [],
+ "28.80": [],
+ "28.90": [],
+ "29.00": [],
+ "29.10": [],
+ "29.20": [],
+ "29.30": [],
+ "29.40": [],
+ "29.50": [],
+ "29.60": [],
+ "29.70": [],
+ "29.80": [],
+ "29.90": []
+}

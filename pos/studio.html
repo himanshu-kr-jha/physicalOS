@@ -1,0 +1,383 @@
+<!doctype html>
+<!--
+  PhysicalOS Studio: upload a video + GPX, watch the pipeline, open the result.
+
+  Deliberately a single dependency-free page rather than part of the React app.
+  The viewer is a 3D scene that loads a FINISHED run; this is a form and a log
+  tail. Keeping them separate means the upload page still works when the viewer
+  bundle has not been built -- which is exactly the state a first-time user is in.
+
+  The one piece of judgement this form CANNOT make for the user is the camera
+  calibration, so it does not pretend to: it prints the real numbers for the
+  chosen config and says plainly what picking the wrong one costs. Everything
+  else -- notably the video/GPS clock offset, which silently displaces every
+  finding by metres -- is detected server-side by `pos doctor` before the run.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>PhysicalOS Studio</title>
+<style>
+  :root {
+    --bg: #0b0f14; --panel: #141b23; --line: #263140;
+    --ink: #e6edf3; --muted: #8b98a5; --accent: #5b8def;
+    --ok: #3fb950; --warn: #d29922; --bad: #f85149;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font: 14px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  }
+  header {
+    padding: 18px 24px; border-bottom: 1px solid var(--line);
+    display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap;
+  }
+  header h1 { margin: 0; font-size: 17px; letter-spacing: .2px; }
+  header .tag { color: var(--muted); font-size: 12px; }
+  header a { color: var(--accent); font-size: 12px; text-decoration: none; }
+  main {
+    display: grid; grid-template-columns: minmax(340px, 460px) 1fr;
+    gap: 22px; padding: 22px 24px;
+  }
+  @media (max-width: 900px) { main { grid-template-columns: 1fr; } }
+  .card {
+    background: var(--panel); border: 1px solid var(--line);
+    border-radius: 8px; padding: 16px 18px;
+  }
+  .card h2 {
+    margin: 0 0 4px; font-size: 12px; text-transform: uppercase;
+    letter-spacing: .09em; color: var(--muted);
+  }
+  label { display: block; margin: 13px 0 4px; font-size: 12px; color: var(--muted); }
+  input[type=file], input[type=text], select {
+    width: 100%; padding: 8px 9px; background: #0d1117; color: var(--ink);
+    border: 1px solid var(--line); border-radius: 5px; font-size: 13px;
+  }
+  .row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  button {
+    margin-top: 16px; width: 100%; padding: 11px; font-size: 14px; font-weight: 600;
+    background: var(--accent); color: #fff; border: 0; border-radius: 6px; cursor: pointer;
+  }
+  button:disabled { background: #30363d; color: var(--muted); cursor: not-allowed; }
+  .note { margin-top: 10px; font-size: 11.5px; color: var(--muted); line-height: 1.5; }
+  .warn { color: var(--warn); } .bad { color: var(--bad); } .ok { color: var(--ok); }
+  code { background: #0d1117; padding: 1px 4px; border-radius: 3px; font-size: 11px; }
+  #log {
+    margin: 0; height: 340px; overflow: auto; white-space: pre-wrap; word-break: break-word;
+    font: 11.5px/1.5 ui-monospace, SFMono-Regular, Menlo, monospace;
+    background: #0d1117; border: 1px solid var(--line); border-radius: 6px;
+    padding: 10px; color: #b9c4cf;
+  }
+  .stage { display: flex; align-items: center; gap: 9px; margin-bottom: 10px; font-size: 13px; }
+  .dot { width: 9px; height: 9px; border-radius: 50%; background: var(--muted); flex: none; }
+  .dot.run { background: var(--accent); animation: pulse 1.1s infinite; }
+  .dot.done { background: var(--ok); }
+  .dot.fail { background: var(--bad); }
+  @keyframes pulse { 0%,100% { opacity: 1 } 50% { opacity: .3 } }
+  table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+  th, td { text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--line); }
+  th { color: var(--muted); font-weight: 500; font-size: 11px; text-transform: uppercase; }
+  td a { color: var(--accent); text-decoration: none; }
+  .grade { font-weight: 700; }
+  .links { margin-top: 12px; display: flex; gap: 8px; flex-wrap: wrap; }
+  .links a {
+    padding: 7px 11px; font-size: 12.5px; border: 1px solid var(--line);
+    border-radius: 5px; color: var(--ink); text-decoration: none;
+  }
+  .links a.primary {
+    background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 600;
+  }
+  .hidden { display: none; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>PhysicalOS Studio</h1>
+  <span class="tag">video + GPX &rarr; geolocated defect map</span>
+  <a href="/" target="_blank">open viewer &rarr;</a>
+</header>
+
+<main>
+  <section class="card">
+    <h2>New survey</h2>
+
+    <label for="video">Video</label>
+    <input type="file" id="video" accept="video/*,.mp4,.mov,.mkv,.avi,.webm" />
+
+    <label for="gpx">GPX track (from the same recording)</label>
+    <input type="file" id="gpx" accept=".gpx,.xml" />
+
+    <label for="name">Run name <span style="opacity:.6">(optional)</span></label>
+    <input type="text" id="name" placeholder="e.g. kohima-north" />
+
+    <div class="row">
+      <div>
+        <label for="camera">Camera calibration</label>
+        <select id="camera"></select>
+      </div>
+      <div>
+        <label for="domain">Domain</label>
+        <select id="domain"></select>
+      </div>
+    </div>
+
+    <!-- Only meaningful for camera=auto. Height does not affect forward range
+         (the fit measures f*h as one quantity) but it does set lateral scale,
+         so it is asked for rather than assumed. -->
+    <div class="row hidden" id="autorow">
+      <div>
+        <label for="height">Camera height above the road (m)</label>
+        <input type="number" id="height" value="1.2" step="0.05" min="0.3" max="4" />
+      </div>
+      <div>
+        <label for="fallback">If the fit fails, fall back to</label>
+        <select id="fallback"></select>
+      </div>
+    </div>
+
+    <div class="row">
+      <div>
+        <label for="backend">Detector</label>
+        <select id="backend">
+          <option value="ensemble">ensemble — local + VLM (best)</option>
+          <option value="onnx">onnx — local only, free</option>
+          <option value="cosmos">cosmos — VLM only</option>
+          <option value="mock">mock — synthetic, no key needed</option>
+        </select>
+      </div>
+      <div>
+        <label for="spacing">Keyframe spacing</label>
+        <select id="spacing">
+          <option value="2">every 2 m (recommended)</option>
+          <option value="3">every 3 m</option>
+          <option value="5">every 5 m — cheapest</option>
+          <option value="0">1 per second (legacy)</option>
+        </select>
+      </div>
+    </div>
+
+    <label for="tile" style="color:var(--ink)">
+      <input type="checkbox" id="tile" style="width:auto;vertical-align:-1px" />
+      Sliced inference — ~2.8&times; more small defects, ~8&times; slower
+    </label>
+
+    <button id="go" disabled>Process</button>
+    <div class="note" id="cal"></div>
+    <div class="note" id="env"></div>
+  </section>
+
+  <section>
+    <div class="card">
+      <h2>Progress</h2>
+      <div class="stage"><span class="dot" id="dot"></span><span id="stage">idle</span></div>
+      <pre id="log">Pick a video and its GPX track, then press Process.
+
+The pipeline runs server-side: keyframes chosen by GPS distance, defects
+detected, projected onto the road, repeat sightings clustered, route scored,
+OSM context fetched, then point cloud, satellite basemap, KMZ and PDF.
+Expect a few minutes.</pre>
+      <div class="links hidden" id="links"></div>
+    </div>
+
+    <div class="card" style="margin-top:18px">
+      <h2>Processed runs</h2>
+      <table><thead><tr>
+        <th>Run</th><th>Findings</th><th>Index</th><th>Route</th><th></th>
+      </tr></thead><tbody id="runs"></tbody></table>
+    </div>
+  </section>
+</main>
+
+<script>
+const $ = (id) => document.getElementById(id);
+const logEl = $("log");
+
+function log(line) {
+  logEl.textContent += (logEl.textContent ? "\n" : "") + line;
+  logEl.scrollTop = logEl.scrollHeight;
+}
+
+// --- populate the form from the server ------------------------------------
+let CAMS = [];
+async function boot() {
+  try {
+    const d = await (await fetch("/api/cameras")).json();
+    CAMS = d.cameras || [];
+    $("camera").innerHTML = CAMS.map((c) =>
+      c.solves_per_video
+        ? `<option value="auto" selected>auto — solve from this video</option>`
+        : `<option value="${c.name}">${c.name} — ${c.height_m} m, ${c.vfov_deg}°</option>`
+    ).join("");
+    // The fallback list is the presets only: falling back to "auto" would mean
+    // falling back to the thing that just failed.
+    $("fallback").innerHTML = CAMS.filter((c) => !c.solves_per_video).map(
+      (c) => `<option value="${c.name}"${c.is_default ? " selected" : ""}>${c.name} — ${c.height_m} m, ${c.vfov_deg}°</option>`
+    ).join("");
+    $("domain").innerHTML = (d.domains || []).map(
+      (x) => `<option value="${x}"${x === "road_pci" ? " selected" : ""}>${x}</option>`
+    ).join("");
+
+    // State what is available rather than letting the run fail later.
+    const bits = [];
+    bits.push(d.has_api_key
+      ? '<span class="ok">&check;</span> NVIDIA API key found'
+      : '<span class="warn">!</span> no NVIDIA_API_KEY &mdash; use <code>onnx</code> or <code>mock</code>');
+    bits.push(d.has_onnx
+      ? '<span class="ok">&check;</span> local ONNX model found'
+      : '<span class="warn">!</span> no POS_ONNX &mdash; <code>onnx</code>/<code>ensemble</code> unavailable');
+    $("env").innerHTML = bits.join("<br>");
+    showCal();
+  } catch (e) {
+    $("env").innerHTML = '<span class="bad">could not reach the server</span>';
+  }
+  refreshRuns();
+}
+
+// Calibration decides every distance in the output. Say which one is in play.
+function showCal() {
+  const isAuto = $("camera").value === "auto";
+  $("autorow").classList.toggle("hidden", !isAuto);
+  if (isAuto) {
+    $("cal").innerHTML =
+      "Solving the geometry from this clip: road features are tracked between " +
+      "frame pairs and matched against GPS speed, which measures the focal " +
+      "length&times;height product and the horizon row directly. Used for this " +
+      "run only. <b>The fit is checked before it is used</b> &mdash; it is " +
+      "unreliable at low speed, and if it comes out implausible the run falls " +
+      "back to the preset chosen above and says so in the log.";
+    return;
+  }
+  const c = CAMS.find((x) => x.name === $("camera").value);
+  if (!c) return;
+  $("cal").innerHTML =
+    `Projecting with <b>height ${c.height_m} m</b>, <b>vertical FOV ${c.vfov_deg}&deg;</b>. ` +
+    (c.is_default
+      ? '<span class="warn">This is the untuned default.</span> If it does not match your camera every distance is wrong in proportion &mdash; one real clip measured 24.7&deg; where this default says 58&deg;, a 2&times; range error, and the output still looks entirely plausible. Calibrate with <code>scripts/calibrate_from_motion.py</code> first.'
+      : "Positions are only as good as this calibration.");
+}
+$("camera").addEventListener("change", showCal);
+
+// --- enable Process only when both files are chosen -----------------------
+function check() {
+  $("go").disabled = !($("video").files[0] && $("gpx").files[0]);
+}
+$("video").addEventListener("change", check);
+$("gpx").addEventListener("change", check);
+
+// --- submit ---------------------------------------------------------------
+$("go").addEventListener("click", async () => {
+  const fd = new FormData();
+  fd.append("video", $("video").files[0]);
+  fd.append("gpx", $("gpx").files[0]);
+  fd.append("name", $("name").value);
+  fd.append("camera", $("camera").value);
+  fd.append("camera_height", $("height").value || "1.2");
+  fd.append("fallback_camera", $("fallback").value || "dashcam");
+  fd.append("domain", $("domain").value);
+  fd.append("backend", $("backend").value);
+  fd.append("spacing_m", $("spacing").value);
+  fd.append("tile", $("tile").checked ? "640" : "0");
+
+  $("go").disabled = true;
+  $("links").classList.add("hidden");
+  logEl.textContent = "";
+  setStage("uploading", "run");
+  log("uploading " + $("video").files[0].name + " …");
+
+  let job;
+  try {
+    const r = await fetch("/api/upload", { method: "POST", body: fd });
+    job = await r.json();
+    if (!r.ok) throw new Error(job.error || ("HTTP " + r.status));
+  } catch (e) {
+    setStage("upload failed", "fail");
+    log("ERROR " + e.message);
+    $("go").disabled = false;
+    return;
+  }
+
+  log("job " + job.job_id + " → run '" + job.run_id + "'");
+  follow(job.job_id, job.run_id);
+});
+
+function setStage(text, cls) {
+  $("stage").textContent = text;
+  $("dot").className = "dot" + (cls ? " " + cls : "");
+}
+
+// SSE, not polling: the server already streams progress line by line.
+function follow(jobId, runId) {
+  const es = new EventSource(`/api/jobs/${jobId}/events`);
+  es.onmessage = (ev) => {
+    const d = JSON.parse(ev.data);
+    if (d.type === "log") {
+      (d.lines || []).forEach(log);
+      if (d.stage) setStage(d.stage, "run");
+    } else if (d.type === "done") {
+      setStage("done", "done");
+      if (d.time_offset) log(`clock offset applied: ${d.time_offset} s`);
+      showLinks(runId);
+      es.close();
+      $("go").disabled = false;
+      refreshRuns();
+    } else if (d.type === "failed" || d.type === "error") {
+      setStage("failed", "fail");
+      log("FAILED " + (d.error || ""));
+      es.close();
+      $("go").disabled = false;
+      refreshRuns();
+    }
+  };
+  es.onerror = () => {
+    setStage("connection lost", "fail");
+    es.close();
+    $("go").disabled = false;
+  };
+}
+
+function showLinks(run) {
+  const q = encodeURIComponent(run);
+  // `&play=1` lands in the moving map: the clip plays, findings appear at the
+  // moment they were seen, and the camera travels the route. Plain `/?run=`
+  // still opens the static overview, which is the right start for studying one
+  // finding rather than watching the drive.
+  $("links").innerHTML =
+    `<a class="primary" href="/?run=${q}&amp;play=1" target="_blank">▶ Play the drive</a>` +
+    `<a href="/?run=${q}" target="_blank">Open 3D viewer</a>` +
+    `<a href="/?run=${q}&amp;play=live" target="_blank">◉ Live replay</a>` +
+    // H.264 out of `pos video`, so this plays inline in the browser rather than
+    // downloading. 404s when the render was skipped; harmless either way.
+    `<a href="/api/review.mp4?run=${q}" target="_blank">▶ Annotated video</a>` +
+    `<a href="/api/report.pdf?run=${q}" target="_blank">PDF report</a>` +
+    `<a href="/api/kml?run=${q}">Google Earth .kmz</a>`;
+  $("links").classList.remove("hidden");
+}
+
+async function refreshRuns() {
+  try {
+    const rows = await (await fetch("/api/runs")).json();
+    $("runs").innerHTML = (rows || []).map((r) => {
+      const q = encodeURIComponent(r.run);
+      const gi = r.quality_index == null
+        ? "&mdash;"
+        : `${r.quality_index} <span class="grade">${r.grade || ""}</span>`;
+      return `<tr>
+        <td>${r.run}</td>
+        <td>${r.n_findings ?? "&mdash;"}</td>
+        <td>${gi}</td>
+        <td>${r.route_m ? Math.round(r.route_m) + " m" : "&mdash;"}</td>
+        <td><a href="/?run=${q}&amp;play=1" target="_blank">▶ play</a> &middot;
+            <a href="/?run=${q}" target="_blank">view</a> &middot;
+            <a href="/api/review.mp4?run=${q}" target="_blank">video</a> &middot;
+            <a href="/api/report.pdf?run=${q}" target="_blank">pdf</a></td>
+      </tr>`;
+    }).join("") || '<tr><td colspan="5" style="color:var(--muted)">none yet</td></tr>';
+  } catch (e) { /* the table is a convenience, never a blocker */ }
+}
+
+boot();
+</script>
+</body>
+</html>

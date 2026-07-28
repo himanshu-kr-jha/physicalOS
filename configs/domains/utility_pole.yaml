@@ -1,0 +1,166 @@
+# WORKED EXAMPLE: a whole new use case, added without touching any Python.
+#
+# Overhead electrical distribution audit from a vehicle-mounted camera. Copy
+# this file, rename the key, rewrite the classes, and you have another domain.
+#
+# Three things to get right when writing your own:
+#
+#   1. prompt_context sets the persona and the standard of evidence. Say who the
+#      inspector is and tell the model not to speculate. This is the single
+#      biggest lever on output quality.
+#
+#   2. hint is the class definition the model actually reads. Write it as an
+#      inclusion AND an exclusion test -- "X, not Y" -- because the common
+#      failure is a model confidently reporting a lookalike.
+#
+#   3. geometry decides how a finding is placed. `point` for a discrete object,
+#      `segment` for a condition affecting a stretch. Anything whose base sits
+#      ABOVE the horizon cannot be ranged by ground-plane projection and gets
+#      pinned to the camera instead -- which is why the pole-top defects below
+#      carry a generous cluster_radius_m.
+
+key: utility_pole
+label: Overhead Line & Pole Audit
+description: >
+  Condition and safety audit of overhead electrical distribution -- poles,
+  conductors, transformers and service drops -- from a moving vehicle.
+index_name: Network Condition Index
+
+prompt_context: >
+  You are a distribution network inspector reviewing footage shot from a
+  vehicle travelling along a street with overhead electrical lines. Report only
+  what is clearly visible in this frame. Distinguish electrical infrastructure
+  from telecom and cable-TV lines, which are usually strung lower and are not
+  your concern. Do not speculate about anything outside the frame, and do not
+  guess at a defect you cannot actually see.
+
+classes:
+  - key: pole
+    label: Distribution Pole
+    geometry: point
+    cluster_radius_m: 8.0
+    weight: 0.0            # an asset we inventory, never a penalty
+    color: "#94a3b8"
+    hint: >
+      A concrete, steel or wooden pole carrying electrical conductors on
+      insulators. Record its presence. Not a streetlight pole with no
+      conductors, and not a telecom pole.
+
+  - key: pole_leaning
+    label: Leaning / Damaged Pole
+    geometry: point
+    cluster_radius_m: 8.0
+    weight: 4.5
+    alert: true
+    color: "#dc2626"
+    hint: >
+      A pole visibly out of vertical, cracked, spalling at the base, or
+      supported by a temporary prop. Judge against nearby verticals such as
+      building edges, not against the image border.
+
+  - key: conductor_sag
+    label: Excessive Conductor Sag
+    geometry: segment
+    cluster_radius_m: 25.0
+    weight: 4.0
+    alert: true
+    color: "#ea580c"
+    hint: >
+      A span whose lowest conductor dips far below its neighbours or hangs
+      close to reachable height. Normal catenary curve is expected; report only
+      a span clearly lower than the others around it.
+
+  - key: conductor_down
+    label: Conductor Down / Broken
+    geometry: point
+    cluster_radius_m: 10.0
+    weight: 5.0
+    alert: true
+    color: "#b91c1c"
+    hint: >
+      A cable hanging free, snapped, or touching the ground, a tree or a
+      structure. The most urgent defect in this taxonomy.
+
+  - key: insulator_damage
+    label: Damaged Insulator
+    geometry: point
+    cluster_radius_m: 6.0
+    weight: 3.5
+    color: "#f97316"
+    hint: >
+      A cracked, shattered, flashed-over or visibly contaminated insulator disc
+      or pin at the pole top.
+
+  - key: transformer_defect
+    label: Transformer Defect
+    geometry: point
+    cluster_radius_m: 6.0
+    weight: 4.0
+    alert: true
+    color: "#e11d48"
+    hint: >
+      A pole-mounted or plinth transformer with oil staining, corrosion, a
+      missing cover, or an open enclosure door.
+
+  - key: vegetation_encroachment
+    label: Vegetation Encroachment
+    geometry: segment
+    cluster_radius_m: 20.0
+    weight: 3.0
+    alert: true
+    color: "#16a34a"
+    hint: >
+      Tree branches touching or within roughly a metre of conductors. A leading
+      cause of outages and fires, so report it even when contact is marginal.
+
+  - key: illegal_tap
+    label: Unauthorised Connection
+    geometry: point
+    cluster_radius_m: 6.0
+    weight: 3.0
+    color: "#c026d3"
+    hint: >
+      An improvised hook or spliced wire tapped directly onto a conductor,
+      bypassing a meter. Often a bundle of mismatched cables at one point.
+
+  - key: service_drop_low
+    label: Low Service Drop
+    geometry: point
+    cluster_radius_m: 8.0
+    weight: 3.5
+    alert: true
+    color: "#facc15"
+    hint: >
+      A service cable to a building hanging low enough over a road or footpath
+      to be struck by a vehicle or reached by a person.
+
+  - key: exposed_wiring
+    label: Exposed / Unsheathed Wiring
+    geometry: point
+    cluster_radius_m: 5.0
+    weight: 4.0
+    alert: true
+    color: "#ef4444"
+    hint: >
+      Bare conductor, perished insulation, or an open junction box within
+      public reach at pole base or on a wall.
+
+  - key: pole_clutter
+    label: Cable Clutter
+    geometry: point
+    cluster_radius_m: 8.0
+    weight: 1.5
+    color: "#a855f7"
+    hint: >
+      A dense unmanaged bundle of cables coiled or looped at a pole, making
+      maintenance and fault-tracing impractical.
+
+  - key: missing_earthing
+    label: Missing / Damaged Earthing
+    geometry: point
+    cluster_radius_m: 6.0
+    weight: 3.0
+    color: "#0ea5e9"
+    hint: >
+      An earth strip or wire at the pole base that is cut, disconnected,
+      corroded through, or absent where the fixing points remain.

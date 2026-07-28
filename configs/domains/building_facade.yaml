@@ -1,0 +1,124 @@
+key: building_facade
+label: Building / Facade Inspection
+description: >
+  Envelope condition survey of a building exterior -- cracking, spalling,
+  water ingress, glazing and drainage defects.
+index_name: Facade Condition Index
+
+prompt_context: >
+  You are a building surveyor inspecting a facade from ground or drone level.
+  Report only defects clearly visible in this frame. Distinguish genuine
+  structural or envelope defects from surface staining, shadow and normal
+  weathering. Note the approximate storey or elevation where you can.
+
+classes:
+  - key: structural_crack
+    label: Structural Crack
+    geometry: point
+    cluster_radius_m: 2.0
+    weight: 5.0
+    alert: true
+    color: "#b91c1c"
+    hint: >
+      A wide, diagonal or stepped crack through masonry or concrete,
+      especially near openings or corners. Suggests movement, not shrinkage.
+
+  - key: surface_crack
+    label: Surface Cracking
+    geometry: point
+    cluster_radius_m: 2.5
+    weight: 1.5
+    color: "#f97316"
+    hint: >
+      Fine map cracking, crazing or plaster shrinkage cracks with no
+      displacement.
+
+  - key: spalling
+    label: Spalling / Delamination
+    geometry: point
+    cluster_radius_m: 2.0
+    weight: 4.0
+    alert: true
+    color: "#dc2626"
+    hint: >
+      Concrete or render broken away from the substrate, often with rust
+      staining or exposed reinforcement behind it.
+
+  - key: exposed_reinforcement
+    label: Exposed Reinforcement
+    geometry: point
+    cluster_radius_m: 2.0
+    weight: 4.5
+    alert: true
+    color: "#ea580c"
+    hint: >
+      Corroding steel reinforcement visible through the concrete cover.
+
+  - key: seepage
+    label: Water Seepage / Damp
+    geometry: point
+    cluster_radius_m: 3.0
+    weight: 2.5
+    color: "#0ea5e9"
+    hint: >
+      Dark damp patches, efflorescence, or streaking indicating persistent
+      water ingress through the envelope.
+
+  - key: biological_growth
+    label: Algae / Vegetation Growth
+    geometry: point
+    cluster_radius_m: 3.0
+    weight: 1.5
+    color: "#16a34a"
+    hint: >
+      Moss, algae, or plants rooted in joints, gutters or cracks -- a sign
+      of chronic moisture retention.
+
+  - key: drainage_defect
+    label: Drainage Defect
+    geometry: point
+    cluster_radius_m: 2.5
+    weight: 2.5
+    color: "#38bdf8"
+    hint: >
+      Broken, detached, blocked or discharging downpipe, gutter or weep hole.
+
+  - key: glazing_damage
+    label: Broken / Missing Glazing
+    geometry: point
+    cluster_radius_m: 2.0
+    weight: 3.0
+    alert: true
+    color: "#a855f7"
+    hint: Cracked, shattered, missing or boarded-up window glazing.
+
+  - key: render_loss
+    label: Render / Cladding Loss
+    geometry: point
+    cluster_radius_m: 2.5
+    weight: 3.0
+    color: "#c084fc"
+    hint: >
+      Detached or missing render, tile, or cladding panel leaving the
+      substrate exposed. A falling-material risk if at height.
+
+  - key: paint_deterioration
+    label: Paint Deterioration
+    geometry: segment
+    cluster_radius_m: 8.0
+    weight: 1.0
+    color: "#facc15"
+    hint: >
+      Peeling, blistering, chalking or heavily faded coating across this
+      elevation.
+
+  - key: unsafe_projection
+    label: Unsafe Projection / Fixture
+    geometry: point
+    cluster_radius_m: 2.5
+    weight: 3.5
+    alert: true
+    color: "#ef4444"
+    hint: >
+      A loose air-conditioning unit, signboard, canopy, cable or balcony
+      element at risk of falling onto a public area.

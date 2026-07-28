@@ -1,0 +1,234 @@
+[
+  {
+    "cls": "crack",
+    "s_m": 22,
+    "lateral_m": 0.3,
+    "lat": 12.971597305066476,
+    "lon": 77.5948028037158,
+    "severity": 1
+  },
+  {
+    "cls": "patch_repair",
+    "s_m": 34,
+    "lateral_m": -1.0,
+    "lat": 12.97160898311175,
+    "lon": 77.59491342392441,
+    "severity": 1
+  },
+  {
+    "cls": "streetlight",
+    "s_m": 20,
+    "lateral_m": 5.6,
+    "lat": 12.9715496945742,
+    "lon": 77.59478436701436,
+    "severity": 1
+  },
+  {
+    "cls": "pothole",
+    "s_m": 50,
+    "lateral_m": -1.2,
+    "lat": 12.9716107797341,
+    "lon": 77.5950609175359,
+    "severity": 4
+  },
+  {
+    "cls": "pothole",
+    "s_m": 55,
+    "lateral_m": 1.5,
+    "lat": 12.971586525332375,
+    "lon": 77.59510700928949,
+    "severity": 5
+  },
+  {
+    "cls": "crack",
+    "s_m": 59,
+    "lateral_m": 0.2,
+    "lat": 12.971598203377651,
+    "lon": 77.59514388269235,
+    "severity": 3
+  },
+  {
+    "cls": "pothole",
+    "s_m": 63,
+    "lateral_m": -0.5,
+    "lat": 12.971604491555876,
+    "lon": 77.59518075609523,
+    "severity": 4
+  },
+  {
+    "cls": "waterlogging",
+    "s_m": 69,
+    "lateral_m": -1.8,
+    "lat": 12.97161616960115,
+    "lon": 77.59523606619953,
+    "severity": 4
+  },
+  {
+    "cls": "pothole",
+    "s_m": 75,
+    "lateral_m": 1.2,
+    "lat": 12.971589220265901,
+    "lon": 77.59529137630385,
+    "severity": 5
+  },
+  {
+    "cls": "hazard",
+    "s_m": 80,
+    "lateral_m": 0.6,
+    "lat": 12.97159461013295,
+    "lon": 77.59533746805744,
+    "severity": 5
+  },
+  {
+    "cls": "crack",
+    "s_m": 85,
+    "lateral_m": -0.4,
+    "lat": 12.9716035932447,
+    "lon": 77.59538355981103,
+    "severity": 4
+  },
+  {
+    "cls": "pothole",
+    "s_m": 89,
+    "lateral_m": 1.6,
+    "lat": 12.9715856270212,
+    "lon": 77.5954204332139,
+    "severity": 4
+  },
+  {
+    "cls": "garbage",
+    "s_m": 93,
+    "lateral_m": 4.5,
+    "lat": 12.971559575997127,
+    "lon": 77.59545730661677,
+    "severity": 3
+  },
+  {
+    "cls": "footpath_damaged",
+    "s_m": 97,
+    "lateral_m": 4.6,
+    "lat": 12.971558677685952,
+    "lon": 77.59549418001964,
+    "severity": 4
+  },
+  {
+    "cls": "pothole",
+    "s_m": 102,
+    "lateral_m": -1.0,
+    "lat": 12.97160898311175,
+    "lon": 77.59554027177323,
+    "severity": 3
+  },
+  {
+    "cls": "waterlogging",
+    "s_m": 107,
+    "lateral_m": 1.4,
+    "lat": 12.97158742364355,
+    "lon": 77.59558636352682,
+    "severity": 3
+  },
+  {
+    "cls": "footpath_obstruction",
+    "s_m": 111,
+    "lateral_m": 4.8,
+    "lat": 12.9715568810636,
+    "lon": 77.5956232369297,
+    "severity": 3
+  },
+  {
+    "cls": "pothole",
+    "s_m": 116,
+    "lateral_m": 0.9,
+    "lat": 12.971591915199426,
+    "lon": 77.59566932868329,
+    "severity": 4
+  },
+  {
+    "cls": "streetlight",
+    "s_m": 60,
+    "lateral_m": 5.6,
+    "lat": 12.9715496945742,
+    "lon": 77.59515310104308,
+    "severity": 1
+  },
+  {
+    "cls": "crack",
+    "s_m": 128,
+    "lateral_m": 0.3,
+    "lat": 12.971597305066476,
+    "lon": 77.5957799488919,
+    "severity": 2
+  },
+  {
+    "cls": "patch_repair",
+    "s_m": 137,
+    "lateral_m": -1.1,
+    "lat": 12.971609881422925,
+    "lon": 77.59586291404835,
+    "severity": 1
+  },
+  {
+    "cls": "footpath_damaged",
+    "s_m": 145,
+    "lateral_m": 4.5,
+    "lat": 12.971559575997127,
+    "lon": 77.59593666085411,
+    "severity": 2
+  },
+  {
+    "cls": "pothole",
+    "s_m": 158,
+    "lateral_m": 1.1,
+    "lat": 12.971590118577076,
+    "lon": 77.59605649941344,
+    "severity": 3
+  },
+  {
+    "cls": "streetlight",
+    "s_m": 150,
+    "lateral_m": 5.6,
+    "lat": 12.9715496945742,
+    "lon": 77.5959827526077,
+    "severity": 1
+  },
+  {
+    "cls": "crack",
+    "s_m": 176,
+    "lateral_m": -0.2,
+    "lat": 12.97160179662235,
+    "lon": 77.59622242972635,
+    "severity": 1
+  },
+  {
+    "cls": "garbage",
+    "s_m": 198,
+    "lateral_m": 4.4,
+    "lat": 12.971560474308301,
+    "lon": 77.59642523344215,
+    "severity": 2
+  },
+  {
+    "cls": "patch_repair",
+    "s_m": 212,
+    "lateral_m": 0.8,
+    "lat": 12.9715928135106,
+    "lon": 77.5965542903522,
+    "severity": 1
+  },
+  {
+    "cls": "footpath_damaged",
+    "s_m": 224,
+    "lateral_m": 4.7,
+    "lat": 12.971557779374775,
+    "lon": 77.59666491056082,
+    "severity": 2
+  },
+  {
+    "cls": "streetlight",
+    "s_m": 190,
+    "lateral_m": 5.6,
+    "lat": 12.9715496945742,
+    "lon": 77.59635148663641,
+    "severity": 1
+  }
+]
