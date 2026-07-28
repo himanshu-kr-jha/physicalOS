@@ -36,17 +36,6 @@ build-backend = "hatchling.build"
 [tool.hatch.build.targets.wheel]
 packages = ["pos"]
 
-# CUDA torch for GPU instances (Tesla T4 / CUDA 13.0 driver).
-# The cu124 wheels are backward-compatible with any driver >= 525.
-# torchvision MUST come from the same index as torch — a mismatch installs
-# two builds compiled against different ABIs, and the failure is not an
-# install error but `RuntimeError: operator torchvision::nms does not exist`
-# at import time from inside open_clip.
-[tool.uv.sources]
-torch = { index = "pytorch-cuda" }
-torchvision = { index = "pytorch-cuda" }
-
-[[tool.uv.index]]
-name = "pytorch-cuda"
-url = "https://download.pytorch.org/whl/cu124"
-explicit = true
+# GPU instance (Tesla T4 / CUDA 13.0). No custom index needed: the default
+# PyPI torch wheel ships with CUDA support built-in. The CPU-only override
+# that used to be here was solely to save ~2 GB on a machine with no GPU.
