@@ -617,17 +617,18 @@ def create_app(
                     )
                 except Exception:  # noqa: BLE001
                     continue
-            return JSONResponse(
-                {
-                    "cameras": cams,
-                    "domains": available_domains(),
-                    "has_api_key": bool(os.environ.get("NVIDIA_API_KEY")),
-                    "has_onnx": bool(
-                        os.environ.get("POS_ONNX")
-                        and Path(os.environ["POS_ONNX"]).exists()
-                    ),
-                }
-            )
+            data = {
+                "cameras": cams,
+                "domains": available_domains(),
+                "has_api_key": bool(os.environ.get("NVIDIA_API_KEY")),
+            }
+            try:
+                from .perception.onnx_yolo import resolve_model_path
+                data["has_onnx"] = bool(resolve_model_path(None))
+            except Exception:
+                data["has_onnx"] = False
+
+            return JSONResponse(data)
 
         # The upload page. Served explicitly so it wins over the viewer mount.
         @app.get("/studio")
