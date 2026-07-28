@@ -59,7 +59,14 @@ from PIL import Image
 from .ortproviders import describe as ort_describe
 from .ortproviders import providers as ort_providers
 
-DEFAULT_MODEL = (
+# Shipped in the repo, so a clone on another machine works with no setup. Resolved
+# relative to this file rather than the process CWD, because the studio runs the
+# CLI as a subprocess from whatever directory the server was started in.
+BUNDLED_MODEL = Path(__file__).resolve().parent.parent / "models" / "road_seg_unet" / "model.onnx"
+
+# Where the weights lived before they were vendored. Kept as a last resort so an
+# existing checkout on the original machine keeps working.
+LEGACY_MODEL = (
     Path.home()
     / "Documents/Cognecto/vision-stack/infrastructure/triton/models/road_seg_unet/1/model.onnx"
 )
@@ -197,11 +204,12 @@ class RoadSegError(RuntimeError):
 
 
 def resolve_model_path(model_path: str | Path | None = None) -> Path:
-    """Explicit argument, then POS_ROAD_SEG, then the known triton path.
+    """Explicit argument, then POS_ROAD_SEG, then the bundled copy, then legacy.
 
-    The env var sits in the middle deliberately: it lets an operator relocate the
-    weights without touching code or every call site, while an explicit argument
-    still wins so a test can pin one specific file.
+    The env var sits above the bundled weights deliberately: it lets an operator
+    point at a newer or larger model without touching code, while an explicit
+    argument still wins so a test can pin one specific file. The bundled copy is
+    what makes a fresh clone work unattended.
     """
     candidates: list[Path] = []
     if model_path:
@@ -209,7 +217,8 @@ def resolve_model_path(model_path: str | Path | None = None) -> Path:
     env = os.environ.get(MODEL_ENV_VAR, "").strip()
     if env:
         candidates.append(Path(env).expanduser())
-    candidates.append(DEFAULT_MODEL)
+    candidates.append(BUNDLED_MODEL)
+    candidates.append(LEGACY_MODEL)
 
     for path in candidates:
         if path.exists():

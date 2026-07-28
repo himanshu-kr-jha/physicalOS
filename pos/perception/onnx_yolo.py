@@ -32,6 +32,7 @@ network-triggered, so take advice before shipping it inside a closed product.
 
 from __future__ import annotations
 
+import os
 import threading
 from pathlib import Path
 
@@ -40,10 +41,47 @@ import numpy as np
 from ..config import DomainConfig
 from ..schema import BOX_SCALE, Detection, Frame
 
-DEFAULT_MODEL = (
+# Shipped in the repo, so a clone on another machine works with no setup. Resolved
+# relative to this file, not the process CWD, because the studio runs the CLI as a
+# subprocess from wherever the server happened to be started.
+BUNDLED_MODEL = (
+    Path(__file__).resolve().parent.parent.parent / "models" / "post_cons" / "model.onnx"
+)
+
+# Where the weights lived before they were vendored. Last resort, so an existing
+# checkout on the original machine keeps working.
+LEGACY_MODEL = (
     Path.home()
     / "Documents/Cognecto/vision-stack/infrastructure/triton/models/post_cons/1/model.onnx"
 )
+
+MODEL_ENV_VAR = "POS_ONNX"
+
+
+def resolve_model_path(model_path: Path | str | None = None) -> Path:
+    """Explicit argument, then POS_ONNX, then the bundled copy, then legacy.
+
+    Mirrors pos/segment.py::resolve_model_path so both models are found the same
+    way -- an operator who learns one has learned the other.
+    """
+    candidates: list[Path] = []
+    if model_path:
+        candidates.append(Path(model_path).expanduser())
+    env = os.environ.get(MODEL_ENV_VAR, "").strip()
+    if env:
+        candidates.append(Path(env).expanduser())
+    candidates.append(BUNDLED_MODEL)
+    candidates.append(LEGACY_MODEL)
+
+    for path in candidates:
+        if path.exists():
+            return path
+
+    tried = "\n".join(f"  {p}" for p in candidates)
+    raise OnnxYoloError(
+        f"post_cons ONNX model not found. Tried:\n{tried}\n"
+        f"Set {MODEL_ENV_VAR}, or pass --model-path."
+    )
 
 # Mapped by INDEX, deliberately. The model's metadata spells index 4
 # "longitudial crack"; we do not propagate that typo into our schema. These keys
@@ -169,12 +207,7 @@ class OnnxYoloDetector:
                 "  uv pip install onnxruntime"
             ) from exc
 
-        path = Path(model_path) if model_path else DEFAULT_MODEL
-        if not path.exists():
-            raise OnnxYoloError(
-                f"Model not found at {path}\n"
-                "Pass --model-path pointing at post_cons/1/model.onnx"
-            )
+        path = resolve_model_path(model_path)
 
         self.domain = domain
         self.conf_threshold = conf_threshold
