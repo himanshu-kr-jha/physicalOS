@@ -28,6 +28,26 @@ def _require_ffmpeg() -> None:
         raise IngestError("ffmpeg not found on PATH. Install it: sudo apt install ffmpeg")
 
 
+def _passthrough_args() -> list[str]:
+    """Return the ffmpeg flag that disables frame-rate re-timing.
+
+    ffmpeg >= 5.1 uses ``-fps_mode passthrough``; older builds (Ubuntu 22.04
+    ships 4.4.x) only know ``-vsync 0``, which does the same thing.
+    """
+    try:
+        out = subprocess.run(
+            ["ffmpeg", "-hide_banner", "-fps_mode", "passthrough", "-f",
+             "lavfi", "-i", "nullsrc=s=2x2:d=0", "-frames:v", "0",
+             "-f", "null", "-"],
+            capture_output=True, text=True,
+        )
+        if out.returncode == 0:
+            return ["-fps_mode", "passthrough"]
+    except Exception:  # noqa: BLE001
+        pass
+    return ["-vsync", "0"]
+
+
 def probe_duration(video: Path) -> float:
     """Duration in seconds via ffprobe. 0.0 if it cannot be determined."""
     if shutil.which("ffprobe") is None:
@@ -138,7 +158,7 @@ def extract_frames(
     if step >= 1:
         # Keep every `step`-th source frame. -fps_mode passthrough stops ffmpeg
         # re-timing the output and dropping or duplicating frames.
-        args = ["-vf", f"select=not(mod(n\\,{step}))", "-fps_mode", "passthrough"]
+        args = ["-vf", f"select=not(mod(n\\,{step}))", *_passthrough_args()]
     else:
         # Unknown source rate: fall back to the fps filter.
         args = ["-vf", f"fps={fps}"]
@@ -254,7 +274,7 @@ def extract_frames_at(
             "ffmpeg", "-hide_banner", "-loglevel", "error", "-y",
             "-i", str(video),
             "-vf", f"select='{expr}'",
-            "-fps_mode", "passthrough",
+            *_passthrough_args(),
             "-q:v", "3",
             str(out_dir / "%05d.jpg"),
         ],
