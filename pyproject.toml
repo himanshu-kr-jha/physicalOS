@@ -15,7 +15,7 @@ dependencies = [
     "fastapi>=0.111",
     "uvicorn>=0.30",
     "python-dotenv>=1.0",
-    "onnxruntime-gpu>=1.24.3,<1.28",
+    "onnxruntime>=1.24.3",
     # PDF inspection reports (`pos report`). BSD-licensed, pure Python.
     "reportlab>=4.0",
     # Multipart form parsing, so the web UI can accept a video + GPX upload.
