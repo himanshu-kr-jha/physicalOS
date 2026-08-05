@@ -166,17 +166,29 @@ def build_twin(
     margin_m: float = 120.0,
     offline: bool = False,
 ) -> Twin:
-    """Fetch and write context geometry. Returns an empty Twin on failure."""
+    """Fetch and write context geometry. Raises if Overpass could not be reached.
+
+    A FAILURE MUST NOT BE PERSISTED AS AN EMPTY RESULT. Overpass is rate limited,
+    so a refused query is the ordinary failure here -- and an empty twin.json is
+    indistinguishable from "this place has no buildings". That is how several runs
+    in this repo ended up with zero buildings in dense central Delhi with nothing
+    saying why: the write happened anyway, so re-running looked pointless.
+
+    Writing nothing leaves the run repairable -- `pos twin --run <run>` fixes it --
+    and costs nothing meanwhile, because /api/twin already answers with an empty
+    twin when the file is absent.
+
+    The exception propagates, which both callers already expect: the `twin` CLI
+    command surfaces it, and `pos run` catches it and warns without failing the run.
+    """
     out_path = Path(out_path)
 
     if offline:
+        # Deliberately empty, and safe to persist: the caller asked us not to look.
         twin = Twin()
     else:
         bbox = route_bbox(frames, margin_m=margin_m)
-        try:
-            twin = parse_overpass(_fetch(bbox, out_path.parent / ".cache"))
-        except Exception:  # noqa: BLE001 - never fatal; the viewer copes
-            twin = Twin()
+        twin = parse_overpass(_fetch(bbox, out_path.parent / ".cache"))
 
     out_path.write_text(json.dumps(twin.model_dump(), indent=2))
     return twin

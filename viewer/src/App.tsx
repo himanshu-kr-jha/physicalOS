@@ -26,8 +26,11 @@ export function App() {
   if (loading) {
     return (
       <div className="boot">
-        <div className="brand-dot big" />
-        <div>Loading run…</div>
+        <div className="boot-spinner" />
+        <div className="boot-text">
+          <div className="brand-name" style={{ fontSize: '18px', marginBottom: '4px' }}>PhysicalOS</div>
+          <div className="muted small">Loading run…</div>
+        </div>
       </div>
     );
   }

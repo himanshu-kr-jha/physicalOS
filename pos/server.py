@@ -28,6 +28,7 @@ from fastapi.staticfiles import StaticFiles
 
 from .config import CameraConfig, DomainConfig, available_domains
 from .jobs import (
+    CSV_SUFFIXES,
     MAX_UPLOAD_BYTES,
     TRACK_SUFFIXES,
     VIDEO_SUFFIXES,
@@ -138,9 +139,15 @@ def create_app(
         # Tell the viewer whether the source clip is actually reachable, so it
         # can hide the video panel rather than showing a broken player.
         try:
-            root = Path(__file__).resolve().parent.parent
-            vt = (root / data.get("video", "")).resolve()
-            data["has_video"] = str(vt).startswith(str(root)) and vt.exists()
+            video_path_str = data.get("video", "")
+            if not video_path_str:
+                data["has_video"] = False
+            else:
+                vt = Path(video_path_str)
+                if not vt.is_absolute():
+                    root = Path(__file__).resolve().parent.parent
+                    vt = (root / vt).resolve()
+                data["has_video"] = vt.exists()
         except (OSError, ValueError):
             data["has_video"] = False
         return JSONResponse(data)
@@ -202,9 +209,15 @@ def create_app(
             return JSONResponse({"error": "no manifest"}, status_code=404)
 
         rel = json.loads(mpath.read_text()).get("video", "")
-        root = Path(__file__).resolve().parent.parent
-        target = (root / rel).resolve()
-        if not str(target).startswith(str(root)) or not target.exists():
+        if not rel:
+            return JSONResponse({"error": "no video in manifest"}, status_code=404)
+            
+        target = Path(rel)
+        if not target.is_absolute():
+            root = Path(__file__).resolve().parent.parent
+            target = (root / target).resolve()
+            
+        if not target.exists():
             return JSONResponse(
                 {"error": f"video not available: {rel}"}, status_code=404
             )
@@ -452,6 +465,9 @@ def create_app(
         async def upload(
             video: UploadFile = File(...),
             gpx: UploadFile = File(...),
+            # Optional. Supplied, it IS the findings list and detection is skipped
+            # entirely -- see the CSV path in pos/jobs.py.
+            csv: UploadFile | None = File(None),
             camera: str = Form("dashcam"),
             # "auto" solves calibration from this clip. These two only matter in
             # that case: the assumed mounting height, and what to fall back to
@@ -464,13 +480,18 @@ def create_app(
             tile: int = Form(0),
             name: str = Form(""),
         ):
-            """Accept a video + GPX and start a pipeline job.
+            """Accept a video + GPX, optionally a findings CSV, and start a job.
 
             The extension allow-list is the only file validation worth doing here:
-            the bytes go to ffmpeg and gpxpy, which reject nonsense themselves, and
-            nothing is ever executed. What matters is that the stored NAME cannot
-            escape the uploads directory, so only the suffix is trusted and the
-            stem is discarded.
+            the bytes go to ffmpeg, gpxpy and csv.DictReader, which reject nonsense
+            themselves, and nothing is ever executed. What matters is that the stored
+            NAME cannot escape the uploads directory, so only the suffix is trusted
+            and the stem is discarded.
+
+            With a CSV attached the job takes the short path: no detector, no
+            calibration, findings straight from the rows. Everything the viewer draws
+            around them -- route, satellite basemap, OSM buildings, the clip itself --
+            is still built, because those come from the video and the GPX.
             """
             v_suffix = Path(video.filename or "").suffix.lower()
             g_suffix = Path(gpx.filename or "").suffix.lower()
@@ -485,6 +506,18 @@ def create_app(
                     status_code=400,
                 )
 
+            # A browser that leaves the file input empty still posts the part, as a
+            # zero-length one with no filename. Treat that as "not supplied" rather
+            # than as a CSV that fails validation.
+            if csv is not None and not (csv.filename or "").strip():
+                csv = None
+            c_suffix = Path(csv.filename or "").suffix.lower() if csv else ""
+            if csv is not None and c_suffix not in CSV_SUFFIXES:
+                return JSONResponse(
+                    {"error": f"findings file must be one of {sorted(CSV_SUFFIXES)}"},
+                    status_code=400,
+                )
+
             run_id = re.sub(r"[^a-zA-Z0-9_-]", "", name).strip("-_") or (
                 "upload-" + datetime.now(timezone.utc).strftime("%Y%m%d-%H%M%S")
             )
@@ -495,10 +528,15 @@ def create_app(
             stage.mkdir(parents=True, exist_ok=True)
             vpath = stage / f"video{v_suffix}"
             gpath = stage / f"track{g_suffix}"
+            cpath = stage / f"findings{c_suffix}" if csv else None
 
             # Stream to disk in chunks: a 350 MB clip must not be held in memory.
+            parts = [(video, vpath), (gpx, gpath)]
+            if csv is not None and cpath is not None:
+                parts.append((csv, cpath))
+
             total = 0
-            for src, dest in ((video, vpath), (gpx, gpath)):
+            for src, dest in parts:
                 with open(dest, "wb") as fh:
                     while chunk := await src.read(1 << 20):
                         total += len(chunk)
@@ -521,6 +559,7 @@ def create_app(
                 model_path=os.environ.get("POS_ONNX"),
                 camera_height=camera_height,
                 fallback_camera=fallback_camera,
+                csv=cpath,
             )
             return JSONResponse(job.as_dict(), status_code=202)
 

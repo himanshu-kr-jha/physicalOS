@@ -132,7 +132,7 @@ function RouteLine({ frames, origin }: { frames: Frame[]; origin: [number, numbe
   );
   if (pts.length < 2) return null;
   return (
-    <Line points={pts} color="#e6edf3" lineWidth={1.5} dashed dashSize={2} gapSize={1.4} />
+    <Line points={pts} color="#6b7280" lineWidth={1.5} dashed dashSize={2} gapSize={1.4} />
   );
 }
 
@@ -718,23 +718,23 @@ export function Scene() {
       camera={{ fov: 55, near: 0.5, far: 4000, position: [0, 60, 90] }}
       onPointerMissed={() => select(null)}
     >
-      <color attach="background" args={["#0b0f14"]} />
+      <color attach="background" args={["#f3f4f6"]} />
       <Sky sunPosition={[80, 40, -60]} turbidity={7} rayleigh={2.4} />
       <Environment preset="city" />
-      <ambientLight intensity={0.55} />
-      <directionalLight position={[60, 90, -40]} intensity={1.15} />
+      <ambientLight intensity={0.7} />
+      <directionalLight position={[60, 90, -40]} intensity={1.25} />
 
       {/* Ground, large enough that the route never runs off it. Sits below the
           satellite plane so nothing shows through to the void at the edges. */}
       <mesh rotation={[-Math.PI / 2, 0, 0]} position={[centre[0], -0.05, centre[1]]}>
         <planeGeometry args={[1600, 1600]} />
-        <meshStandardMaterial color="#1b2129" roughness={1} />
+        <meshStandardMaterial color="#e5e7eb" roughness={1} />
       </mesh>
       {/* The grid exists to give an abstract plane a sense of scale. Real imagery
           does that better, so keeping both would only add noise. */}
       {!showSatellite && (
         <gridHelper
-          args={[1600, 160, "#2b3440", "#222a33"]}
+          args={[1600, 160, "#d1d5db", "#e5e7eb"]}
           position={[centre[0], 0, centre[1]]}
         />
       )}

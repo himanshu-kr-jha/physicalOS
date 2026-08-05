@@ -507,7 +507,17 @@ def twin(
 
     manifest = _load_manifest(run)
     frames = read_frames(run / "frames.json")
-    tw = build_twin(frames, run / "twin.json", margin_m=margin_m, offline=offline)
+    try:
+        tw = build_twin(frames, run / "twin.json", margin_m=margin_m, offline=offline)
+    except Exception as exc:  # noqa: BLE001 - Overpass is rate limited, not broken
+        # One clean line, not a traceback: this runs as a subprocess whose output is
+        # streamed into the studio's browser log. Nothing was written, so the fix is
+        # to run the same command again in a minute.
+        _die(
+            f"Overpass unavailable ({type(exc).__name__}: {exc}). "
+            f"No twin.json written -- re-run `pos twin --run {run}` to retry. "
+            f"The viewer works without it, minus the 3D buildings layer."
+        )
 
     manifest.has_twin = bool(tw.buildings or tw.roads)
     _save_manifest(manifest, run)
@@ -781,6 +791,106 @@ def basemap(
     if meta["kind"] != "satellite":
         _echo(f"  NOTE: {provider} is a {meta['kind']} map, not satellite imagery.")
     _echo("Toggle the 'Satellite' layer in the viewer.")
+
+
+@app.command()
+def import_csv(
+    csv_file: Path = typer.Argument(..., exists=True, help="Path to the defects CSV file."),
+    run: Path = typer.Option(Path("run"), "--run", "-r", help="Run directory to create or update."),
+) -> None:
+    """Import an external CSV into the dashboard.
+    
+    Reads a CSV with columns: object_id, frame, time, defect_name, lat, lon, frame_url
+    and generates findings.json (plus manifest.json and frames.json if they don't exist).
+    Downloads Google Drive images locally so the dashboard can view them.
+    """
+    from .import_csv import run_import_csv
+    run_import_csv(csv_file, run)
+
+
+@app.command()
+def export_csv(
+    run: Path = typer.Option(Path("run"), "--run", "-r", exists=True),
+    out: Path | None = typer.Option(None, "--out", "-o", help="Defaults to <run>/defects.csv"),
+    base_url: str = typer.Option("", "--base-url", help="Base URL for frame_url. If blank, uses frames/<frame_id>.jpg"),
+) -> None:
+    """Export findings as a CSV with chainage and coordinates.
+
+    severity and confidence are the last two columns, and they are what makes the file
+    round-trip: the quality index is weight x severity x confidence, so a CSV without
+    them re-imports as a uniform severity 3 at confidence 1.0 and scores differently
+    from the run it came from. `pos import-csv` reads them when present and falls back
+    to those defaults when absent, so a hand-written eight-column file still works.
+    """
+    import csv
+    from .geo import haversine_m
+    
+    target = Path(out) if out else run / "defects.csv"
+    manifest = _load_manifest(run)
+    try:
+        dom = DomainConfig.load(manifest.domain)
+    except FileNotFoundError:
+        dom = DomainConfig(key="road", label="Road")
+        
+    findings = read_findings(run / "findings.json")
+    frames = read_frames(run / "frames.json")
+    
+    # Calculate cumulative chainage for each frame
+    frame_chainage = {}
+    current_m = 0.0
+    for i in range(len(frames)):
+        if i > 0:
+            current_m += haversine_m(frames[i-1].lat, frames[i-1].lon, frames[i].lat, frames[i].lon)
+        frame_chainage[frames[i].frame_id] = current_m
+        
+    def _best_sighting(evidence):
+        if not evidence:
+            return None
+        return max(evidence, key=lambda d: (d.box[2] - d.box[0]) * (d.box[3] - d.box[1]))
+        
+    with open(target, "w", newline="") as f:
+        writer = csv.writer(f)
+        # severity/confidence appended, not inserted: a reader keyed on the original
+        # eight column NAMES keeps working, and so does one keyed on position.
+        writer.writerow(["object_id", "frame", "time", "defect_name", "lat", "lon",
+                         "chainage_km", "frame_url", "severity", "confidence"])
+        
+        for idx, finding in enumerate(sorted(findings, key=lambda x: x.t_sec)):
+            det = _best_sighting(finding.evidence)
+            frame_id = det.frame_id if det else ""
+            chainage_km = frame_chainage.get(frame_id, 0.0) / 1000.0 if frame_id else 0.0
+            
+            # Sub-second precision, not int(): scoring assigns a finding to the segment
+            # whose TIME window contains it, so truncating to a whole second slides it
+            # up to ~5 m along the route at survey speed and can move it into the
+            # neighbouring 20 m segment. That changes the quality index on re-import
+            # while every finding still looks correctly placed on the map.
+            # Stays human-readable, and parse_time already accepts "0:01.839".
+            m, s = divmod(finding.t_sec, 60.0)
+            time_str = f"{int(m)}:{s:06.3f}"
+            
+            spec = dom.class_map.get(finding.cls)
+            defect_name = finding.label or (spec.label if spec else finding.cls)
+            
+            lat = f"{finding.lat:.8f}" if finding.lat is not None else ""
+            lon = f"{finding.lon:.8f}" if finding.lon is not None else ""
+            
+            frame_url = f"{base_url}{frame_id}.jpg" if frame_id and base_url else (f"frames/{frame_id}.jpg" if frame_id else "")
+            
+            writer.writerow([
+                idx + 1,             # object_id (1-indexed counter like in the example)
+                frame_id,            # frame
+                time_str,            # time
+                defect_name,         # defect_name
+                lat,                 # lat
+                lon,                 # lon
+                f"{chainage_km:.3f}",# chainage_km
+                frame_url,           # frame_url
+                finding.severity,    # severity   1-5, drives the quality index
+                f"{finding.confidence:.3f}",  # confidence 0-1, scales the penalty
+            ])
+            
+    _echo(f"Exported {len(findings)} findings to {target}")
 
 
 @app.command()

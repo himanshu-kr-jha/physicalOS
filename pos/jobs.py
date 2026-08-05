@@ -34,6 +34,19 @@ vertical FOV, which is nonsense. The solver reports those conditions as warnings
 in a JSON sidecar; on any warning, or a failed fit, the job falls back to the
 preset the user picked and says so in the log. Guessing silently would be worse
 than not guessing at all.
+
+THE CSV PATH, AND WHY IT SKIPS HALF THE PIPELINE
+An upload may carry a CSV of findings someone else produced -- a field team's
+spreadsheet, or a run exported with `pos export-csv` and edited. Those rows already
+carry a lat/lon, so there is nothing to detect and nothing to project: perceive,
+localize and cluster have no work to do, and calibration is meaningless because no
+pixel is ever turned into a distance. That path runs ingest (for the keyframes, the
+route and the video), then import-csv, score and twin, and finishes in seconds
+without needing a detector model or an API key.
+
+`twin` is invoked EXPLICITLY there. On the detector path it comes free inside
+`pos run`; forgetting it here is the difference between a viewer with extruded OSM
+buildings and one with a bare grey ground plane.
 """
 
 from __future__ import annotations
@@ -55,6 +68,9 @@ MAX_UPLOAD_BYTES = 2 * 1024 * 1024 * 1024
 
 VIDEO_SUFFIXES = {".mp4", ".mov", ".m4v", ".avi", ".mkv", ".webm"}
 TRACK_SUFFIXES = {".gpx", ".xml"}
+#: A findings list someone else produced. Columns are whatever `pos export-csv`
+#: writes, so a scored run round-trips out to a spreadsheet and back.
+CSV_SUFFIXES = {".csv"}
 
 # `pos doctor` prints:  ==> ADD THIS FLAG:  --time-offset -2.71
 _OFFSET_RE = re.compile(r"--time-offset\s+(-?\d+(?:\.\d+)?)")
@@ -200,6 +216,7 @@ class JobStore:
         model_path: str | None = None,
         camera_height: float = 1.2,
         fallback_camera: str = "dashcam",
+        csv: Path | None = None,
     ) -> Job:
         job = Job(
             job_id=uuid.uuid4().hex[:12],
@@ -209,11 +226,14 @@ class JobStore:
                 "camera_height": camera_height,
                 "fallback_camera": fallback_camera,
                 "domain": domain,
+                # Recorded as-supplied, but see _run: on the CSV path no detector
+                # runs, so this value is not what produced the findings.
                 "backend": backend,
                 "spacing_m": spacing_m,
                 "tile": tile,
                 "video": video.name,
                 "gpx": gpx.name,
+                "csv": csv.name if csv else None,
             },
         )
         with self._lock:
@@ -223,7 +243,7 @@ class JobStore:
         threading.Thread(
             target=self._run,
             args=(job, video, gpx, camera, domain, backend, spacing_m, tile,
-                  model_path, camera_height, fallback_camera),
+                  model_path, camera_height, fallback_camera, csv),
             daemon=True,
         ).start()
         return job
@@ -352,6 +372,7 @@ class JobStore:
         model_path: str | None,
         camera_height: float = 1.2,
         fallback_camera: str = "dashcam",
+        csv: Path | None = None,
     ) -> None:
         py = sys.executable
         out = self.runs_dir / job.run_id
@@ -386,39 +407,84 @@ class JobStore:
             # 2. Calibration, solved from this very clip when asked for. It uses
             # the offset above, so it has to come after preflight and before the
             # pipeline -- every range in the run depends on its answer.
+            #
+            # Not on the CSV path: calibration exists to turn a pixel row into a
+            # distance, and no pixel is measured there. Solving it anyway would burn
+            # a minute to produce a number nothing reads.
             if camera == AUTO_CAMERA:
-                camera = self._calibrate(
-                    job, video, gpx, offset, camera_height, fallback_camera
-                )
+                if csv is not None:
+                    camera = fallback_camera
+                    job.log.append(
+                        f"calibration skipped: the CSV supplies each finding's "
+                        f"position, so no pixel is projected. Using preset "
+                        f"'{camera}' for the render stages that need a camera."
+                    )
+                else:
+                    camera = self._calibrate(
+                        job, video, gpx, offset, camera_height, fallback_camera
+                    )
                 job.args["resolved_camera"] = camera
                 self._persist(job)
 
-            # 3. The pipeline proper.
-            cmd = [
-                py, "-m", "pos.cli", "run",
-                "--video", str(video), "--gpx", str(gpx),
-                "--out", str(out),
-                "--camera", camera, "--domain", domain, "--backend", backend,
-                "--time-offset", str(offset),
-                "--heading-baseline", "15",
-            ]
-            cmd += (
+            # 3. The pipeline proper -- or, with a CSV, the short path that skips
+            # detection entirely. `spacing_m > 0` selects distance-based keyframing,
+            # anything else falls back to one frame a second.
+            sampling = (
                 ["--spacing-m", str(spacing_m)]
                 if spacing_m and spacing_m > 0
                 else ["--fps", "1"]
             )
-            if tile:
-                cmd += ["--tile", str(tile)]
-            if model_path:
-                cmd += ["--model-path", model_path]
 
-            rc = self._stream(job, cmd, "pipeline")
-            if rc != 0:
-                job.status = "failed"
-                job.error = f"pipeline exited {rc}"
-                job.returncode = rc
-                self._touch(job, "failed")
-                return
+            if csv is not None:
+                # Order matters. ingest writes frames.json and the manifest (including
+                # manifest.video, which is what turns the viewer's video panel and
+                # chase camera on); import-csv then snaps each row to the nearest
+                # keyframe in time; score needs both to exist; twin needs the route.
+                stages: tuple[tuple[str, list[str], bool], ...] = (
+                    ("ingest", [
+                        "ingest", "--video", str(video), "--gpx", str(gpx),
+                        "--out", str(out), "--domain", domain,
+                        "--time-offset", str(offset), "--heading-baseline", "15",
+                        *sampling,
+                    ], True),
+                    ("csv import", [
+                        "import-csv", str(csv), "--run", str(out),
+                    ], True),
+                    # Non-fatal from here: the findings are already viewable, and
+                    # these add the heatmap and the buildings on top.
+                    ("score", ["score", "--run", str(out)], False),
+                    ("osm twin", ["twin", "--run", str(out)], False),
+                )
+                for stage, extra, fatal in stages:
+                    rc = self._stream(job, [py, "-m", "pos.cli", *extra], stage)
+                    if rc != 0 and fatal:
+                        job.status = "failed"
+                        job.error = f"{stage} exited {rc}"
+                        job.returncode = rc
+                        self._touch(job, "failed")
+                        return
+            else:
+                cmd = [
+                    py, "-m", "pos.cli", "run",
+                    "--video", str(video), "--gpx", str(gpx),
+                    "--out", str(out),
+                    "--camera", camera, "--domain", domain, "--backend", backend,
+                    "--time-offset", str(offset),
+                    "--heading-baseline", "15",
+                    *sampling,
+                ]
+                if tile:
+                    cmd += ["--tile", str(tile)]
+                if model_path:
+                    cmd += ["--model-path", model_path]
+
+                rc = self._stream(job, cmd, "pipeline")
+                if rc != 0:
+                    job.status = "failed"
+                    job.error = f"pipeline exited {rc}"
+                    job.returncode = rc
+                    self._touch(job, "failed")
+                    return
 
             # Keep the geometry the numbers were produced under beside them. A
             # run whose calibration lived only in uploads/ cannot be re-checked

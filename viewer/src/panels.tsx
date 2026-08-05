@@ -63,18 +63,22 @@ export function ScorePanel() {
 
       {summary && (
         <div className="score">
-          <div
-            className="score-ring"
-            style={{ borderColor: gradeColor(summary.quality_index) }}
-          >
-            <div className="score-num">{summary.quality_index.toFixed(0)}</div>
-            <div
-              className="score-grade"
-              style={{ color: gradeColor(summary.quality_index) }}
-            >
+          <svg className="score-ring-svg" viewBox="0 0 80 80">
+            <circle className="score-ring-bg" cx="40" cy="40" r="35" />
+            <circle
+              className="score-ring-fill"
+              cx="40" cy="40" r="35"
+              stroke={gradeColor(summary.quality_index)}
+              strokeDasharray={2 * Math.PI * 35}
+              strokeDashoffset={2 * Math.PI * 35 * (1 - summary.quality_index / 100)}
+            />
+            <text className="score-ring-text" x="40" y="36" textAnchor="middle" fill="#e6edf3" fontSize="20" fontWeight="700">
+              {summary.quality_index.toFixed(0)}
+            </text>
+            <text className="score-ring-text" x="40" y="52" textAnchor="middle" fill={gradeColor(summary.quality_index)} fontSize="11" fontWeight="700">
               {summary.grade}
-            </div>
-          </div>
+            </text>
+          </svg>
           <div className="score-meta">
             <div className="score-label">{manifest.index_name}</div>
             <div className="muted small">
@@ -184,12 +188,13 @@ export function ScorePanel() {
               : " — none in run";
           return (
             <li key={key}>
-              <label className={unavailable ? "dim" : ""}>
-                <input
-                  type="checkbox"
-                  checked={layers[key] && !unavailable}
+              <label className={unavailable ? "dim" : ""} style={{ cursor: unavailable ? 'default' : 'pointer' }}>
+                <button
+                  type="button"
+                  className={`toggle${layers[key] && !unavailable ? ' on' : ''}`}
                   disabled={unavailable}
-                  onChange={() => toggleLayer(key)}
+                  onClick={() => toggleLayer(key)}
+                  aria-label={`Toggle ${label}`}
                 />
                 {label}
                 {unavailable && <span className="muted small">{hint}</span>}

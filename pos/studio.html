@@ -12,6 +12,12 @@
   chosen config and says plainly what picking the wrong one costs. Everything
   else -- notably the video/GPS clock offset, which silently displaces every
   finding by metres -- is detected server-side by `pos doctor` before the run.
+
+  A third input takes a findings CSV. Supplied, it REPLACES detection: the rows
+  already carry a lat/lon, so nothing is detected and nothing is projected, and the
+  detector and calibration controls switch themselves off to say so. The video and
+  GPX are still required and still do their work -- they are what produce the route,
+  the keyframes, the satellite basemap, the OSM buildings and the playable clip.
 -->
 <html lang="en">
 <head>
@@ -19,11 +25,18 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>PhysicalOS Studio</title>
 <style>
+  /* Deliberately no remote webfont. Pulling one in made the upload page block on a
+     third-party request, and reported every visit to that third party, to fetch a
+     face the system stack below already covers. */
   :root {
-    --bg: #0b0f14; --panel: #141b23; --line: #263140;
-    --ink: #e6edf3; --muted: #8b98a5; --accent: #5b8def;
-    --ok: #3fb950; --warn: #d29922; --bad: #f85149;
+    --bg: #f3f4f6; --panel: #ffffff; --line: #d1d5db;
+    --ink: #1f2937; --muted: #4b5563; --accent: #0284c7;
+    --ok: #16a34a; --warn: #d97706; --bad: #dc2626;
   }
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.15); border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(0,0,0,0.25); }
   * { box-sizing: border-box; }
   body {
     margin: 0; background: var(--bg); color: var(--ink);
@@ -31,9 +44,19 @@
   }
   header {
     padding: 18px 24px; border-bottom: 1px solid var(--line);
+    border-image: linear-gradient(90deg, var(--accent), transparent) 1;
+    background: linear-gradient(180deg, rgba(255,255,255,0.95), var(--bg));
     display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap;
   }
-  header h1 { margin: 0; font-size: 17px; letter-spacing: .2px; }
+  header h1 {
+    margin: 0; font-size: 17px; letter-spacing: .2px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  header h1::before {
+    content: ''; display: block; width: 11px; height: 11px;
+    border-radius: 50%; background: var(--accent);
+    box-shadow: 0 0 14px var(--accent);
+  }
   header .tag { color: var(--muted); font-size: 12px; }
   header a { color: var(--accent); font-size: 12px; text-decoration: none; }
   main {
@@ -43,50 +66,140 @@
   @media (max-width: 900px) { main { grid-template-columns: 1fr; } }
   .card {
     background: var(--panel); border: 1px solid var(--line);
-    border-radius: 8px; padding: 16px 18px;
+    border-radius: 12px; padding: 16px 18px;
+    backdrop-filter: blur(12px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+    animation: cardIn 0.4s ease both;
+  }
+  section + section .card { animation-delay: 0.15s; }
+  @keyframes cardIn {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
   }
   .card h2 {
     margin: 0 0 4px; font-size: 12px; text-transform: uppercase;
     letter-spacing: .09em; color: var(--muted);
   }
   label { display: block; margin: 13px 0 4px; font-size: 12px; color: var(--muted); }
-  input[type=file], input[type=text], select {
-    width: 100%; padding: 8px 9px; background: #0d1117; color: var(--ink);
+  input[type=file], input[type=text], input[type=number], select {
+    width: 100%; padding: 8px 9px; background: #ffffff; color: var(--ink);
     border: 1px solid var(--line); border-radius: 5px; font-size: 13px;
+    transition: all 0.2s ease;
+  }
+  input[type=file] {
+    border: 2px dashed var(--line); border-radius: 10px;
+    padding: 20px; text-align: center; min-height: 60px;
+  }
+  input[type=file]:hover {
+    border-color: var(--accent); background: rgba(2, 132, 199, 0.05);
+  }
+  select:focus, input[type=text]:focus, input[type=number]:focus {
+    box-shadow: 0 0 0 2px rgba(2, 132, 199, 0.2); outline: none; border-color: var(--accent);
   }
   .row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
   button {
-    margin-top: 16px; width: 100%; padding: 11px; font-size: 14px; font-weight: 600;
+    width: 100%; padding: 11px; font-size: 14px; font-weight: 600;
     background: var(--accent); color: #fff; border: 0; border-radius: 6px; cursor: pointer;
   }
-  button:disabled { background: #30363d; color: var(--muted); cursor: not-allowed; }
+  #go {
+    margin-top: 16px;
+    background: linear-gradient(135deg, #5b8def, #7c5cfc);
+    transition: all 0.2s ease;
+  }
+  #go:hover:not(:disabled) {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(91, 141, 239, 0.4);
+  }
+  #go:active:not(:disabled) {
+    transform: scale(0.98);
+  }
+  button:disabled, #go:disabled { background: #e5e7eb; color: var(--muted); cursor: not-allowed; }
   .note { margin-top: 10px; font-size: 11.5px; color: var(--muted); line-height: 1.5; }
   .warn { color: var(--warn); } .bad { color: var(--bad); } .ok { color: var(--ok); }
-  code { background: #0d1117; padding: 1px 4px; border-radius: 3px; font-size: 11px; }
+  code { background: #e5e7eb; padding: 1px 4px; border-radius: 3px; font-size: 11px; }
+  .log-label {
+    font-size: 10px; font-weight: 700; letter-spacing: 1.2px; color: var(--muted);
+    padding: 8px 10px 4px; background: rgba(255, 255, 255, 0.8);
+    border: 1px solid var(--line); border-bottom: 0; border-radius: 6px 6px 0 0;
+  }
   #log {
     margin: 0; height: 340px; overflow: auto; white-space: pre-wrap; word-break: break-word;
     font: 11.5px/1.5 ui-monospace, SFMono-Regular, Menlo, monospace;
-    background: #0d1117; border: 1px solid var(--line); border-radius: 6px;
-    padding: 10px; color: #b9c4cf;
+    background: #ffffff; border: 1px solid var(--line); border-radius: 0 0 6px 6px;
+    padding: 10px; color: #1f2937;
   }
-  .stage { display: flex; align-items: center; gap: 9px; margin-bottom: 10px; font-size: 13px; }
+  .stage { display: flex; align-items: center; gap: 9px; margin-bottom: 12px; font-size: 13px; }
+  .progress-track { height: 3px; background: var(--line); border-radius: 2px; margin-bottom: 12px; overflow: hidden; }
+  .progress-fill { height: 100%; width: 0%; background: linear-gradient(90deg, var(--accent), #7c5cfc); border-radius: 2px; transition: width 0.3s ease; }
   .dot { width: 9px; height: 9px; border-radius: 50%; background: var(--muted); flex: none; }
-  .dot.run { background: var(--accent); animation: pulse 1.1s infinite; }
-  .dot.done { background: var(--ok); }
-  .dot.fail { background: var(--bad); }
+  .dot.run { background: var(--accent); animation: pulse 1.1s infinite; box-shadow: 0 0 8px var(--accent), 0 0 16px rgba(2, 132, 199, 0.2); }
+  .dot.done { background: var(--ok); box-shadow: 0 0 8px var(--ok); }
+  .dot.fail { background: var(--bad); box-shadow: 0 0 8px var(--bad); }
   @keyframes pulse { 0%,100% { opacity: 1 } 50% { opacity: .3 } }
   table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
   th, td { text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--line); }
   th { color: var(--muted); font-weight: 500; font-size: 11px; text-transform: uppercase; }
+  tbody tr { transition: background 0.15s ease; }
+  tbody tr:hover { background: rgba(0, 0, 0, 0.02); }
   td a { color: var(--accent); text-decoration: none; }
   .grade { font-weight: 700; }
-  .links { margin-top: 12px; display: flex; gap: 8px; flex-wrap: wrap; }
+  .links { margin-top: 12px; display: flex; gap: 8px; flex-wrap: wrap; animation: cardIn 0.3s ease both; }
   .links a {
     padding: 7px 11px; font-size: 12.5px; border: 1px solid var(--line);
     border-radius: 5px; color: var(--ink); text-decoration: none;
+    transition: all 0.2s ease;
+  }
+  /* Dark-on-light. A white tint here is a no-op against a white card -- left over
+     from when this page had a dark palette. */
+  .links a:hover {
+    background: rgba(0, 0, 0, 0.04); border-color: var(--accent); transform: translateY(-1px);
   }
   .links a.primary {
     background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 600;
+  }
+  /* Toggle switch styling */
+  .toggle-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    margin: 14px 0;
+    user-select: none;
+  }
+  .toggle-input {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  .toggle-switch {
+    position: relative;
+    width: 32px;
+    height: 18px;
+    /* Must read as OFF against a white card. The old rgba(255,255,255,.1) was white
+       on white, so the switch and its white knob were both invisible until checked --
+       the control looked like it was missing. */
+    background: #cbd5e1;
+    border-radius: 9px;
+    transition: background 0.2s ease;
+    flex-shrink: 0;
+  }
+  .toggle-switch::after {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 14px;
+    height: 14px;
+    background: #fff;
+    border-radius: 50%;
+    transition: transform 0.2s ease;
+  }
+  .toggle-input:checked + .toggle-switch {
+    background: var(--accent);
+  }
+  .toggle-input:checked + .toggle-switch::after {
+    transform: translateX(14px);
   }
   .hidden { display: none; }
 </style>
@@ -95,7 +208,7 @@
 
 <header>
   <h1>PhysicalOS Studio</h1>
-  <span class="tag">video + GPX &rarr; geolocated defect map</span>
+  <span class="tag">video + GPX (+ optional findings CSV) &rarr; geolocated defect map</span>
   <a href="/" target="_blank">open viewer &rarr;</a>
 </header>
 
@@ -108,6 +221,21 @@
 
     <label for="gpx">GPX track (from the same recording)</label>
     <input type="file" id="gpx" accept=".gpx,.xml" />
+
+    <label for="csv">
+      Findings CSV <span style="opacity:.6">(optional &mdash; skips detection)</span>
+    </label>
+    <input type="file" id="csv" accept=".csv,text/csv" />
+    <div class="note" id="csvnote">
+      Leave empty to detect defects from the video. Attach one to use its rows as the
+      findings instead &mdash; they already carry a position, so nothing is detected
+      or projected and the run finishes in seconds.
+      Columns: <code>object_id, frame, time, defect_name, lat, lon, chainage_km,
+      frame_url</code>. <code>time</code> is video time (<code>M:SS</code>),
+      <code>lat</code>/<code>lon</code> decimal degrees &mdash; blank borrows the
+      nearest keyframe's position. Produce one from an existing run with
+      <code>pos export-csv --run runs/&lt;name&gt;</code>.
+    </div>
 
     <label for="name">Run name <span style="opacity:.6">(optional)</span></label>
     <input type="text" id="name" placeholder="e.g. kohima-north" />
@@ -158,9 +286,10 @@
       </div>
     </div>
 
-    <label for="tile" style="color:var(--ink)">
-      <input type="checkbox" id="tile" style="width:auto;vertical-align:-1px" />
-      Sliced inference — ~2.8&times; more small defects, ~8&times; slower
+    <label class="toggle-container" style="color:var(--ink)">
+      <input type="checkbox" id="tile" class="toggle-input" />
+      <span class="toggle-switch"></span>
+      <span>Sliced inference — ~2.8&times; more small defects, ~8&times; slower</span>
     </label>
 
     <button id="go" disabled>Process</button>
@@ -172,6 +301,8 @@
     <div class="card">
       <h2>Progress</h2>
       <div class="stage"><span class="dot" id="dot"></span><span id="stage">idle</span></div>
+      <div class="progress-track"><div class="progress-fill" id="pbar"></div></div>
+      <div class="log-label">PIPELINE LOG</div>
       <pre id="log">Pick a video and its GPX track, then press Process.
 
 The pipeline runs server-side: keyframes chosen by GPS distance, defects
@@ -236,7 +367,20 @@ async function boot() {
 }
 
 // Calibration decides every distance in the output. Say which one is in play.
+// Single owner of #cal and #autorow, so CSV mode and camera changes cannot fight
+// over the same two elements and leave a stale message on screen.
 function showCal() {
+  // A CSV means no pixel is ever turned into a distance, so there is no calibration
+  // in play to report -- and no camera row to fill in.
+  if ($("csv").files[0]) {
+    $("autorow").classList.add("hidden");
+    $("cal").innerHTML =
+      '<span class="ok">&check;</span> <b>Detection and calibration skipped.</b> ' +
+      "The CSV supplies every finding and its position, so no detector model and no " +
+      "API key are needed. Keyframe spacing still applies &mdash; it sets how finely " +
+      "the route is sampled from the video and GPX.";
+    return;
+  }
   const isAuto = $("camera").value === "auto";
   $("autorow").classList.toggle("hidden", !isAuto);
   if (isAuto) {
@@ -260,17 +404,36 @@ function showCal() {
 $("camera").addEventListener("change", showCal);
 
 // --- enable Process only when both files are chosen -----------------------
+// The CSV stays optional: it replaces the DETECTOR, not the video and track, which
+// are what produce the route, the basemap, the buildings and the playable clip.
 function check() {
   $("go").disabled = !($("video").files[0] && $("gpx").files[0]);
 }
 $("video").addEventListener("change", check);
 $("gpx").addEventListener("change", check);
 
+// --- a CSV switches detection off, visibly --------------------------------
+// Leaving these controls live would imply the detector and the calibration still
+// matter for this run. They do not: no frame is classified and no pixel is projected,
+// so a backend picked here would silently have no effect on the output.
+function csvMode() {
+  const on = Boolean($("csv").files[0]);
+  // #spacing is deliberately NOT in this list: keyframe spacing still decides how
+  // finely ingest samples the route, which matters just as much on this path.
+  ["backend", "tile", "camera"].forEach((id) => { $(id).disabled = on; });
+  $("go").textContent = on ? "Import CSV" : "Process";
+  showCal();
+}
+$("csv").addEventListener("change", () => { csvMode(); check(); });
+
 // --- submit ---------------------------------------------------------------
 $("go").addEventListener("click", async () => {
   const fd = new FormData();
   fd.append("video", $("video").files[0]);
   fd.append("gpx", $("gpx").files[0]);
+  // Only when chosen. An empty file input would otherwise post a zero-length part
+  // that the server has to recognise and discard.
+  if ($("csv").files[0]) fd.append("csv", $("csv").files[0]);
   fd.append("name", $("name").value);
   fd.append("camera", $("camera").value);
   fd.append("camera_height", $("height").value || "1.2");
@@ -305,6 +468,33 @@ $("go").addEventListener("click", async () => {
 function setStage(text, cls) {
   $("stage").textContent = text;
   $("dot").className = "dot" + (cls ? " " + cls : "");
+
+  // Both paths' stage names. The detector path emits "pipeline"; the CSV path emits
+  // ingest/csv import/score/osm twin instead, and reaches the same extras after.
+  const stageMap = {
+    "uploading": 5,
+    "preflight": 15,
+    "calibration": 25,
+    "pipeline": 55,
+    "ingest": 30,
+    "csv import": 42,
+    "score": 50,
+    "osm twin": 58,
+    "road segmentation": 65,
+    "review video": 75,
+    "point cloud": 85,
+    "satellite basemap": 90,
+    "google earth export": 93,
+    "pdf report": 97,
+    "done": 100
+  };
+  const pct = stageMap[text] || 0;
+  $("pbar").style.width = pct + "%";
+  if (cls === "fail") {
+    $("pbar").style.background = "var(--bad)";
+  } else {
+    $("pbar").style.background = "";
+  }
 }
 
 // SSE, not polling: the server already streams progress line by line.
