@@ -229,11 +229,15 @@ def carriageway_classes(
 ) -> set[str]:
     """The class keys that are meaningless off the drivable surface.
 
-    On configs/domains/road_pci.yaml this returns the 11 PCI distress classes the
-    post_cons YOLOv8 model detects plus waterlogging -- 12 of 19 -- and excludes
-    hazard, garbage, streetlight, both footpath asset classes, both footpath
-    defect classes and both absence classes. That split was checked against the
-    YAML by hand; see carriageway_rules() for the per-class grounds.
+    On configs/domains/road_pci.yaml this returns the 11 PCI distress classes
+    plus waterlogging -- 12 of 19 -- and excludes hazard, garbage, streetlight,
+    both footpath asset classes, both footpath defect classes and both absence
+    classes. That split was checked against the YAML by hand; see
+    carriageway_rules() for the per-class grounds.
+
+    This is a property of the TAXONOMY, not of whichever model is loaded: a
+    pothole is off-carriageway nonsense whether the local detector or the VLM
+    reported it. Swapping post_cons does not change this set.
     """
     return {
         k for k, r in carriageway_rules(domain, overrides).items() if r.carriageway_only

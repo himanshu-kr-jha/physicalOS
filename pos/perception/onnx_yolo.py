@@ -1,22 +1,30 @@
 """Local YOLOv8 pavement-distress detector (the post_cons ONNX model).
 
 WHY THIS MATTERS
-The hosted VLM is a generalist: it recognises "there is a pothole" but its boxes
-degrade badly on real photographs, and it volunteers only the obvious classes.
-This model was trained specifically on pavement distress, so it gives tight boxes
-and distinguishes eleven PCI distress types the VLM lumps together or ignores
-entirely -- ravelling, rutting, shoving, bleeding, and edge vs longitudinal vs
-transverse cracking.
+The hosted VLM is a generalist: it recognises "there is a crack" but its boxes
+degrade badly on real photographs. This model was trained specifically on
+pavement cracking, so it gives tight boxes and separates transverse from
+longitudinal cracking -- a distinction the VLM lumps together.
 
 It runs on CPU in well under a second per frame, costs nothing per call, and
 needs no network.
 
+SCOPE -- CHANGED, READ THIS
+The current weights detect TWO classes. The previous ones detected eleven
+(pothole, rutting, ravelling, alligator, bleeding, depression, patching,
+shoving, edge crack + the two crack types kept here). Everything the local
+model no longer sees now falls to the VLM, which is why
+configs/domains/road_pci.yaml's prompt_context lists those classes explicitly.
+Change one and you must change the other, or those defects go unreported.
+
 CONTRACT (read from the ONNX metadata, not guessed)
   input   images   float32 [1, 3, 640, 640], RGB, 0-1, no mean/std normalisation
-  output  output0  float32 [1, 15, 8400]
-          rows 0-3  = cx, cy, w, h  in 640-space
-          rows 4-14 = 11 class scores (YOLOv8 has no separate objectness row)
+  output  output0  float32 [1, 6, 8400]
+          rows 0-3 = cx, cy, w, h  in 640-space
+          rows 4-5 = 2 class scores (YOLOv8 has no separate objectness row)
   8400 anchors = 80^2 + 40^2 + 20^2 at strides 8/16/32
+  Nothing below reads these numbers -- the slice width comes from
+  len(CLASS_KEYS) -- so a differently-sized head needs only that list updated.
 
 LETTERBOXING
 The model wants a square 640x640 but road frames are 16:9. We letterbox -- scale
@@ -83,21 +91,23 @@ def resolve_model_path(model_path: Path | str | None = None) -> Path:
         f"Set {MODEL_ENV_VAR}, or pass --model-path."
     )
 
-# Mapped by INDEX, deliberately. The model's metadata spells index 4
-# "longitudial crack"; we do not propagate that typo into our schema. These keys
-# must match configs/domains/road_pci.yaml.
+# Mapped by INDEX, deliberately -- the model's own strings are inconsistently
+# cased ("Transverse crack" vs "longitudinal crack") and a retrain can reword
+# them, but the index is fixed by the export. These keys must match
+# configs/domains/road_pci.yaml.
+#
+# Read from the current weights' metadata:
+#   names = {0: 'Transverse crack', 1: 'longitudinal crack'}
+#
+# The order is REVERSED from the earlier 11-class model, where longitudinal was
+# index 4 and transverse index 10. Swapping weights without re-reading `names`
+# would silently mislabel every detection, so check it on every model change:
+#   python -c "import onnxruntime as o; \
+#     print(o.InferenceSession('models/post_cons/model.onnx').get_modelmeta() \
+#            .custom_metadata_map['names'])"
 CLASS_KEYS = [
-    "alligator_crack",     # 0
-    "bleeding",            # 1
-    "depression",          # 2
-    "edge_crack",          # 3
-    "longitudinal_crack",  # 4
-    "patching",            # 5
-    "pothole",             # 6
-    "ravelling",           # 7
-    "rutting",             # 8
-    "shoving",             # 9
-    "transverse_crack",    # 10
+    "transverse_crack",    # 0
+    "longitudinal_crack",  # 1
 ]
 
 INPUT_SIZE = 640

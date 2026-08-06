@@ -421,7 +421,7 @@ it, don't ship its frames.
 |---|---|---|
 | `mock` *(default)* | nothing | Offline fixtures. A fresh clone works with no key, no network, no GPU. |
 | `cosmos` | `NVIDIA_API_KEY` | Hosted VLM. Broad class coverage, human-readable reasoning. Cached. |
-| `onnx` | the post_cons model | **Local, free, offline.** 11 PCI distress classes, tight boxes. ~2.3 s/frame CPU. |
+| `onnx` | the post_cons model | **Local, free, offline.** Transverse + longitudinal cracking, tight boxes. ~2.3 s/frame CPU. |
 | **`ensemble`** | both | **Best results.** YOLO geometry + VLM coverage. |
 | `locate-anything` | CUDA GPU, ~12 GB | Optional box refiner. **NVIDIA non-commercial — research only**, gated behind `POS_ACCEPT_NONCOMMERCIAL=1`. |
 
@@ -543,7 +543,7 @@ uv run pos domains
 | Domain | Looks for |
 |---|---|
 | `road` | potholes, cracking, pavement distress, waterlogging, footpath presence/damage/obstruction, streetlights, faded markings, signage, encroachment, garbage, hazards |
-| **`road_pci`** | the 11 PCI distress classes the ONNX model detects (alligator / edge / longitudinal / transverse cracking, bleeding, depression, patching, pothole, ravelling, rutting, shoving) **plus** VLM-only classes and absence rules. **Use this with `--backend ensemble`.** |
+| **`road_pci`** | the full 11-class PCI taxonomy (alligator / edge / longitudinal / transverse cracking, bleeding, depression, patching, pothole, ravelling, rutting, shoving) **plus** VLM-only classes and absence rules. The ONNX model currently covers two of them (transverse + longitudinal cracking); the VLM covers the rest, so **use this with `--backend ensemble`.** |
 | `construction_safety` | missing hard hat / hi-vis / harness, unprotected edges, missing barricades, unsafe scaffold, blocked egress, exposed rebar, worker-near-plant |
 | `building_facade` | structural vs surface cracking, spalling, exposed reinforcement, seepage, drainage defects, glazing damage, render loss, unsafe projections |
 | `utility_pole` | leaning poles, conductor sag, conductors down, damaged insulators, transformer defects, vegetation encroachment, unauthorised taps, low service drops |
@@ -1151,6 +1151,7 @@ scripts/make_sample.py             synthetic sample generator
 scripts/verify_sample.py           24-check correctness gate (needs the sample)
 scripts/test_geometry.py           19 closed-form geometry checks (no fixtures)
 scripts/test_import_csv.py         51 CSV-importer checks (no fixtures, no network)
+scripts/test_onnx_contract.py      post_cons weights vs decoder (class count, index order)
 scripts/score_perception.py        precision / recall / F1 vs ground truth
 scripts/calibrate.py               two-marker calibration
 scripts/calibrate_from_motion.py   calibration from motion + GPS

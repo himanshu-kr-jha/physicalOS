@@ -62,10 +62,11 @@ def _die(msg: str) -> None:
 def _detectable_assets(backend: str, dom) -> set[str]:
     """Asset classes the given backend could actually detect.
 
-    The ONNX model knows only the 11 PCI distress classes -- it has no
-    streetlight or footpath output at all. Running absence rules against it
-    would mark every route unlit, so those rules are skipped unless a VLM is
-    in the loop.
+    The ONNX model knows only its own distress classes -- currently the two
+    crack types -- and has no streetlight or footpath output at all. Running
+    absence rules against it would mark every route unlit, so those rules are
+    skipped unless a VLM is in the loop. Derived from CLASS_KEYS rather than
+    listed here, so swapping the weights needs no change in this function.
     """
     from .perception.onnx_yolo import CLASS_KEYS
 

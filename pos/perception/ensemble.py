@@ -3,9 +3,10 @@
 WHY AN ENSEMBLE BEATS EITHER ALONE
 Measured on real footage, the two models fail in opposite directions:
 
-  post_cons YOLOv8   tight, well-localised boxes; tells eleven PCI distress types
-                     apart. Completely blind to standing water, refuse,
-                     obstructions and hazards -- never trained on them.
+  post_cons YOLOv8   tight, well-localised boxes, and it separates transverse
+                     from longitudinal cracking. Blind to everything else in the
+                     taxonomy -- the current weights know those two classes only,
+                     so potholes, rutting, water and refuse all fall to the VLM.
 
   hosted VLM         recognises anything you can describe in words and explains
                      itself in a sentence a human can check. But on real

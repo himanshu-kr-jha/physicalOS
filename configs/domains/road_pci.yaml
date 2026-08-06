@@ -1,19 +1,23 @@
 # Pavement distress taxonomy for the ENSEMBLE backend.
 #
-# The first 11 classes are exactly what the post_cons YOLOv8 model detects (read
-# from its ONNX metadata). Those are standard PCI / ASTM D6433 distress types, so
-# the weights below follow how a pavement engineer ranks them: structural
-# failures (pothole, depression, rutting, alligator) outrank surface defects
-# (ravelling, bleeding, patching).
+# The class list below is the full PCI / ASTM D6433 taxonomy and does NOT change
+# when the local model changes. The weights follow how a pavement engineer ranks
+# them: structural failures (pothole, depression, rutting, alligator) outrank
+# surface defects (ravelling, bleeding, patching).
 #
-# The remaining classes cannot be seen by that model at all -- it was trained on
-# pavement distress only. They come from the VLM, which is why the ensemble beats
-# either model alone: YOLO gives precise boxes for distress, the VLM adds water,
-# refuse, hazards and footpath condition.
+# WHAT SPLITS THE WORK -- keep this in step with the weights
+# The current post_cons model detects TWO of them: transverse_crack and
+# longitudinal_crack. Every other class comes from the VLM. The previous
+# 11-class model covered nine more, and prompt_context below used to tell the
+# VLM to skip them; it no longer does, because nothing else would report them.
+#
+# So: whenever models/post_cons/model.onnx is swapped, re-read its `names`
+# metadata and update BOTH pos/perception/onnx_yolo.py::CLASS_KEYS and the
+# prompt_context here. Classes covered by neither model are silently invisible.
 #
 # Class keys here MUST match what pos/perception/onnx_yolo.py emits. It maps by
-# class INDEX rather than by the model's own strings, so the training dataset's
-# "longitudial" typo is not propagated into our schema.
+# class INDEX rather than by the model's own strings, because the exported names
+# are inconsistently cased and a retrain can reword or reorder them.
 
 key: road_pci
 label: Road Distress (PCI + Ensemble)
@@ -25,10 +29,12 @@ index_name: Pavement Condition Index
 
 prompt_context: >
   You are a pavement engineer inspecting a road from a forward-facing camera.
-  A separate specialist detector already handles cracking, potholes, rutting and
-  surface defects, so concentrate on what it cannot see: standing water, refuse,
-  obstructions, safety hazards and footpath condition. Report only what is
-  clearly visible in this frame, and do not speculate.
+  A separate specialist detector already handles transverse and longitudinal
+  cracking, so you need not report those two. Everything else is yours: potholes,
+  alligator cracking, edge cracking, depressions, rutting, shoving, ravelling,
+  bleeding and patching, as well as standing water, refuse, obstructions, safety
+  hazards and footpath condition. Report only what is clearly visible in this
+  frame, and do not speculate.
 
 classes:
   # ---------- detected by the post_cons YOLOv8 model (indices 0-10) ----------
