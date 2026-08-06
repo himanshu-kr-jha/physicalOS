@@ -19,6 +19,8 @@ Everything runs on CPU. A GPU buys a better point cloud; nothing requires one.
 - [Quickstart](#quickstart-no-api-key-no-gpu)
 - [The pipeline](#the-pipeline)
 - [Running on your own video](#running-on-your-own-video) ← start here for real footage
+  - [The studio](#the-short-way--the-studio) — upload in a browser
+  - [Importing a findings CSV](#already-have-the-findings-attach-a-csv) — no detector needed
 - [Camera calibration](#camera-calibration-the-thing-that-decides-accuracy)
 - [Perception backends](#perception-backends)
 - [Domains](#domains-the-taxonomy-is-data-not-code)
@@ -40,21 +42,32 @@ Everything runs on CPU. A GPU buys a better point cloud; nothing requires one.
 ## Quickstart (no API key, no GPU)
 
 ```bash
-uv sync
+bash setup.sh      # deps, viewer build, .env, and a report of what this box can run
+bash start.sh      # → http://127.0.0.1:8090/studio  (upload)  and  /  (viewer)
+```
 
-# Render a synthetic dashcam drive with defects at known world positions
+`setup.sh` checks `uv`, `node`, `npm`, `ffmpeg` and `ffprobe` **before** installing
+anything — a missing `ffprobe` otherwise surfaces much later as what looks like a
+corrupt video. It never overwrites an existing `.env`. It finishes by printing which
+perception backends this machine can actually use, resolved through the same function
+the upload form calls, so the two cannot disagree.
+
+`start.sh` serves the newest run under `runs/` and rebuilds the viewer only when
+`viewer/src` is newer than the bundle. `bash start.sh --dev` runs Vite with hot
+reload instead and pins the API to `:8000`, because that proxy target is hard-coded
+in `viewer/vite.config.ts`.
+
+Nothing processed yet? The studio still works — upload there. Or build the committed
+synthetic sample, which has known ground truth:
+
+```bash
 uv run python scripts/make_sample.py
-
-# Run the whole pipeline on it
 uv run pos run \
   --video samples/road/road.mp4 \
   --gpx   samples/road/track.gpx \
   --truth samples/road/truth.json \
   --out   run
-
-# Build the viewer, then serve
-cd viewer && npm install && npm run build && cd ..
-uv run pos serve --run run --port 8090      # → http://127.0.0.1:8090
+uv run pos serve --run run --port 8090
 ```
 
 Expected:
@@ -129,11 +142,15 @@ video.mp4 + track.gpx
 | `pos depthcloud` | CPU point cloud via monocular depth |
 | `pos pointcloud` | convert lingbot-map NPZ predictions |
 | `pos basemap` | fetch + stitch satellite imagery for the ground plane |
+| `pos segment` | segment the drivable carriageway in every keyframe |
+| `pos video` | render the drive as an annotated MP4: road mask, defects, HUD |
 | `pos verify` | second-pass confirmation of weak findings. **Opt-in — see the measurement below** |
 | `pos kml` | export a KMZ for Google Earth |
 | `pos report` | write a PDF inspection report |
+| `pos import-csv` | import findings from a CSV someone else produced — no detector needed |
+| `pos export-csv` | export findings as a CSV with chainage, severity and confidence |
 | `pos run` | ingest → perceive → localize → cluster → score → twin |
-| `pos serve` | serve a run directory |
+| `pos serve` | serve a run directory; `--studio` adds the upload page |
 
 **Perception is cached** by image + prompt + model hash. Re-clustering after a
 radius tweak, or re-scoring after changing weights, costs nothing.
@@ -142,7 +159,63 @@ radius tweak, or re-scoring after changing weights, costs nothing.
 
 ## Running on your own video
 
-### The short way
+### The short way — the studio
+
+```bash
+bash start.sh          # then open http://127.0.0.1:8090/studio
+```
+
+Drop in a video and its GPX, press Process, watch the pipeline log stream past, and
+open the result. Clock offset is detected server-side; calibration can be solved from
+the clip itself (`camera = auto`) and is validated before it is used. Every run under
+`runs/` stays browsable at `?run=<name>` without a restart.
+
+The page prints the actual calibration numbers for whichever camera you pick and says
+plainly what picking the wrong one costs — it is the one judgement the form cannot
+make for you.
+
+### Already have the findings? Attach a CSV
+
+If the defects were surveyed by someone else — a field team's spreadsheet, or a run
+exported with `pos export-csv` and edited — attach it as the third file. It
+**replaces detection entirely**: the rows already carry a position, so nothing is
+detected and nothing is projected. No detector model, no API key, and it finishes in
+a couple of minutes instead of an hour.
+
+The video and GPX are still required, and still do their work: they produce the
+route, the keyframes, the satellite basemap, the OSM buildings and the playable clip.
+So a CSV import gets the full viewer — chase camera, basemap, 3D buildings, evidence
+panel — not a bare scatter of markers.
+
+```csv
+object_id,frame,time,defect_name,lat,lon,chainage_km,frame_url,severity,confidence
+1,00002,0:01.839,Waterlogging,28.65715505,77.20363533,0.002,frames/00002.jpg,3,0.410
+2,00004,0:01.839,Garbage Accumulation,28.65717255,77.20361470,0.006,,3,0.594
+```
+
+- `time` is **video** time — `M:SS`, `H:MM:SS` or plain seconds. Sub-second matters:
+  scoring assigns a finding to the segment whose time window contains it.
+- `lat` / `lon` are decimal degrees. Blank borrows the nearest keyframe's position.
+- `defect_name` is matched against the domain taxonomy's **labels** first, then its
+  keys — so "Danger Element" resolves to `hazard` rather than inventing a class.
+- `severity` (1–5) and `confidence` (0–1) are optional but drive the Quality Index,
+  which is `weight × severity × confidence`. Omit them and every finding imports at
+  severity 3 / confidence 1.0, and the index is indicative rather than reproduced.
+  The importer says so when that happens.
+
+Anything it cannot read — a bad cell, a duplicate `object_id`, a class the taxonomy
+does not define — is counted and reported rather than dropped or thrown. Same on the
+CLI:
+
+```bash
+uv run pos import-csv defects.csv --run runs/myrun
+uv run pos export-csv --run runs/myrun --out defects.csv
+```
+
+Round-trip is lossless: exporting a scored run and re-importing it reproduces the
+same findings, classes, severities, timestamps and Quality Index.
+
+### The scripted way
 
 ```bash
 # 1. preflight — read the offset it prints
@@ -738,9 +811,16 @@ runs/myclip/
 ├── basemap.json       its extent in local metres + attribution
 ├── verification.json  second-pass verdicts, incl. a dry_run flag  (pos verify)
 ├── export.kmz         cached Google Earth archive     (served by /api/kml)
+├── review.mp4         annotated render                (pos video)
+├── defects.csv        findings as a spreadsheet       (pos export-csv)
 ├── frames/00042.jpg   the evidence images
-└── .cache/            VLM responses, keyed by image+prompt+model hash
+└── .cache/            VLM responses and Overpass results, keyed by content hash
 ```
+
+`manifest.backend` records what produced the findings, and is load-bearing: `mock`
+means **synthetic fixtures**, `csv_import` means they came from a supplied CSV, and
+`pos verify` and the PDF footer both read it. A run imported from CSV has no
+`detections.ndjson` — there were no per-frame observations to record.
 
 Field names, as defined in `pos/schema.py`:
 
@@ -788,7 +868,21 @@ footage out of step with its own markers by exactly the offset.
 | `/api/basemap` | satellite extent + attribution, or `{"available": false}` |
 | `/api/basemap.jpg` | the stitched texture |
 | `/api/kml` | KMZ, built on demand and rebuilt when `findings.json` is newer |
+| `/api/report.pdf` | PDF report, same staleness rule; `?download=1` forces a save |
+| `/api/review.mp4` | the annotated render, when `pos video` has run |
 | `/stream?speed=1` | SSE findings in time order, real-time by default |
+
+Every run-scoped endpoint takes `?run=<name>` to serve any run under `--runs-dir`,
+so a new upload is viewable without a restart.
+
+With `pos serve --studio`, four more:
+
+| Endpoint | Does |
+|---|---|
+| `/studio` | the upload page — video + GPX, optionally a findings CSV |
+| `POST /api/upload` | accepts `video`, `gpx`, optional `csv`, starts a job, returns 202 |
+| `/api/runs` | every processed run, with findings count, index and grade |
+| `/api/jobs/{id}/events` | pipeline progress as SSE, so the page needs no polling loop |
 
 ---
 
@@ -1003,6 +1097,11 @@ Recorded so they are not re-learned.
 | **Unidentifiable horizon** | at low speed the calibration fit pinned to whichever bound it started from, giving vfov 2.7° | supply `--horizon`; warn on boundary hits |
 | **KITTI is 1242×375** | odd height; libx264 refuses | pad one row, recompute pitch against the *encoded* height |
 | **zustand selector** | a selector building a new array → infinite re-render (React #185) | memoised hook over stable fields |
+| **Overpass failure written as an empty twin** | a rate-limited query became `{"buildings":[],"roads":[]}` on disk — indistinguishable from "nowhere here has buildings", and re-running looked pointless. 13 of 30 runs had no 3D buildings; one bbox that reported 0 returned 78 on retry | never persist a fetch failure. Write nothing, say why, stay retryable |
+| **CSV label slugified into a class key** | `export-csv` writes the label "Danger Element"; slugifying gave `danger_element` where the taxonomy says `hazard`. Fallback colour, absent from the legend filter, and scored at the default weight — 35 of 83 findings, index off by 4 | resolve `defect_name` against the taxonomy's labels, then its keys |
+| **CSV time truncated to whole seconds** | `int(t_sec)` slid findings up to ~5 m along the route at survey speed, into the neighbouring 20 m scoring segment. Every marker still looked correctly placed | write `M:SS.mmm`; `parse_time` already read it |
+| **CSV carried no severity** | every import became a flat severity 3, so the Quality Index — `weight × severity × confidence` — read 6.0 against a true 16.6 | severity + confidence as optional columns; report when defaulted |
+| **Imported run claimed `backend: mock`** | `pos ingest` leaves that default, and `mock` means SYNTHETIC FIXTURES here — so the run table and PDF footer called real survey data fake | set `backend: csv_import` on import |
 
 ---
 
@@ -1032,8 +1131,11 @@ pos/pointcloud.py            lingbot NPZ → georeferenced PLY
 pos/basemap.py               satellite tiles → one stitched georeferenced texture
 pos/kmlexport.py             run → self-contained KMZ for Google Earth
 pos/report.py                run → paginated PDF inspection report
-pos/server.py                FastAPI: run dir, video with Range, SSE
-pos/cli.py                   the sixteen commands
+pos/import_csv.py            external CSV → findings, resolved against the taxonomy
+pos/jobs.py                  studio job runner: subprocess pipeline + SSE progress
+pos/server.py                FastAPI: run dir, video with Range, SSE, upload
+pos/studio.html              the upload page — one dependency-free file, no build
+pos/cli.py                   the twenty commands
 
 viewer/src/Scene.tsx         3D twin: buildings, heatmap, markers, cloud
 viewer/src/EvidencePanel.tsx the click-through to pixels
@@ -1041,10 +1143,14 @@ viewer/src/VideoPanel.tsx    source video, synced, 1×
 viewer/src/panels.tsx        score, legend, coverage, layers, timeline
 viewer/src/store.ts          one zustand store, local ENU projection
 
+setup.sh                           one-shot install + capability report
+start.sh                           serve studio + viewer; --dev for hot reload
+
 scripts/run_pipeline.sh            whole pipeline on one clip, start to end
 scripts/make_sample.py             synthetic sample generator
 scripts/verify_sample.py           24-check correctness gate (needs the sample)
 scripts/test_geometry.py           19 closed-form geometry checks (no fixtures)
+scripts/test_import_csv.py         51 CSV-importer checks (no fixtures, no network)
 scripts/score_perception.py        precision / recall / F1 vs ground truth
 scripts/calibrate.py               two-marker calibration
 scripts/calibrate_from_motion.py   calibration from motion + GPS
@@ -1052,8 +1158,8 @@ scripts/import_kitti.py            KITTI → video + GPX + exact camera config
 scripts/lingbot_gpu_pass.sh        RunPod reconstruction recipe
 ```
 
-Roughly 6,200 lines of Python across 26 files, 2,400 of viewer across 9, and 10
-config files.
+Roughly 11,400 lines of Python in `pos/` across 33 files, 3,500 more in `scripts/`
+across 9, 2,300 of viewer across 8, and 10 config files.
 
 ---
 
